@@ -6,22 +6,18 @@ import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "status_permintaan")
-public class StatusPermintaanModel implements Serializable {
+@Table(name = "flag_urgent")
+public class FlagUrgentModel implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @NotNull
-    @Size(max = 255)
-    @Column(name = "nama",nullable = false)
-    private String nama;
+    @Column(name = "flag",nullable = false)
+    private short flag;
 
     @NotNull
     @Size(max = 255)
-    @Column(name = "deskripsi",nullable = false)
-    private String deskripsi;
-
-
-
+    @Column(name = "deskripsi_flag_urgent")
+    private String deskripsiFlagUrgent;
 }
