@@ -10,7 +10,7 @@ import java.io.Serializable;
 public class FlagUrgentModel implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private int id;
 
     @NotNull
     @Column(name = "flag",nullable = false)

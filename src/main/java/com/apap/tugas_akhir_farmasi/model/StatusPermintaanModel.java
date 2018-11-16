@@ -10,7 +10,7 @@ import java.io.Serializable;
 public class StatusPermintaanModel implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private int id;
 
     @NotNull
     @Size(max = 255)

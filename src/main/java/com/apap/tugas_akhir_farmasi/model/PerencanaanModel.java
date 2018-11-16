@@ -30,10 +30,10 @@ public class PerencanaanModel implements Serializable {
     @Column(name = "jumlah",nullable = false)
     private int jumlah;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_medical_supplies" , referencedColumnName = "id",nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    private List<MedicalSuppliesModel> medicalSupplies;
+    private MedicalSuppliesModel medicalSupplies;
 
 
     public long getId() {
@@ -68,11 +68,11 @@ public class PerencanaanModel implements Serializable {
         this.jumlah = jumlah;
     }
 
-    public List<MedicalSuppliesModel> getMedicalSupplies() {
+    public MedicalSuppliesModel getMedicalSupplies() {
         return medicalSupplies;
     }
 
-    public void setMedicalSupplies(List<MedicalSuppliesModel> medicalSupplies) {
+    public void setMedicalSupplies(MedicalSuppliesModel medicalSupplies) {
         this.medicalSupplies = medicalSupplies;
     }
 }

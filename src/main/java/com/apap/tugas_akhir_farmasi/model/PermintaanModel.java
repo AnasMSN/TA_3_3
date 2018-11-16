@@ -34,11 +34,8 @@ public class PermintaanModel implements Serializable {
     private StatusPermintaanModel statusPermintaanModel;
 
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinColumns({
-            @JoinColumn(name = "id_medical_supplies",referencedColumnName = "id"),
-            @JoinColumn(name = "jumlah_medical_supplies",referencedColumnName = "jumlah")
-    })
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_medical_supplies",referencedColumnName = "id")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private MedicalSuppliesModel medicalSuppliesModel;
 }
