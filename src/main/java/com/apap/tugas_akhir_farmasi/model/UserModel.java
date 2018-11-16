@@ -8,6 +8,9 @@ import java.io.Serializable;
 @Entity
 @Table(name = "user")
 public class UserModel implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
 
     @NotNull
     @Size(max = 255)

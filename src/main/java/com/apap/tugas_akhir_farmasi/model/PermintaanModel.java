@@ -8,6 +8,8 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.sql.Time;
 
+@Entity
+@Table(name = "permintaan")
 public class PermintaanModel implements Serializable {
 
     @Id
