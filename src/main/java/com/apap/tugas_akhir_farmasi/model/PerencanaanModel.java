@@ -1,14 +1,22 @@
 package com.apap.tugas_akhir_farmasi.model;
 
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
+import java.io.Serializable;
+import java.sql.Date;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.io.Serializable;
-import java.sql.Time;
-import java.util.List;
+
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
 @Table(name = "perencanaan")
@@ -19,7 +27,7 @@ public class PerencanaanModel implements Serializable {
 
     @NotNull
     @Column(name = "tanggal",nullable = false)
-    private Time tanggal;
+    private Date tanggal;
 
     @NotNull
     @Size(max = 255)
@@ -43,12 +51,12 @@ public class PerencanaanModel implements Serializable {
     public void setId(long id) {
         this.id = id;
     }
-
-    public Time getTanggal() {
+    
+    public Date getTanggal() {
         return tanggal;
     }
 
-    public void setTanggal(Time tanggal) {
+    public void setTanggal(Date tanggal) {
         this.tanggal = tanggal;
     }
 

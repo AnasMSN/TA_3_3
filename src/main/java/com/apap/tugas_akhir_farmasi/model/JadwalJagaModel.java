@@ -37,11 +37,9 @@ public class JadwalJagaModel implements Serializable {
     @Column(name = "wkatu_selesai",nullable = false)
     private Time waktuSelesai;
 
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_staff",referencedColumnName = "id",nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    private StaffModel staffModels;
+    @NotNull
+    @Column(name = "id_staff",nullable = false)
+    private int idStaff;
 
 
 	public long getId() {
@@ -84,12 +82,13 @@ public class JadwalJagaModel implements Serializable {
 	}
 
 
-	public StaffModel getStaffModels() {
-		return staffModels;
+	public int getIdStaff() {
+		return idStaff;
 	}
 
 
-	public void setStaffModels(StaffModel staffModels) {
-		this.staffModels = staffModels;
+	public void setIdStaff(int idStaff) {
+		this.idStaff = idStaff;
 	}
+
 }
