@@ -7,6 +7,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.sql.Date;
 import java.sql.Time;
 import java.util.List;
 
@@ -19,7 +20,7 @@ public class PerencanaanModel implements Serializable {
 
     @NotNull
     @Column(name = "tanggal",nullable = false)
-    private Time tanggal;
+    private Date tanggal;
 
     @NotNull
     @Size(max = 255)
@@ -44,11 +45,11 @@ public class PerencanaanModel implements Serializable {
         this.id = id;
     }
 
-    public Time getTanggal() {
+    public Date getTanggal() {
         return tanggal;
     }
 
-    public void setTanggal(Time tanggal) {
+    public void setTanggal(Date tanggal) {
         this.tanggal = tanggal;
     }
 
