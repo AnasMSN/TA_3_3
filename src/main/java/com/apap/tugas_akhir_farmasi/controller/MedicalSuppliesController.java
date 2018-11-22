@@ -3,12 +3,9 @@ package com.apap.tugas_akhir_farmasi.controller;
 import com.apap.tugas_akhir_farmasi.data_model.Staf;
 import com.apap.tugas_akhir_farmasi.data_model.StafResponse;
 import com.apap.tugas_akhir_farmasi.model.JadwalJagaModel;
-import com.apap.tugas_akhir_farmasi.model.StaffModel;
 import com.apap.tugas_akhir_farmasi.service.service_interface.MedicalSuppliesService;
-import com.apap.tugas_akhir_farmasi.web_service.Rest.Setting;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,9 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 @Controller
 @RequestMapping("/medical-supplies")

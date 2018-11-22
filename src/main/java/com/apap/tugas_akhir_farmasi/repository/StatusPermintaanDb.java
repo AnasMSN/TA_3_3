@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface StatusPermintaanDb extends JpaRepository<StatusPermintaanModel,Integer> {
     StatusPermintaanModel findById(int id);
+    StatusPermintaanModel findByNama(String nama);
 }
