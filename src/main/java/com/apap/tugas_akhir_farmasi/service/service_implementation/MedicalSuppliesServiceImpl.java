@@ -11,6 +11,7 @@ import com.apap.tugas_akhir_farmasi.model.MedicalSuppliesModel;
 import com.apap.tugas_akhir_farmasi.repository.MedicalSuppliesDb;
 import com.apap.tugas_akhir_farmasi.service.service_interface.MedicalSuppliesService;
 
+
 @Service
 @Transactional
 public class MedicalSuppliesServiceImpl implements MedicalSuppliesService{

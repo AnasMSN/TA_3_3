@@ -8,6 +8,8 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "medical_supplies")
 public class MedicalSuppliesModel implements Serializable {
@@ -34,8 +36,9 @@ public class MedicalSuppliesModel implements Serializable {
     private String deskripsi;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_jenis_medical_supplies",referencedColumnName = "id",nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JoinColumn(name = "id_jenis_medical_supplies", referencedColumnName = "id", nullable = false)
+    @OnDelete(action = OnDeleteAction.NO_ACTION)
+    @JsonIgnore
     private JenisMedicalSuppliesModel jenisMedicalSuppliesModel;
 
     public long getId() {

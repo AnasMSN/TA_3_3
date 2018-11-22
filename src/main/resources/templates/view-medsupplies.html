@@ -22,11 +22,11 @@
 						</tr>
 						<tr>
 							<td>Jumlah:</td>
-							<td th:text="${medSupplies.jumlah}"></td>
+							<td th:text="${medSupplies.jumlah} + ' pcs'"></td>
 						</tr>
 						<tr>
 							<td>Harga:</td>
-							<td th:text="${medSupplies.price}"></td>
+							<td th:text="'Rp. ' + ${medSupplies.price}"></td>
 						</tr>
 						<tr>
 							<td>Deskipsi:</td>
