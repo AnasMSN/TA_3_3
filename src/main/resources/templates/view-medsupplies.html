@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Lihat Medical Supplies</title>
+	<object th:include="fragments/fragment :: css" th:remove="tag"></object>
+	<object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+	
+<body>
+	<div class="container-fluid" align="center">
+		<div class ="row" align="center">
+			<div class="col-md-6" align = "center">
+				<div class="card" align ="center">
+					<div class="card-header" align ="center">
+						<h3 th:text = "'Lihat Data Medical Supplies - ' + ${medSupplies.nama}"></h3>
+					</div>
+					<div class="card-body">
+						<table cellpadding ="20" align="center">
+						<tr>
+							<td>Nama:</td>
+							<td th:text="${medSupplies.nama}"></td>
+						</tr>
+						<tr>
+							<td>Jumlah:</td>
+							<td th:text="${medSupplies.jumlah}"></td>
+						</tr>
+						<tr>
+							<td>Harga:</td>
+							<td th:text="${medSupplies.price}"></td>
+						</tr>
+						<tr>
+							<td>Deskipsi:</td>
+							<td th:text="${medSupplies.deskripsi}"></td>
+						</tr>
+						<tr>
+							<td>Jenis:</td>
+							<td th:text="${medSupplies.jenisMedicalSuppliesModel.jenisMedicalSupplies}"></td>
+						</tr>
+						<tr>
+							<td>Urgensi:</td>
+							<td><div th:switch="${medSupplies.jenisMedicalSuppliesModel.flagUrgentModel.flag}">
+								<p th:case="1">Urgent</p>
+								<p th:case="0">Tidak Urgent</p>
+						</tr>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
