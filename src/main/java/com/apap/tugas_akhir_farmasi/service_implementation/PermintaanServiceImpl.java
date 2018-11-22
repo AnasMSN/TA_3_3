@@ -11,11 +11,11 @@ import com.apap.tugas_akhir_farmasi.service.service_interface.PermintaanService;
 
 @Service
 @Transactional
-public class PermintaanSericeImpl implements PermintaanService {
+public class PermintaanServiceImpl implements PermintaanService {
 	@Autowired
 	PermintaanDb permintaanDb;
 	@Override
-	public void save(PermintaanModel permintaan) {
-		permintaanDb.save(permintaan);
+	public PermintaanModel save(PermintaanModel permintaan) {
+		return permintaanDb.save(permintaan);
 	}
 }

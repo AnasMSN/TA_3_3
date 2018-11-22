@@ -1,5 +1,7 @@
 package com.apap.tugas_akhir_farmasi.controller;
 
+import java.sql.Date;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +26,6 @@ import com.apap.tugas_akhir_farmasi.service.service_interface.StatusPermintaanSe
 public class ApiController {
 	@Autowired
 	StatusPermintaanService statusPermintaanService;
-	
 	@Autowired
 	PermintaanService permintaanService;
 	@Autowired
@@ -37,20 +38,31 @@ public class ApiController {
     												  BindingResult bindingResult) {
         BaseResponse<PermintaanModel> response = new BaseResponse<PermintaanModel>();
         if (bindingResult.hasErrors()) {
+        	System.out.println(bindingResult.toString());
             response.setStatus(500);
             response.setMessage("error data");
         } else {
-        	
-        	JadwalJagaModel jadwalJaga = jadwalJagaService.getJadwalJagaDetailsById(permintaan.getJadwalJagaModel().getId());
-        	permintaan.setJadwalJagaModel(jadwalJaga);
-        	
         	MedicalSuppliesModel medicalSupplies = medicalSuppliesService.getMedicalSuppliesDetailsByNama(permintaan.getMedicalSuppliesModel().getNama());
-        	permintaan.setMedicalSuppliesModel(medicalSupplies); 
+        	if(medicalSupplies == null) {
+        		response.setStatus(500);
+        		response.setMessage("Medical supplies tidak ditemukan");
+        		return response;
+        	}
+        	permintaan.setMedicalSuppliesModel(medicalSupplies);
+        	
+        	// Set tanggal permintaan hari ini
+        	long millis=System.currentTimeMillis();
+        	Date todayDate = new Date(millis);
+        	permintaan.setTanggal(todayDate);
+        	
+        	//Set jadwal_jaga yang sedang berjaga
+        	JadwalJagaModel jadwalJagaNow = jadwalJagaService.getJadwalJagaNow();
+        	permintaan.setJadwalJagaModel(jadwalJagaNow);
         	
         	StatusPermintaanModel statusPermintaan = statusPermintaanService.getStatusPermintaanDetailByNama("Pending");
         	permintaan.setStatusPermintaanModel(statusPermintaan);
         	
-        	permintaanService.save(permintaan);
+        	permintaan = permintaanService.save(permintaan);
         	
         	permintaan.getMedicalSuppliesModel().setJenisMedicalSuppliesModel(null);
         	
