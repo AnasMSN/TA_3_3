@@ -12,4 +12,8 @@ public interface PerencanaanService {
 
 	void add(PerencanaanModel perencanaan);
 
+	PerencanaanModel findById(Long id);
+
+	void setStatus(Long id, String status);
+
 }

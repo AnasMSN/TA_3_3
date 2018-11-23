@@ -2,6 +2,8 @@ package com.apap.tugas_akhir_farmasi.controller;
 
 import java.text.SimpleDateFormat;
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +31,7 @@ public class PerencanaanController {
 	
 	@Autowired
 	private MedicalSuppliesService medicalSuppliesService;
+	
 	
 	@RequestMapping(value = "/medical-supplies", method = RequestMethod.GET)
 	public String perencanaan(Model model){
@@ -66,17 +69,34 @@ public class PerencanaanController {
 		perencanaan.setStatus("diajukan");
 		perencanaanService.add(perencanaan);
 		
-		
 		return "redirect:/medical-supplies/perencanaan";
 	}
 	
 	@RequestMapping(value = "/medical-supplies/perencanaan")
 	public String tampilanPerencanaan(Model model){
 		List<PerencanaanModel> listPlan = perencanaanService.findAll();
+		
+		// make status list
+		String[] statusArray = {"diajukan", "diproses", "tersedia"};
+		List<String> statusArraylist = Arrays.asList(statusArray);
+
+		
 		model.addAttribute("listPlan", listPlan);
+		model.addAttribute("user", "Admin Farmasi");
+		model.addAttribute("user", "Staf Apoteker");
+//		model.addAttribute("statusPlan", statusArraylist);
 		return "tampilan-perencanaan";
 	}
 	
+	@RequestMapping(value = "/medical-supplies/perencanaan/ganti-status", method = RequestMethod.POST)
+	public String instansiSearch(@RequestParam(value = "id") Long id, 
+			@RequestParam(value = "status") String status){
+		
+		// ubah status berdasarkan status baru
+		perencanaanService.setStatus(id, status);
+		
+		return "redirect:/medical-supplies/perencanaan";
+	}
 	
 	
 	

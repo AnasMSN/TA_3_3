@@ -27,17 +27,34 @@
 				<tbody>
 					<tr th:each="plan : *{listPlan}">
 						<td th:text="${plan.medicalSupplies.nama}"></td>
-						<td th:switch="${plan.status}">
-						    <div th:case="'diajukan'" class="alert alert-warning">
-						        diajukan
-						    </div>
-						    <div th:case="'diproses'" class="alert alert-info">
-						        diproses
-						    </div>
-						    <div th:case="'tersedia'" class="alert alert-success">
-						        tersedia
-						    </div>
-						</td>
+						<div th:switch="${user}">
+							<td th:case="'Admin Farmasi'">
+								
+								<form th:action="@{/medical-supplies/perencanaan/ganti-status}" method="POST">
+									<input type="hidden" name="id" th:value="${plan.id}" >
+									<select name="status" class="form-control">
+									    <option th:each="status : ${statusPlan}" th:value="${status}" th:text="${status}" th:selected="${status == plan.status}" />
+									</select>
+									
+									<button class="btn btn-dark" type="submit">Ubah</button>		
+								</form>
+							
+							</td>
+							<td th:case="'Staf Apoteker'">
+								<div th:switch="${plan.status}">
+									
+								    <div th:case="'diajukan'" class="alert alert-warning">
+								        diajukan
+								    </div>
+								    <div th:case="'diproses'" class="alert alert-info">
+								        diproses
+								    </div>
+								    <div th:case="'tersedia'" class="alert alert-success">
+								        tersedia
+								    </div>
+								</div>
+							</td>
+						</div>
 						<td th:text="${plan.tanggal}"></td>
 						<td th:text="${plan.jumlah}"></td>
 						
@@ -54,6 +71,23 @@
 		$(document).ready(function () {
 		    $("#home").addClass("active");
 		    $('#table_id').DataTable();
+		    $("#provinsi").change(function () {
+
+	            $.getJSON("/medical-supplies/perencanaan/ganti-status", {
+	                provinsiId : $(this).val(),
+	                ajax : 'true'
+	            }, function(data) {
+	                var html = '';
+	                var len = data.length;
+	                for ( var i = 0; i < len; i++) {
+	                    html += '<option value="' + data[i].id + '">'
+	                            + data[i].nama + '</option>';
+	                }
+	                html += '';
+	                console.log("berhasil");
+	                $('#instansi').html(html);
+	            });
+		    }); 
 		        
 		});
 		

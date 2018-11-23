@@ -33,6 +33,9 @@ public class FlagUrgentModel implements Serializable {
     @Column(name = "deskripsi_flag_urgent")
     private String deskripsiFlagUrgent;
     
+    @OneToMany(mappedBy = "flagUrgentModel", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private List<JenisMedicalSuppliesModel> jenisMedList;
+
 
 	public int getId() {
 		return id;

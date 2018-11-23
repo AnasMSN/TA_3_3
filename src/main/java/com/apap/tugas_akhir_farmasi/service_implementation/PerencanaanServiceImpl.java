@@ -30,5 +30,18 @@ public class PerencanaanServiceImpl implements PerencanaanService{
 		// TODO Auto-generated method stub
 		perencanaanDb.save(perencanaan);
 	}
+
+	@Override
+	public PerencanaanModel findById(Long id) {
+		// TODO Auto-generated method stub
+		return perencanaanDb.findById(id).get();
+	}
+
+	@Override
+	public void setStatus(Long id, String status) {
+		// TODO Auto-generated method stub
+		PerencanaanModel perencanaan = perencanaanDb.findById(id).get();
+		perencanaan.setStatus(status);
+	}
 	
 }

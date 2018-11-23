@@ -29,9 +29,7 @@
 							<select class="form-control" name="medicalSupplies">
 							    <option th:each="med : ${medicalSup}" th:value="${med.id}" th:text="${med.nama}" />
 							</select>
-							<br>
-							<label for="tanggal">Tanggal</label>
-							<input type="date" class="form-control" name="tanggal" th:value="*{tanggal}" disabled>
+							<input type="hidden" class="form-control" name="tanggal" th:field="*{tanggal}">
 							<br>
 							<label for="jumlah">Jumlah</label>
 							<input type="text" class="form-control" name="jumlah" required>
