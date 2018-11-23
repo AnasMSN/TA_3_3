@@ -3,6 +3,8 @@ package com.apap.tugas_akhir_farmasi.model;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -36,6 +38,7 @@ public class MedicalSuppliesModel implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_jenis_medical_supplies",referencedColumnName = "id",nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
     private JenisMedicalSuppliesModel jenisMedicalSuppliesModel;
 
     public long getId() {
