@@ -1,4 +1,6 @@
 package com.apap.tugas_akhir_farmasi.service_implementation;
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,5 +39,17 @@ public class MedicalSuppliesServiceImpl implements MedicalSuppliesService {
 		oldMedicalSupplies.setPrice(newMedicalSupplies.getPrice());
 		oldMedicalSupplies.setDeskripsi(newMedicalSupplies.getDeskripsi());
 		oldMedicalSupplies.setJenisMedicalSuppliesModel(newMedicalSupplies.getJenisMedicalSuppliesModel());
+	}
+
+	@Override
+	public List<MedicalSuppliesModel> getAll() {
+		// TODO Auto-generated method stub
+		return medicalSuppliesDb.findAll();
+	}
+
+	@Override
+	public MedicalSuppliesModel getMedicalSuppliesById(long id) {
+		// TODO Auto-generated method stub
+		return medicalSuppliesDb.findById(id);
 	}
 }

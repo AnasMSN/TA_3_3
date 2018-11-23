@@ -74,5 +74,19 @@ public class MedicalSuppliesController {
 		medicalSuppliesService.updateMedicalSupplies(newMedicalSuppliesModel, id);
 		return "sukses";
 	}
+	
+	@RequestMapping(value="/medical-supplies", method=RequestMethod.GET)
+	private String viewAllMedicalSupplies(@ModelAttribute MedicalSuppliesModel medSupplies, Model model) {
+		List<MedicalSuppliesModel> listMedSupplies = medicalSuppliesService.getAll();
+		model.addAttribute("listMedSupplies", listMedSupplies);
+		return "view-allmedsupplies";
+	}
+	
+	@RequestMapping(value="/medical-supplies/{idMedicalSupplies}")
+	private String viewMedicalSupplies(@PathVariable(value="idMedicalSupplies") long id, Model model) {
+		MedicalSuppliesModel medSupplies = medicalSuppliesService.getMedicalSuppliesById(id);
+		model.addAttribute("medSupplies", medSupplies);
+		return "view-medsupplies";
+	}
 
 }
