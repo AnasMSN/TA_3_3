@@ -54,7 +54,5 @@ public class JenisMedicalSuppliesModel implements Serializable {
 		return flagUrgentModel;
 	}
 
-	public void setFlagUrgentModel(FlagUrgentModel flagUrgentModel) {
-		this.flagUrgentModel = flagUrgentModel;
-	}
+
 }
