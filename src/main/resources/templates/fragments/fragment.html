@@ -21,7 +21,7 @@
 	
 	<body>
 		<nav th:fragment="navbar" class="navbar navbar-expand-lg navbar-dark bg-dark">
-			<a class="navbar-brand" th:href="@{'/'}" th:text="SIPEG"></a>
+			<a class="navbar-brand" th:href="@{'/'}" th:text="SI-FARMASI"></a>
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav mr-auto">
 					<li th:classappend="${#httpServletRequest.getRequestURI() == '/' ? 'active':''}">
@@ -31,9 +31,7 @@
 						<a class="nav-link" th:href="@{'/medical-supplies/tambah'}"> Tambah Medical Supplies</a>
 					</li>
 					
-					<li th:classappend="${#httpServletRequest.getRequestURI() == '/pegawai/cari' ? 'active':''}">
-						<a class="nav-link" th:href="@{'/medical-supplies/tambah'}"> Update Medical Supplies</a>
-					</li>
+				
 					
 					
 					
