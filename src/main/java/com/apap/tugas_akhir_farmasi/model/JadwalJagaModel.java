@@ -3,6 +3,7 @@ package com.apap.tugas_akhir_farmasi.model;
 import java.io.Serializable;
 import java.sql.Date;
 import java.sql.Time;
+import java.time.LocalTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -34,7 +35,7 @@ public class JadwalJagaModel implements Serializable {
     private Time waktuMulai;
 
     @NotNull
-    @Column(name = "wkatu_selesai",nullable = false)
+    @Column(name = "waktu_selesai",nullable = false)
     private Time waktuSelesai;
 
     @NotNull
@@ -90,5 +91,20 @@ public class JadwalJagaModel implements Serializable {
 	public void setIdStaff(int idStaff) {
 		this.idStaff = idStaff;
 	}
+
+	public void setWaktuJaga(String mulaiText , String selesaiText){
+        LocalTime mulaiLocal = LocalTime.parse(mulaiText);
+        LocalTime selesaiLocal = LocalTime.parse(selesaiText);
+
+        Time mulai = Time.valueOf(mulaiLocal);
+        Time selesai = Time.valueOf(selesaiLocal);
+
+        setWaktuMulai(mulai);
+        setWaktuSelesai(selesai);
+
+
+    }
+
+
 
 }

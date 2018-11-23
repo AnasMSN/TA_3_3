@@ -13,17 +13,24 @@ import com.apap.tugas_akhir_farmasi.service.service_interface.PermintaanService;
 
 @Service
 @Transactional
-public class PermintaanServiceImpl implements PermintaanService {
+public class PermintaanServiceImpl implements PermintaanService{
+	
 	@Autowired
 	PermintaanDb permintaanDb;
+
 	@Override
+	public List<PermintaanModel> findAll() {
+		// TODO Auto-generated method stub
+		return permintaanDb.findAll();
+	}
+
+  @Override
 	public PermintaanModel save(PermintaanModel permintaan) {
 		return permintaanDb.save(permintaan);
 	}
-	@Override
+  
+  @Override
 	public List<PermintaanModel> getAllPermintaan() {
 		return permintaanDb.findAll();
 	}
-	
-	
 }

@@ -4,6 +4,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import org.springframework.web.bind.annotation.RequestMapping;
+
 @Controller
 public class MainController {
  
@@ -11,5 +13,10 @@ public class MainController {
 	private String home(Model model) {
 		model.addAttribute("title", "Home");
 		return "home";
+	}
+	
+	@RequestMapping("/login")
+	public String login() {
+		return "login";
 	}
 }

@@ -14,6 +14,7 @@
   <div class="header">
     <div class="row">
       <div class="col-sm-12">
+        <h2 th:text="'Hello ' + ${#httpServletRequest.remoteUser}+ ' !'">Login as</h2>
         <h1>Sistem Informasi Farmasi</h1>
         <p>Selamat Datang di SI Farmasi Rumah Sakit Cepat Sembuh</p>
       </div>
@@ -61,7 +62,7 @@
   <div class = "row">
   	  <div class="card-deck">
   	  	 <!-- Buat Jadwal Jaga -->
-  	     <form th:action="@{/medical-supplies/permintaan/}" method ="GET">
+  	     <form th:action="@{/medical-supplies/jadwal-staf/tambah/}" method ="GET">
 	  		<div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
 			  <div class="card-header">Membuat Jadwal Staf Apoteker Jaga</div>
 			  <div class="card-body">
@@ -72,7 +73,7 @@
 		 </form>
 	  	
 	  	<!-- List All Jadwal Jaga -->
-	  	<form th:action="@{/medical-supplies/permintaan/}" method ="GET">
+	  	<form th:action="@{/medical-supplies/jadwal-staf/}" method ="GET">
 	  		<div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
 			  <div class="card-header">Lihat Jadwal Staf Apoteker Jaga</div>
 			  <div class="card-body">
