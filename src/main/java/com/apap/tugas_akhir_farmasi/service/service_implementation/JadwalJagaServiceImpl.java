@@ -1,8 +1,7 @@
-package com.apap.tugas_akhir_farmasi.service_implementation;
+package com.apap.tugas_akhir_farmasi.service.service_implementation;
 
 import java.sql.Date;
 import java.sql.Time;
-import java.util.List;
 
 import javax.transaction.Transactional;
 
