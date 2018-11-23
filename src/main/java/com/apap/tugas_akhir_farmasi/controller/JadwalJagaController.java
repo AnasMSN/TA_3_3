@@ -6,7 +6,7 @@ import com.apap.tugas_akhir_farmasi.data_model.TimeValidatorResponse;
 import com.apap.tugas_akhir_farmasi.model.JadwalJagaModel;
 import com.apap.tugas_akhir_farmasi.service.service_interface.JadwalJagaService;
 import com.apap.tugas_akhir_farmasi.service.service_interface.MedicalSuppliesService;
-import com.apap.tugas_akhir_farmasi.service_implementation.ScheduleValidatorService;
+import com.apap.tugas_akhir_farmasi.service.service_implementation.ScheduleValidatorService;
 import com.apap.tugas_akhir_farmasi.web_service.Rest.Setting;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -16,8 +16,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.HttpServletRequest;
-import java.sql.Time;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

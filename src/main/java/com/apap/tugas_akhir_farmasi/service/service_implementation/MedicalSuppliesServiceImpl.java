@@ -1,4 +1,4 @@
-package com.apap.tugas_akhir_farmasi.service_implementation;
+package com.apap.tugas_akhir_farmasi.service.service_implementation;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +13,6 @@ import com.apap.tugas_akhir_farmasi.model.JenisMedicalSuppliesModel;
 import com.apap.tugas_akhir_farmasi.model.MedicalSuppliesModel;
 import com.apap.tugas_akhir_farmasi.repository.FlagUrgentDb;
 import com.apap.tugas_akhir_farmasi.repository.JenisMedicalSuppliesDb;
-import com.apap.tugas_akhir_farmasi.model.MedicalSuppliesModel;
 import com.apap.tugas_akhir_farmasi.repository.MedicalSuppliesDb;
 import com.apap.tugas_akhir_farmasi.service.service_interface.MedicalSuppliesService;
 
