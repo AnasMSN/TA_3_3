@@ -1,5 +1,4 @@
-package com.apap.tugas_akhir_farmasi.service.service_implementation;
-
+package com.apap.tugas_akhir_farmasi.service_implementation;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,15 +8,17 @@ import com.apap.tugas_akhir_farmasi.model.MedicalSuppliesModel;
 import com.apap.tugas_akhir_farmasi.repository.MedicalSuppliesDb;
 import com.apap.tugas_akhir_farmasi.service.service_interface.MedicalSuppliesService;
 
-
-
-
 @Service
 @Transactional
-public class MedicalSuppliesServiceImpl implements MedicalSuppliesService{
+public class MedicalSuppliesServiceImpl implements MedicalSuppliesService {
 	@Autowired
-    private MedicalSuppliesDb medicalSuppliesDb;
+	MedicalSuppliesDb medicalSuppliesDb;
 	
+	@Override
+	public MedicalSuppliesModel getMedicalSuppliesDetailsByNama(String nama) {
+		return medicalSuppliesDb.findByNama(nama);
+	}
+
 	@Override
     public MedicalSuppliesModel addMedicalSupplies(MedicalSuppliesModel medicalSupplies) {
         return medicalSuppliesDb.save(medicalSupplies);
@@ -27,7 +28,6 @@ public class MedicalSuppliesServiceImpl implements MedicalSuppliesService{
 	public MedicalSuppliesModel getDetailMedicalSuppliesById(long id) {
 		return medicalSuppliesDb.findById(id);
 	}
-	
 	
 	@Override
 	public void updateMedicalSupplies(MedicalSuppliesModel newMedicalSupplies, long id) {

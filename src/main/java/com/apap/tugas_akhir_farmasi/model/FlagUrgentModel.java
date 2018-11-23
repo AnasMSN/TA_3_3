@@ -21,8 +21,7 @@ public class FlagUrgentModel implements Serializable {
     @Size(max = 255)
     @Column(name = "deskripsi_flag_urgent")
     private String deskripsiFlagUrgent;
-    
-   
+
 	public int getId() {
 		return id;
 	}

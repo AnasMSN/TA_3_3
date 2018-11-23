@@ -7,4 +7,7 @@ public interface MedicalSuppliesService {
 	MedicalSuppliesModel addMedicalSupplies(MedicalSuppliesModel medicalSupplies);
 	void updateMedicalSupplies(MedicalSuppliesModel newMedicalSupplies, long id);
 	
+
+	MedicalSuppliesModel getMedicalSuppliesDetailsByNama(String nama);
+
 }

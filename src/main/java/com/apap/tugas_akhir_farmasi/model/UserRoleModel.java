@@ -31,6 +31,7 @@ public class UserRoleModel implements Serializable {
 		return id;
 	}
 
+
 	public void setId(long id) {
 		this.id = id;
 	}
@@ -61,4 +62,5 @@ public class UserRoleModel implements Serializable {
 
 
 
+	
 }
