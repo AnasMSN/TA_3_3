@@ -4,4 +4,6 @@ import com.apap.tugas_akhir_farmasi.model.MedicalSuppliesModel;
 
 public interface MedicalSuppliesService {
 	MedicalSuppliesModel getMedicalSuppliesDetailsByNama(String nama);
+
+
 }
