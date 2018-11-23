@@ -45,9 +45,4 @@ public class StatusPermintaanModel implements Serializable {
 	public void setDeskripsi(String deskripsi) {
 		this.deskripsi = deskripsi;
 	}
-    
-    
-
-
-
 }

@@ -31,7 +31,7 @@
 					<tr th:each="request : *{listRequest}">
 						<td th:text="${request.tanggal}"></td>
 						<td th:text="${request.medicalSuppliesModel.nama}"></td>
-						<td th:text="${request.jumlah}"></td>
+						<td th:text="${request.jumlahMedicalSupplies}"></td>
 						<td th:text="${request.medicalSuppliesModel.jenisMedicalSuppliesModel.jenisMedicalSupplies}"></td>
 						<td th:switch="${plan.status}">
 						    <div th:case="'pending'" class="alert alert-warning">

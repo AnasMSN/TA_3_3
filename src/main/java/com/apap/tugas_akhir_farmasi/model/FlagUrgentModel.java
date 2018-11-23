@@ -60,6 +60,4 @@ public class FlagUrgentModel implements Serializable {
 	public void setDeskripsiFlagUrgent(String deskripsiFlagUrgent) {
 		this.deskripsiFlagUrgent = deskripsiFlagUrgent;
 	}
-    
-    
 }

@@ -14,4 +14,5 @@ public interface MedicalSuppliesDb extends JpaRepository<MedicalSuppliesModel,Lo
 
 	List<MedicalSuppliesModel> findByJenisMedicalSuppliesModel(JenisMedicalSuppliesModel jenisUrg);
 
+    MedicalSuppliesModel findByNama(String nama);
 }
