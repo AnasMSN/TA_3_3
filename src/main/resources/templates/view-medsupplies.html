@@ -42,6 +42,13 @@
 								<p th:case="1">Urgent</p>
 								<p th:case="0">Tidak Urgent</p>
 						</tr>
+						<tr>
+							<td>
+								<form th:action="@{http://localhost:8080/medical-supplies/ubah/{idMedicalSupplies}}" method="GET">
+									<button value="submit" class="btn  btn-primary">Ubah</button>
+								</form>		
+							</td>
+						</tr>
 						</table>
 					</div>
 				</div>
