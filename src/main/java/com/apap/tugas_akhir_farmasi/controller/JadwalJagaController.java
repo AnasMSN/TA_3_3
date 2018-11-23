@@ -12,20 +12,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.HttpServletRequest;
 import java.sql.Time;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 @Controller
 @RequestMapping("/medical-supplies")
-public class MedicalSuppliesController {
+public class JadwalJagaController {
     @Autowired
     private MedicalSuppliesService medicalSuppliesService;
 
@@ -56,27 +55,9 @@ public class MedicalSuppliesController {
         String fieldMulai = request.getParameter("waktuMulaiField");
         String fieldSelesai = request.getParameter("waktuSelesaiField");
 
-        //@TODO Delete , just for test
-        System.err.println(staf);
-        System.err.println(fieldMulai);
-        System.err.println(fieldSelesai);
-        //End of test range
-
-        /*
-        String url = Setting.urlGenerator(staf,Setting.getStafUrl);
-        SingleEntityResponse entityResponse = restAppointment.getForObject(url,SingleEntityResponse.class);
-        System.err.println(entityResponse.getStaf().getNama());*/
 
        jadwalJagaModel.setWaktuJaga(fieldMulai,fieldSelesai);
        jadwalJagaModel.setIdStaff(Integer.parseInt(staf));
-
-        //Test
-
-        System.err.println(jadwalJagaModel.getTanggal().toString());
-        System.err.println(jadwalJagaModel.getWaktuMulai().toString());
-        System.err.println(jadwalJagaModel.getWaktuSelesai().toString());
-
-        //Test
 
         List<JadwalJagaModel> jagaStaffAll = jadwalJagaService.findByStaffId(jadwalJagaModel.getIdStaff());
         List<JadwalJagaModel> jadwalStaffMatchDate = new ArrayList<>();
@@ -90,19 +71,45 @@ public class MedicalSuppliesController {
 
         if (!response.isValid()){
             model.addAttribute("error-message",response.getErrorMessage());
-            // return to error page
+            return "error-page";
         }
 
         jadwalJagaService.add(jadwalJagaModel);
 
-        return "home";
+        return "jadwal-jaga-all";
     }
 
     //@TODO fitur Melihat jadwal staf apoteker jaga
     @RequestMapping("/jadwal-staf")
     private String listAllJadwal(Model model){
-        System.err.println("GET Mapping");
-        return "home";
+        List<JadwalJagaModel> jadwalJagaModels = jadwalJagaService.findAll();
+        HashMap<Long,String> mapper = new HashMap<>();
+        for (JadwalJagaModel jadwalJagaModel : jadwalJagaModels){
+            String url = Setting.urlGenerator(Integer.toString(jadwalJagaModel.getIdStaff()),Setting.getStafUrl);
+            SingleEntityResponse singleEntityResponse = restAppointment.getForObject(url,SingleEntityResponse.class);
+            mapper.put(jadwalJagaModel.getId(),singleEntityResponse.getStaf().getNama());
+        }
+
+        model.addAttribute("jadwalJaga",jadwalJagaModels);
+        model.addAttribute("stafMap",mapper);
+
+        return "jadwal-jaga-all";
+    }
+    @RequestMapping(value = "/jadwal-staf/{idJadwalStaf}")
+    private String updateJadwalJaga(@PathVariable(name = "idJadwalStaf")long id,Model model){
+
+        String url = Setting.urlGenerator("3",Setting.stafFarmasiUrl);
+        EntityResponse stafResponse = restAppointment.getForObject(url, EntityResponse.class);
+        JadwalJagaModel jadwalJagaModel = jadwalJagaService.getJadwalJagaDetailsById(id);
+        String urlStaf = Setting.urlGenerator(Integer.toString(jadwalJagaModel.getIdStaff()),Setting.getStafUrl);
+        SingleEntityResponse singleEntityResponse = restAppointment.getForObject(urlStaf,SingleEntityResponse.class);
+        model.addAttribute("stafJagaSekarang",singleEntityResponse.getStaf());
+        model.addAttribute("staffList",stafResponse.getStaf());
+        model.addAttribute("jadwalJaga",jadwalJagaModel);
+
+
+        return "jadwal-staf-tambah";
+
     }
 
 
