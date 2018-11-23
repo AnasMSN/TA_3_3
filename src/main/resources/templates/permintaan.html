@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		
+		<object th:include="fragments/fragment :: header" th:remove="tag"></object>
+		
+		<script th:src="@{/js/dropdown.js}"></script>
+
+	</head>
+	
+	<body>
+	
+		<nav th:replace="fragments/fragment :: navbar"></nav>
+		
+		<div class="container">
+			<center><h2>Permintaan Table</h2></center>
+			
+			<table id="table_id" class="display">
+				<thead>
+					<tr>
+						<th>Tanggal</th>
+						<th>Nama Med Supplies</th>
+						<th>Jumlah</th>
+						<th>Jenis Med Supplies</th>
+						<th>Status</th>
+						<th>Change</th>
+						
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="request : *{listRequest}">
+						<td th:text="${request.tanggal}"></td>
+						<td th:text="${request.medicalSuppliesModel.nama}"></td>
+						<td th:text="${request.jumlah}"></td>
+						<td th:text="${request.medicalSuppliesModel.jenisMedicalSuppliesModel.jenisMedicalSupplies}"></td>
+						<td th:switch="${plan.status}">
+						    <div th:case="'pending'" class="alert alert-warning">
+						        pending
+						    </div>
+						    <div th:case="'diterima'" class="alert alert-success">
+						        diterima
+						    </div>
+						    <div th:case="'ditolak'" class="alert alert-danger">
+						        ditolak
+						    </div>
+						</td>
+						<td><button class="btn btn-success">Change Status</button></td>
+					</tr>
+				</tbody>
+				
+			</table>
+		
+		</div>
+		
+		
+		<script type="text/javascript">
+		$(document).ready(function () {
+		    $("#home").addClass("active");
+		    $('#table_id').DataTable();
+		        
+		});
+		
+		
+		</script>
+		
+			
+	</body>
+</html>

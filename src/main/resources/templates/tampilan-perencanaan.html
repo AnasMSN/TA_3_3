@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		
+		<object th:include="fragments/fragment :: header" th:remove="tag"></object>
+		
+		<script th:src="@{/js/dropdown.js}"></script>
+
+	</head>
+	
+	<body>
+	
+		<nav th:replace="fragments/fragment :: navbar"></nav>
+		
+		<div class="container">
+			<center><h2>Tabel Perencanaan</h2></center>
+			
+			<table id="table_id" class="display">
+				<thead>
+					<tr>
+						<th>Nama</th>
+						<th>Status</th>
+						<th>Tanggal</th>
+						<th>Jumlah</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="plan : *{listPlan}">
+						<td th:text="${plan.medicalSupplies.nama}"></td>
+						<td th:switch="${plan.status}">
+						    <div th:case="'diajukan'" class="alert alert-warning">
+						        diajukan
+						    </div>
+						    <div th:case="'diproses'" class="alert alert-info">
+						        diproses
+						    </div>
+						    <div th:case="'tersedia'" class="alert alert-success">
+						        tersedia
+						    </div>
+						</td>
+						<td th:text="${plan.tanggal}"></td>
+						<td th:text="${plan.jumlah}"></td>
+						
+					</tr>
+				</tbody>
+				
+			</table>
+			
+		
+		</div>
+		
+		
+		<script type="text/javascript">
+		$(document).ready(function () {
+		    $("#home").addClass("active");
+		    $('#table_id').DataTable();
+		        
+		});
+		
+		
+		
+		</script>
+		
+			
+	</body>
+</html>
