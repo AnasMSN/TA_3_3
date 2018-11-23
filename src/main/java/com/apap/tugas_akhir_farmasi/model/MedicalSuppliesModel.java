@@ -9,6 +9,7 @@ import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 @Table(name = "medical_supplies")
@@ -80,7 +81,8 @@ public class MedicalSuppliesModel implements Serializable {
     public void setDeskripsi(String deskripsi) {
         this.deskripsi = deskripsi;
     }
-
+    
+    //@JsonProperty
     public JenisMedicalSuppliesModel getJenisMedicalSuppliesModel() {
         return jenisMedicalSuppliesModel;
     }
