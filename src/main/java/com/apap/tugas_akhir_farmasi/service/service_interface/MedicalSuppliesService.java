@@ -10,7 +10,9 @@ public interface MedicalSuppliesService {
 	List<MedicalSuppliesModel> findAll();
 
 	List<MedicalSuppliesModel> findByUrgent();
-	
+	MedicalSuppliesModel getDetailMedicalSuppliesById(long id);
+	MedicalSuppliesModel addMedicalSupplies(MedicalSuppliesModel medicalSupplies);
+	void updateMedicalSupplies(MedicalSuppliesModel newMedicalSupplies, long id);
 	MedicalSuppliesModel getMedicalSuppliesDetailsByNama(String nama);
 
 }

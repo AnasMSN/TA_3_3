@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "user")
-public class UserModel implements Serializable {
+public class UserRoleModel implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -30,6 +30,7 @@ public class UserModel implements Serializable {
 	public long getId() {
 		return id;
 	}
+
 
 	public void setId(long id) {
 		this.id = id;
@@ -58,4 +59,8 @@ public class UserModel implements Serializable {
 	public void setRole(String role) {
 		this.role = role;
 	}
+
+
+
+	
 }

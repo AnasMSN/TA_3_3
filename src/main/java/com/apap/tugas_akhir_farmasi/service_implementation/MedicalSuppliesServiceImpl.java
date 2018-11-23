@@ -59,6 +59,26 @@ public class MedicalSuppliesServiceImpl implements MedicalSuppliesService{
 	public MedicalSuppliesModel getMedicalSuppliesDetailsByNama(String nama) {
 		return medicalSuppliesDb.findByNama(nama);
 	}
+
+
+	@Override
+    public MedicalSuppliesModel addMedicalSupplies(MedicalSuppliesModel medicalSupplies) {
+        return medicalSuppliesDb.save(medicalSupplies);
+    }
 	
+	@Override
+	public MedicalSuppliesModel getDetailMedicalSuppliesById(long id) {
+		return medicalSuppliesDb.findById(id);
+	}
 	
+	@Override
+	public void updateMedicalSupplies(MedicalSuppliesModel newMedicalSupplies, long id) {
+		MedicalSuppliesModel oldMedicalSupplies= this.getDetailMedicalSuppliesById(id);
+		oldMedicalSupplies.setNama(newMedicalSupplies.getNama());
+		oldMedicalSupplies.setJumlah(newMedicalSupplies.getJumlah());
+		oldMedicalSupplies.setPrice(newMedicalSupplies.getPrice());
+		oldMedicalSupplies.setDeskripsi(newMedicalSupplies.getDeskripsi());
+		oldMedicalSupplies.setJenisMedicalSuppliesModel(newMedicalSupplies.getJenisMedicalSuppliesModel());
+	}
+
 }
