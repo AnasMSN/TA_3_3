@@ -41,7 +41,8 @@ public class ApiController {
         	System.out.println(bindingResult.toString());
             response.setStatus(500);
             response.setMessage("error data");
-        } else {
+        } 
+        else {
         	MedicalSuppliesModel medicalSupplies = medicalSuppliesService.getMedicalSuppliesDetailsByNama(permintaan.getMedicalSuppliesModel().getNama());
         	if(medicalSupplies == null) {
         		response.setStatus(500);
