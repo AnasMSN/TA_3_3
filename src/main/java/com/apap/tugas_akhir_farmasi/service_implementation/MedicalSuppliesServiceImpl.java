@@ -81,4 +81,15 @@ public class MedicalSuppliesServiceImpl implements MedicalSuppliesService{
 		oldMedicalSupplies.setJenisMedicalSuppliesModel(newMedicalSupplies.getJenisMedicalSuppliesModel());
 	}
 
+	@Override
+	public List<MedicalSuppliesModel> getAll() {
+		// TODO Auto-generated method stub
+		return medicalSuppliesDb.findAll();
+	}
+
+	@Override
+	public MedicalSuppliesModel getMedicalSuppliesById(long id) {
+		// TODO Auto-generated method stub
+		return medicalSuppliesDb.findById(id);
+	}
 }
