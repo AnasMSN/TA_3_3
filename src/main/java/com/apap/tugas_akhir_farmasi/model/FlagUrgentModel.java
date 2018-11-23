@@ -4,6 +4,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table(name = "flag_urgent")
@@ -20,4 +21,29 @@ public class FlagUrgentModel implements Serializable {
     @Size(max = 255)
     @Column(name = "deskripsi_flag_urgent")
     private String deskripsiFlagUrgent;
+    
+   
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public short getFlag() {
+		return flag;
+	}
+
+	public void setFlag(short flag) {
+		this.flag = flag;
+	}
+
+	public String getDeskripsiFlagUrgent() {
+		return deskripsiFlagUrgent;
+	}
+
+	public void setDeskripsiFlagUrgent(String deskripsiFlagUrgent) {
+		this.deskripsiFlagUrgent = deskripsiFlagUrgent;
+	}
 }

@@ -25,4 +25,28 @@ public class JenisMedicalSuppliesModel implements Serializable {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private FlagUrgentModel flagUrgentModel;
 
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public String getJenisMedicalSupplies() {
+		return jenisMedicalSupplies;
+	}
+
+	public void setJenisMedicalSupplies(String jenisMedicalSupplies) {
+		this.jenisMedicalSupplies = jenisMedicalSupplies;
+	}
+
+	public FlagUrgentModel getFlagUrgentModel() {
+		return flagUrgentModel;
+	}
+
+	public void setFlagUrgentModel(FlagUrgentModel flagUrgentModel) {
+		this.flagUrgentModel = flagUrgentModel;
+	}
+
 }

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title> Tambah Medical Supplies</title>
+	<object th:include="fragments/fragment :: css" th:remove="tag"></object>
+	<object th:include="fragments/fragment :: js" th:remove="tag"></object>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+	<script th:src="@{/js/bootstrap.min.js}"></script>
+	<script src="/js/top.js"></script>
+	<style>
+		button{
+		margin-left:200px;
+		
+		}
+		
+		.form-control{
+			width:500px;
+		}
+		
+		.row{
+			margin-left:25px;
+			margin-top:50px;
+			padding-bottom:20px;
+		}
+		
+		.formulir{
+			padding:20px;
+		}
+		
+		.back-to-top {
+	
+    cursor: pointer;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display:none;
+}
+		
+		
+	
+	</style>
+	
+</head>
+
+
+
+<nav th:replace="fragments/fragment :: navbar"></nav>
+	
+<body>	
+	
+	<div  class="row">
+		<div class="col-md-6">
+			<div class="card">
+				<div class="card-header">
+					
+					
+				</div>
+				<form class="formulir"th:action="@{'/medical-supplies/'+${medicalSupplies.id}+'/sukses'}" th:object="${medicalSupplies}" method="POST">
+		
+					<b>Nama :</b><br>
+					<input type="text" name="nama" class="form-control" th:value="${medicalSupplies.nama}"/>
+					
+					<br>
+					<b>Price: </b><br>
+					<input type="number" name="price" class="form-control" th:value="${medicalSupplies.price}"/>
+					<br>
+					<b>Jumlah:</b><br>
+					<input type="number" name="jumlah" class="form-control" th:value="${medicalSupplies.jumlah}"/>
+					<br>
+					<b>Deskripsi:</b><br>
+					<input type="text" name="deskripsi" class="form-control" th:value="${medicalSupplies.deskripsi}"/>
+					
+					<br>
+					<b>Jenis Medical Supplies : </b>
+					<div >
+						<select name="jenisMedicalSuppliesModel"  id="jenisMedicalSupplies" class="form-control">
+							<option th:value="${medicalSupplies.jenisMedicalSuppliesModel.id}" th:text="${medicalSupplies.jenisMedicalSuppliesModel.jenisMedicalSupplies}" />
+						    <option th:each="jenisMedicalSupplies: ${listJenisMedicalSupplies}" th:value="${jenisMedicalSupplies.id}" th:text="${jenisMedicalSupplies.jenisMedicalSupplies}"/>
+						</select>
+					</div>
+					
+					
+					
+				<br>
+					<button style="margin-left:240px;"  type="submit" class="btn btn-primary">Submit</button>	
+				</form>
+				
+				
+			</div>
+		</div>
+	</div>
+	<a id="back-to-top" href="#" class="btn btn-primary btn-lg back-to-top" role="button" title="Click to return on the top page" data-toggle="tooltip" data-placement="left"><span class="glyphicon glyphicon-chevron-up">^</span></a>
+	
+</body>
+
+
+</html>
+
+
+</html>
