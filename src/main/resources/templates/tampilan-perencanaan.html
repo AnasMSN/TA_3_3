@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		
+		<object th:include="fragments/fragment :: header" th:remove="tag"></object>
+		
+		<script th:src="@{/js/dropdown.js}"></script>
+
+	</head>
+	
+	<body>
+	
+		<nav th:replace="fragments/fragment :: navbar"></nav>
+		
+		<div class="container">
+			<center><h2>Tabel Perencanaan</h2></center>
+			
+			<table id="table_id" class="display">
+				<thead>
+					<tr>
+						<th>Nama</th>
+						<th>Status</th>
+						<th>Tanggal</th>
+						<th>Jumlah</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="plan : *{listPlan}">
+						<td th:text="${plan.medicalSupplies.nama}"></td>
+						<div th:switch="${user}">
+							<td th:case="'Admin Farmasi'">
+								
+								<form th:action="@{/medical-supplies/perencanaan/ganti-status}" method="POST">
+									<input type="hidden" name="id" th:value="${plan.id}" >
+									<select name="status" class="form-control">
+									    <option th:each="status : ${statusPlan}" th:value="${status}" th:text="${status}" th:selected="${status == plan.status}" />
+									</select>
+									
+									<button class="btn btn-dark" type="submit">Ubah</button>		
+								</form>
+							
+							</td>
+							<td th:case="'Staf Apoteker'">
+								<div th:switch="${plan.status}">
+									
+								    <div th:case="'diajukan'" class="alert alert-warning">
+								        diajukan
+								    </div>
+								    <div th:case="'diproses'" class="alert alert-info">
+								        diproses
+								    </div>
+								    <div th:case="'tersedia'" class="alert alert-success">
+								        tersedia
+								    </div>
+								</div>
+							</td>
+						</div>
+						<td th:text="${plan.tanggal}"></td>
+						<td th:text="${plan.jumlah}"></td>
+						
+					</tr>
+				</tbody>
+				
+			</table>
+			
+		
+		</div>
+		
+		
+		<script type="text/javascript">
+		$(document).ready(function () {
+		    $("#home").addClass("active");
+		    $('#table_id').DataTable();
+		    $("#provinsi").change(function () {
+
+	            $.getJSON("/medical-supplies/perencanaan/ganti-status", {
+	                provinsiId : $(this).val(),
+	                ajax : 'true'
+	            }, function(data) {
+	                var html = '';
+	                var len = data.length;
+	                for ( var i = 0; i < len; i++) {
+	                    html += '<option value="' + data[i].id + '">'
+	                            + data[i].nama + '</option>';
+	                }
+	                html += '';
+	                console.log("berhasil");
+	                $('#instansi').html(html);
+	            });
+		    }); 
+		        
+		});
+		
+		
+		
+		</script>
+		
+			
+	</body>
+</html>

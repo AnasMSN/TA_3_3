@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		
+		<object th:include="fragments/fragment :: header" th:remove="tag"></object>
+		
+		<script th:src="@{/js/dropdown.js}"></script>
+
+	</head>
+	
+	<body>
+	
+		<nav th:replace="fragments/fragment :: navbar"></nav>
+		
+		<div class="container">
+			<p>
+			
+			<div class="card border-dark">
+				<div class="card-header bg-dark text-white">
+					<center><h2>Tambah Perencanaan</h2></center>
+				</div>
+				<div class="card-body">
+				
+					<div class="form-group">
+						
+					
+				      	<form th:action="@{/medical-supplies/perencanaan/tambah}" th:object="${perencanaan}" method="POST">
+				      		<label for="medical-supplies">Medical Supplies</label>
+							<select class="form-control" name="medicalSupplies">
+							    <option th:each="med : ${medicalSup}" th:value="${med.id}" th:text="${med.nama}" />
+							</select>
+							<input type="hidden" class="form-control" name="tanggal" th:field="*{tanggal}">
+							<br>
+							<label for="jumlah">Jumlah</label>
+							<input type="text" class="form-control" name="jumlah" required>
+							<br>
+							
+							<center><button  class="btn btn-dark" type="submit">Tambah</button></center>		
+						</form>
+					</div>
+				</div>
+				
+			</div>
+			
+		
+			
+			
+			
+		</div>
+		
+		
+		<script type="text/javascript">
+			$(document).ready(function () {
+			    $("#home").addClass("active");    
+			        
+			});
+			
+		
+		</script>
+		
+			
+	</body>
+</html>
