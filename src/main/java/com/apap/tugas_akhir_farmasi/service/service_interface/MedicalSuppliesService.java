@@ -1,9 +1,18 @@
 package com.apap.tugas_akhir_farmasi.service.service_interface;
 
+
+import java.util.List;
+
 import com.apap.tugas_akhir_farmasi.model.MedicalSuppliesModel;
 
 public interface MedicalSuppliesService {
-	MedicalSuppliesModel getMedicalSuppliesDetailsByNama(String nama);
 
+	List<MedicalSuppliesModel> findAll();
+
+	List<MedicalSuppliesModel> findByUrgent();
+	MedicalSuppliesModel getDetailMedicalSuppliesById(long id);
+	MedicalSuppliesModel addMedicalSupplies(MedicalSuppliesModel medicalSupplies);
+	void updateMedicalSupplies(MedicalSuppliesModel newMedicalSupplies, long id);
+	MedicalSuppliesModel getMedicalSuppliesDetailsByNama(String nama);
 
 }

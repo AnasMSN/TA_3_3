@@ -1,5 +1,7 @@
 package com.apap.tugas_akhir_farmasi.service_implementation;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,11 +13,20 @@ import com.apap.tugas_akhir_farmasi.service.service_interface.PermintaanService;
 
 @Service
 @Transactional
-public class PermintaanSericeImpl implements PermintaanService {
+public class PermintaanServiceImpl implements PermintaanService{
+	
 	@Autowired
 	PermintaanDb permintaanDb;
+
+	@Override
+	public List<PermintaanModel> findAll() {
+		// TODO Auto-generated method stub
+		return permintaanDb.findAll();
+	}
+	
 	@Override
 	public void save(PermintaanModel permintaan) {
 		permintaanDb.save(permintaan);
 	}
+
 }
