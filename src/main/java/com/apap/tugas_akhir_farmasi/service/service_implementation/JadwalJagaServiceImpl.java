@@ -1,5 +1,8 @@
 package com.apap.tugas_akhir_farmasi.service.service_implementation;
 
+import java.sql.Date;
+import java.sql.Time;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +25,14 @@ public class JadwalJagaServiceImpl implements JadwalJagaService {
 		return jadwalJagaDb.findById(id);
 	}
 
+	@Override
+	public JadwalJagaModel getJadwalJagaNow() {
+		long millis=System.currentTimeMillis();
+    	Date todayDate = new Date(millis);
+    	Time todayTime = new Time(millis);
+    	return jadwalJagaDb.findByTanggalAndWaktuMulaiLessThanEqualAndWaktuSelesaiGreaterThanEqual(todayDate, todayTime, todayTime);
+	}
+  
     @Override
     public List<JadwalJagaModel> findAll() {
         return jadwalJagaDb.findAll();

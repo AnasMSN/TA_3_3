@@ -1,21 +1,91 @@
-<!DOCTYPE html>
+<!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
-	<head>
-		<head>
-		<title> Tambah Medical Supplies</title>
-		<object th:include="fragments/fragment :: css" th:remove="tag"></object>
-		<object th:include="fragments/fragment :: js" th:remove="tag"></object>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-		<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
-		<script th:src="@{/js/bootstrap.min.js}"></script>
-		<script src="/js/top.js"></script>
-		<title> Home</title>
-	</head>
-	<body>
-	  
-		
-<nav th:replace="fragments/fragment :: navbar"></nav>
-		<h2 th:text="'Hello ' + ${#httpServletRequest.remoteUser}+ ' !'">Login as</h2>
-		<h1>Selamat datang di sistem farmasi! </h1>
-	</body>
+<head>
+	<title th:replace="fragments/fragment :: title"></title>
+	
+	<object th:include="fragments/fragment :: css" th:remove="tag"></object>
+	<object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body>
+	<nav th:replace="fragments/fragment :: navbar"></nav>
+
+<!--main-->
+<div class="container-fluid">
+  <div class="header">
+    <div class="row">
+      <div class="col-sm-12">
+        <h2 th:text="'Hello ' + ${#httpServletRequest.remoteUser}+ ' !'">Login as</h2>
+        <h1>Sistem Informasi Farmasi</h1>
+        <p>Selamat Datang di SI Farmasi Rumah Sakit Cepat Sembuh</p>
+      </div>
+    </div>
+  </div>
+  <hr>
+  <br>
+  <div class = "row">
+	  <div class="card-deck">
+	  	<!-- List All Med Supplies -->
+	  	<form th:action="@{/medical-supplies/}" method ="GET">
+	  		<div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
+			  <div class="card-header">Lihat Daftar Medical Supplies</div>
+			  <div class="card-body">
+			    <p class="card-text">Fitur ini  menampilkan daftar seluruh medical supplies</p>
+			    <button type="submit" class="btn btn-outline-info btn-home">Lihat</button>
+			  </div>
+			 </div>
+		</form>
+
+	  	<!-- Tambah Med Supplies -->
+	  	<form th:action="@{/medical-supplies/tambah}" method ="GET">
+	  		<div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
+			  <div class="card-header">Tambah Medical Supplies</div>
+			  <div class="card-body">
+			    <p class="card-text">Fitur ini menambahkan medical supplies ke dalam inventaris medical supplies</p>
+			    <button type="submit" class="btn btn-outline-info btn-home">Tambah</button>
+			  </div>
+			 </div>
+		</form>
+	
+	  	<!-- List All Permintaan -->
+	  	<form th:action="@{/medical-supplies/permintaan/}" method ="GET">
+	  		<div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
+			  <div class="card-header">Lihat Daftar Permintaan</div>
+			  <div class="card-body">
+			    <p class="card-text">Fitur ini menampilkan daftar permintaan medical supplies yang diminta oleh SI Rawat Inap</p>
+			    <button type="submit" class="btn btn-outline-info btn-home">Lihat</button>
+			  </div>
+			 </div>
+		</form>
+	  </div>
+  </div>
+  <br>
+  <div class = "row">
+  	  <div class="card-deck">
+  	  	 <!-- Buat Jadwal Jaga -->
+  	     <form th:action="@{/medical-supplies/jadwal-staf/tambah/}" method ="GET">
+	  		<div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
+			  <div class="card-header">Membuat Jadwal Staf Apoteker Jaga</div>
+			  <div class="card-body">
+			    <p class="card-text">Fitur ini membantu Anda membuat jadwal staf apoteker jaga</p>
+			    <button type="submit" class="btn btn-outline-info btn-home">Tambah</button>
+			  </div>
+			 </div>
+		 </form>
+	  	
+	  	<!-- List All Jadwal Jaga -->
+	  	<form th:action="@{/medical-supplies/jadwal-staf/}" method ="GET">
+	  		<div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
+			  <div class="card-header">Lihat Jadwal Staf Apoteker Jaga</div>
+			  <div class="card-body">
+			    <p class="card-text">Fitur ini menampilkan jadwal staf apoteker jaga</p>
+			    <button type="submit" class="btn btn-outline-info btn-home">Lihat</button>
+			  </div>
+			 </div>
+		</form>
+  	  </div>
+  </div>
+  
+
+</div>
+</body>
 </html>

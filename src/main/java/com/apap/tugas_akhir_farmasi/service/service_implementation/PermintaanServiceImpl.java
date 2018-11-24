@@ -23,10 +23,14 @@ public class PermintaanServiceImpl implements PermintaanService{
 		// TODO Auto-generated method stub
 		return permintaanDb.findAll();
 	}
-	
-	@Override
-	public void save(PermintaanModel permintaan) {
-		permintaanDb.save(permintaan);
-	}
 
+  @Override
+	public PermintaanModel save(PermintaanModel permintaan) {
+		return permintaanDb.save(permintaan);
+	}
+  
+  @Override
+	public List<PermintaanModel> getAllPermintaan() {
+		return permintaanDb.findAll();
+	}
 }
