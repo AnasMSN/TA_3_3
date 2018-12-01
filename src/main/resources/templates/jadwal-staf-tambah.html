@@ -1,11 +1,17 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
+    <title th:replace="fragments/fragment :: title">Jadwal Jaga ubah</title>
+
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
     <meta charset="UTF-8">
-    <title>Buat jadwal jaga</title>
 </head>
 <body>
+<nav th:replace="fragments/fragment :: navbar"></nav>
     <form th:action="@{/medical-supplies/jadwal-staf/}" th:object="${jadwalJaga}" method="post">
+        <input type="hidden" th:field="*{id}">
+        <br><br><br>
         Pilih tanggal jaga:<br>
         <input type="date" th:field="*{tanggal}" ><br>
 

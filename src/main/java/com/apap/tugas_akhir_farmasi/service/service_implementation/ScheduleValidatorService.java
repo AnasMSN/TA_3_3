@@ -3,6 +3,8 @@ package com.apap.tugas_akhir_farmasi.service.service_implementation;
 import com.apap.tugas_akhir_farmasi.data_model.TimeValidatorResponse;
 import com.apap.tugas_akhir_farmasi.model.JadwalJagaModel;
 
+import java.sql.Date;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
@@ -12,6 +14,8 @@ public class ScheduleValidatorService {
         LocalTime localStart = target.getWaktuMulai().toLocalTime();
         LocalTime localFinish = target.getWaktuSelesai().toLocalTime();
 
+        if (!dateValidation(target))
+            return new TimeValidatorResponse(false,"The Schedule is passed");
 
         if (!localStart.isBefore(localFinish))
             return new TimeValidatorResponse(false,"Time start is after time finish");
@@ -19,6 +23,7 @@ public class ScheduleValidatorService {
         if (overlapswithTotal(target,allJadwal)){
             return new TimeValidatorResponse(false,"The Schedule is overlaps with other schedule");
         }
+
 
 
 
@@ -46,4 +51,12 @@ public class ScheduleValidatorService {
 
         return (start1.isBefore(finish2)) && finish1.isAfter(start2);
     }
+
+    public static boolean dateValidation(JadwalJagaModel jadwalJagaModel){
+        LocalDate today = LocalDate.now();
+        LocalDate jadwal = jadwalJagaModel.getTanggal().toLocalDate();
+
+        return today.isBefore(jadwal);
+    }
+
 }

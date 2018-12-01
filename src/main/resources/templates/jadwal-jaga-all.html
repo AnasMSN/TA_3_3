@@ -1,10 +1,56 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
     <meta charset="UTF-8">
     <title>Jadwal Jaga </title>
 </head>
 <body>
+
+<nav th:replace="fragments/fragment :: navbar"></nav>
+<br><br><br>
+    <div class="container">
+        <center><h2>Jadwal Jaga</h2></center>
+        <br><br>
+        <table id="allJadwal" class="display" style="width: 100%">
+            <thead>
+            <tr>
+                <th>Tanggal</th>
+                <th>Nama Staf Jaga</th>
+                <th>Jam Mulai</th>
+                <th>Jam Selesai</th>
+                <th>Ubah</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="jadwal:${jadwalJaga}">
+                <td th:text="${jadwal.tanggal}"></td>
+                <td th:text="${stafMap.get(jadwal.id)}"></td>
+                <td th:text="${mulai.get(jadwal.id)}"></td>
+                <td th:text="${selesai.get(jadwal.id)}"></td>
+                <div th:if="${status.get(jadwal.id)}">
+                    <td><a th:href="@{/medical-supplies/jadwal-staf/{id}(id=${jadwal.id})}" th:text="Ubah"></a></td>
+
+                </div >
+                <div th:unless="${status.get(jadwal.id)}">
+                    <td>Jadwal sudah selesai</td>
+                </div>
+            </tr>
+            </tbody>
+
+        </table>
+        <script type="text/javascript">
+            $(document).ready( function () {
+                $('#allJadwal').DataTable();
+            } );
+        </script>
+    </div>
+
+
 
 
 </body>

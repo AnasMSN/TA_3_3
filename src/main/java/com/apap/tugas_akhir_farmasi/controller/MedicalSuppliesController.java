@@ -77,7 +77,7 @@ public class MedicalSuppliesController {
 	
 	@RequestMapping(value="/medical-supplies/", method=RequestMethod.GET)
 	private String viewAllMedicalSupplies(@ModelAttribute MedicalSuppliesModel medSupplies, Model model) {
-		List<MedicalSuppliesModel> listMedSupplies = medSuppliesService.getAll();
+		List<MedicalSuppliesModel> listMedSupplies = medicalSuppliesService.getAll();
 		model.addAttribute("listMedSupplies", listMedSupplies);
 		model.addAttribute("title", "Daftar Medical Supplies");
 		return "view-allmedsupplies";

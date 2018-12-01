@@ -53,7 +53,6 @@ public class JadwalJagaController {
         String fieldMulai = request.getParameter("waktuMulaiField");
         String fieldSelesai = request.getParameter("waktuSelesaiField");
 
-
        jadwalJagaModel.setWaktuJaga(fieldMulai,fieldSelesai);
        jadwalJagaModel.setIdStaff(Integer.parseInt(staf));
 
@@ -68,34 +67,44 @@ public class JadwalJagaController {
         TimeValidatorResponse response = ScheduleValidatorService.validate(jadwalJagaModel,jadwalStaffMatchDate);
 
         if (!response.isValid()){
-            model.addAttribute("error-message",response.getErrorMessage());
+            System.err.println(response.getErrorMessage());
+            model.addAttribute("errorMessage",response.getErrorMessage());
             return "error-page";
         }
+
 
         jadwalJagaService.add(jadwalJagaModel);
 
         return "jadwal-jaga-all";
     }
 
-    //@TODO fitur Melihat jadwal staf apoteker jaga
+
     @RequestMapping("/jadwal-staf")
     private String listAllJadwal(Model model){
         List<JadwalJagaModel> jadwalJagaModels = jadwalJagaService.findAll();
         HashMap<Long,String> mapper = new HashMap<>();
+        HashMap<Long,String> timeMulai = new HashMap<>();
+        HashMap<Long,String> timeSelesai = new HashMap<>();
+        HashMap<Long,Boolean> editable = new HashMap<>();
         for (JadwalJagaModel jadwalJagaModel : jadwalJagaModels){
             String url = Setting.urlGenerator(Integer.toString(jadwalJagaModel.getIdStaff()),Setting.getStafUrl);
             SingleEntityResponse singleEntityResponse = restAppointment.getForObject(url,SingleEntityResponse.class);
             mapper.put(jadwalJagaModel.getId(),singleEntityResponse.getStaf().getNama());
+            timeMulai.put(jadwalJagaModel.getId(),jadwalJagaModel.mulai());
+            timeSelesai.put(jadwalJagaModel.getId(),jadwalJagaModel.selesai());
+            editable.put(jadwalJagaModel.getId(),ScheduleValidatorService.dateValidation(jadwalJagaModel));
         }
 
         model.addAttribute("jadwalJaga",jadwalJagaModels);
         model.addAttribute("stafMap",mapper);
+        model.addAttribute("mulai",timeMulai);
+        model.addAttribute("selesai",timeSelesai);
+        model.addAttribute("status",editable);
 
         return "jadwal-jaga-all";
     }
     @RequestMapping(value = "/jadwal-staf/{idJadwalStaf}")
     private String updateJadwalJaga(@PathVariable(name = "idJadwalStaf")long id,Model model){
-
         String url = Setting.urlGenerator("3",Setting.stafFarmasiUrl);
         EntityResponse stafResponse = restAppointment.getForObject(url, EntityResponse.class);
         JadwalJagaModel jadwalJagaModel = jadwalJagaService.getJadwalJagaDetailsById(id);
