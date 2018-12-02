@@ -10,7 +10,11 @@
 	<script th:src="@{/js/bootstrap.min.js}"></script>
 	<script src="/js/top.js"></script>
 	<style>
-		button{
+		.card-header{
+		color:black;
+		}
+	
+		buttons{
 		margin-left:200px;
 		
 		}
@@ -29,14 +33,6 @@
 			padding:20px;
 		}
 		
-		.back-to-top {
-	
-    cursor: pointer;
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    display:none;
-}
 		
 		
 	
@@ -44,11 +40,20 @@
 	
 </head>
 
-
-
-<nav th:replace="fragments/fragment :: navbar"></nav>
 	
 <body>	
+<div class="upper-header">
+	<div class="left">
+		RS.CEPAT SEMBUH
+		<img class="img-farmasi"src="https://image.flaticon.com/icons/png/512/33/33777.png">
+		
+		<a class="right-nav1" href="#">APAP | </a>
+		<a class="right-nav2"href="#">Kelompok 3-3 |</a></li>
+		<a class="right-nav3"href="#"><img style="width:20px; height:20px;"src="https://img.icons8.com/metro/1600/phone.png">081513565572</a></li>
+		
+	</div>
+</div>
+<nav th:replace="fragments/fragment :: navbar"></nav>
 	
 	<div  class="row">
 		<div class="col-md-6">
@@ -85,7 +90,7 @@
 					
 					
 				<br>
-					<button style="margin-left:240px;"  type="submit" class="btn btn-primary">Submit</button>	
+					<buttons style="margin-left:240px;"  type="submit" class="btn btn-primary">Submit</button>	
 				</form>
 				
 				
