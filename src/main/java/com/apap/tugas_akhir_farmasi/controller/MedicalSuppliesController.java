@@ -119,10 +119,15 @@ public class MedicalSuppliesController {
 		return "redirect:/medical-supplies/perencanaan";
 	}
 	
-	@RequestMapping(value = "/medical-supplies/sukses", method = RequestMethod.POST)
+	
+
+	@RequestMapping(value = "/medical-supplies/", method = RequestMethod.POST)
 	private String addMedicalSubmit(@ModelAttribute MedicalSuppliesModel medicalSupplies, Model model) {
 		medicalSuppliesService.addMedicalSupplies(medicalSupplies);
-		return "sukses";
+		List<MedicalSuppliesModel> listMedSupplies = medicalSuppliesService.getAll();
+		model.addAttribute("listMedSupplies", listMedSupplies);
+		model.addAttribute("message", "Success");
+		return "view-allmedsupplies";
 	}
 
 	@RequestMapping(value = "/medical-supplies/tambah", method = RequestMethod.GET)
@@ -158,16 +163,17 @@ public class MedicalSuppliesController {
 	}
 	
 	@RequestMapping(value = "/medical-supplies/{idMedicalSupplies}/sukses", method = RequestMethod.POST)
-	private String updatePilotSubmit(@PathVariable(value = "idMedicalSupplies") long id,
+	private String updateMedicalSubmit(@PathVariable(value = "idMedicalSupplies") long id,
 			@ModelAttribute MedicalSuppliesModel newMedicalSuppliesModel, Model model) {
 		medicalSuppliesService.updateMedicalSupplies(newMedicalSuppliesModel, id);
 		return "sukses";
 	}
 	
-	@RequestMapping(value="/medical-supplies", method=RequestMethod.GET)
+	@RequestMapping(value="/medical-supplies/", method=RequestMethod.GET)
 	private String viewAllMedicalSupplies(@ModelAttribute MedicalSuppliesModel medSupplies, Model model) {
 		List<MedicalSuppliesModel> listMedSupplies = medicalSuppliesService.getAll();
 		model.addAttribute("listMedSupplies", listMedSupplies);
+		model.addAttribute("title", "Daftar Medical Supplies");
 		return "view-allmedsupplies";
 	}
 	

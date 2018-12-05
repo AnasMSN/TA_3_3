@@ -14,6 +14,17 @@ body{
 .header {
 	margin-top: 5rem;
 }
+
+
+#textLogin{
+	align:center;
+	color:white;
+	width:450px;
+	margin-left:500px;
+	margin-top:100px;	
+	
+}
+
 .container-fluid{
 	width: 80%;
 	padding: 1rem;
@@ -31,7 +42,8 @@ body{
 .card-header {
 	background-color: #32c69a;
 	color:white;
-	font-weight:bold;
+
+	font-weight:light;
 	font-size: 18px;
 }
 
@@ -136,6 +148,30 @@ body{
 	
 }
 
+.alert {
+    padding: 20px;
+    background-color: #48D1CC;
+    margin-right:10px;
+
+
+    color: white;
+}
+	
+	.closebtn {
+    margin-left: 15px;
+    color: white;
+    font-weight: bold;
+    float: right;
+    font-size: 22px;
+    line-height: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.closebtn:hover {
+    color: black;
+}
+
 .nav-link{
 	font-size:18px;
 }
@@ -202,5 +238,3 @@ body{
   
     cursor: pointer;
 }
-
-
