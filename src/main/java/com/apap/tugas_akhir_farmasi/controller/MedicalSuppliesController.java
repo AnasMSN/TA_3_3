@@ -30,10 +30,13 @@ public class MedicalSuppliesController {
 	@Autowired
 	JenisMedicalSupplies jenisMedicalSuppliesService;
 
-	@RequestMapping(value = "/medical-supplies/sukses", method = RequestMethod.POST)
+	@RequestMapping(value = "/medical-supplies/", method = RequestMethod.POST)
 	private String addMedicalSubmit(@ModelAttribute MedicalSuppliesModel medicalSupplies, Model model) {
 		medicalSuppliesService.addMedicalSupplies(medicalSupplies);
-		return "sukses";
+		List<MedicalSuppliesModel> listMedSupplies = medicalSuppliesService.getAll();
+		model.addAttribute("listMedSupplies", listMedSupplies);
+		model.addAttribute("message", "Success");
+		return "view-allmedsupplies";
 	}
 
 	@RequestMapping(value = "/medical-supplies/tambah", method = RequestMethod.GET)
@@ -69,7 +72,7 @@ public class MedicalSuppliesController {
 	}
 	
 	@RequestMapping(value = "/medical-supplies/{idMedicalSupplies}/sukses", method = RequestMethod.POST)
-	private String updatePilotSubmit(@PathVariable(value = "idMedicalSupplies") long id,
+	private String updateMedicalSubmit(@PathVariable(value = "idMedicalSupplies") long id,
 			@ModelAttribute MedicalSuppliesModel newMedicalSuppliesModel, Model model) {
 		medicalSuppliesService.updateMedicalSupplies(newMedicalSuppliesModel, id);
 		return "sukses";
