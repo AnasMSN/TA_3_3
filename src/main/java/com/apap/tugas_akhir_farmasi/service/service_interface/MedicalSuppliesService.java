@@ -15,5 +15,4 @@ public interface MedicalSuppliesService {
 	MedicalSuppliesModel getMedicalSuppliesDetailsByNama(String nama);
 	List<MedicalSuppliesModel> getAll();
 	MedicalSuppliesModel getMedicalSuppliesById(long id);
-
 }

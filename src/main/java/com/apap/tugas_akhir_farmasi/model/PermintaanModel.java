@@ -24,7 +24,6 @@ public class PermintaanModel implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @NotNull
     @Column(name = "tanggal",nullable = false)
     private Date tanggal;
 

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Buat jadwal jaga</title>
+</head>
+<body>
+    <form th:action="@{/medical-supplies/jadwal-staf/}" th:object="${jadwalJaga}" method="post">
+        Pilih tanggal jaga:<br>
+        <input type="date" th:field="*{tanggal}" ><br>
+
+        Pilih jam jaga:<br>
+
+        Mulai: <br>
+        <input type="time"  th:value="*{waktuMulai}" name="waktuMulaiField" id="waktuMulai"><br>
+
+        Selesai:<br>
+        <input type="time"  th:value="*{waktuSelesai}" name="waktuSelesaiField" id="waktuSelesai" ><br>
+
+        Pilih staf jaga:<br>
+        <select id="staf" name="staf">
+            <div th:if="${stafJagaSekarang!=null}">
+                <option  th:value="${stafJagaSekarang.id}" th:text="${stafJagaSekarang.nama}" selected="selected" >-- Pilih staf --</option>
+
+            </div>
+            <div th:unless="${stafJagaSekarang!=null}">
+                <option  th:value="${staffList[0].id}" th:text="${staffList[0].nama}" selected="selected" >-- Pilih staf --</option>
+            </div>
+            <option th:each="staf : ${staffList}"
+                    th:value="${staf.id}"
+                    th:text="${staf.nama}"></option>
+        </select>
+
+        <br><br>
+        <button type="submit" class="btn btn-primary">Submit</button>
+
+    </form>
+
+</body>
+</html>

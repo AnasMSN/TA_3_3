@@ -16,21 +16,16 @@ import com.apap.tugas_akhir_farmasi.service.service_interface.PermintaanService;
 
 @Controller
 public class PermintaanController {
-	
-	
+
 	@Autowired
 	PermintaanService permintaanService;
 	
-	@RequestMapping(value = "/medical-supplies/permintaan", method = RequestMethod.GET)
-	public String tampilanPermintaan(Model model){
-		// get all permintaanS
-		List<PermintaanModel> requestList = permintaanService.findAll();
+		@RequestMapping(value="/medical-supplies/permintaan/", method=RequestMethod.GET)
+    private String viewDaftarPermintaan(Model model) {
+		List<PermintaanModel> listPermintaan = permintaanService.getAllPermintaan();
 		
-		model.addAttribute("requestList", requestList);
-		return "permintaan";
+		model.addAttribute("listPermintaan", listPermintaan);
+		model.addAttribute("title", "Daftar Permintaan");
+		return "view-daftar-permintaan";
 	}
-	
-	
-	
-
 }

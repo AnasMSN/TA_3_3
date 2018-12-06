@@ -1,5 +1,4 @@
-package com.apap.tugas_akhir_farmasi.service_implementation;
-
+package com.apap.tugas_akhir_farmasi.service.service_implementation;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +12,6 @@ import com.apap.tugas_akhir_farmasi.model.JenisMedicalSuppliesModel;
 import com.apap.tugas_akhir_farmasi.model.MedicalSuppliesModel;
 import com.apap.tugas_akhir_farmasi.repository.FlagUrgentDb;
 import com.apap.tugas_akhir_farmasi.repository.JenisMedicalSuppliesDb;
-import com.apap.tugas_akhir_farmasi.model.MedicalSuppliesModel;
 import com.apap.tugas_akhir_farmasi.repository.MedicalSuppliesDb;
 import com.apap.tugas_akhir_farmasi.service.service_interface.MedicalSuppliesService;
 
@@ -54,12 +52,11 @@ public class MedicalSuppliesServiceImpl implements MedicalSuppliesService{
 		
 		return listMedUrg;
 	}
-	
+  
 	@Override
 	public MedicalSuppliesModel getMedicalSuppliesDetailsByNama(String nama) {
 		return medicalSuppliesDb.findByNama(nama);
 	}
-
 
 	@Override
     public MedicalSuppliesModel addMedicalSupplies(MedicalSuppliesModel medicalSupplies) {
@@ -86,7 +83,7 @@ public class MedicalSuppliesServiceImpl implements MedicalSuppliesService{
 		// TODO Auto-generated method stub
 		return medicalSuppliesDb.findAll();
 	}
-
+  
 	@Override
 	public MedicalSuppliesModel getMedicalSuppliesById(long id) {
 		// TODO Auto-generated method stub
