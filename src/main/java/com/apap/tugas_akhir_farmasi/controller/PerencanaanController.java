@@ -35,7 +35,7 @@ public class PerencanaanController {
 	
 	@RequestMapping(value = "/medical-supplies", method = RequestMethod.GET)
 	public String perencanaan(Model model){
-		List<MedicalSuppliesModel> medicalSup = null;
+		List<MedicalSuppliesModel> medicalSupPerencanaan = null;
 		PerencanaanModel perencanaan = new PerencanaanModel();
 		
 		// get date now
@@ -51,16 +51,16 @@ public class PerencanaanController {
 	    if ((Integer.parseInt(day) >= 1 && Integer.parseInt(day) <= 7) || 
 	    		(Integer.parseInt(day) >= 15 && Integer.parseInt(day) <= 21)  ) {
 	    	// get all medical supplies
-			medicalSup = medicalSuppliesService.findAll();
+			medicalSupPerencanaan = medicalSuppliesService.findAll();
 	    }
 	    else {
 	    	// get only all urgent medical supplies
-			medicalSup = medicalSuppliesService.findByUrgent(); 
+			medicalSupPerencanaan = medicalSuppliesService.findByUrgent(); 
 	    }
 	    
 	    model.addAttribute("perencanaan", perencanaan);
 		model.addAttribute("date_now", date);
-		model.addAttribute("medicalSup", medicalSup);
+		model.addAttribute("medicalSupPerencanaan", medicalSupPerencanaan);
 		return "medical-sup";
 	}
 	
@@ -83,17 +83,18 @@ public class PerencanaanController {
 		
 		model.addAttribute("listPlan", listPlan);
 		model.addAttribute("user", "Admin Farmasi");
-		model.addAttribute("user", "Staf Apoteker");
-//		model.addAttribute("statusPlan", statusArraylist);
+//		model.addAttribute("user", "Staf Apoteker");
+		model.addAttribute("statusPlan", statusArraylist);
 		return "tampilan-perencanaan";
 	}
 	
 	@RequestMapping(value = "/medical-supplies/perencanaan/ganti-status", method = RequestMethod.POST)
 	public String instansiSearch(@RequestParam(value = "id") Long id, 
-			@RequestParam(value = "status") String status){
+			@RequestParam(value = "status") String status,
+			@RequestParam(value = "jumlah") int jumlah){
 		
 		// ubah status berdasarkan status baru
-		perencanaanService.setStatus(id, status);
+		perencanaanService.setStatus(id, status, jumlah);
 		
 		return "redirect:/medical-supplies/perencanaan";
 	}

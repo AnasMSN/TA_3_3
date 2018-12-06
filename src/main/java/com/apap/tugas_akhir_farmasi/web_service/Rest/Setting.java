@@ -10,5 +10,4 @@ public class Setting {
         return res;
     }
 
-
 }

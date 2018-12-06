@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 	<head>
-		
-		<object th:include="fragments/fragment :: header" th:remove="tag"></object>
-		
-		<script th:src="@{/js/dropdown.js}"></script>
+		<object th:include="fragments/fragment :: title" th:remove="tag"></object>
+		<object th:include="fragments/fragment :: css" th:remove="tag"></object>
+		<object th:include="fragments/fragment :: js" th:remove="tag"></object>
 
 	</head>
 	
@@ -12,56 +11,74 @@
 	
 		<nav th:replace="fragments/fragment :: navbar"></nav>
 		
+
+		
 		<div class="container">
-			<center><h2>Tabel Perencanaan</h2></center>
+			<div class="header">
+				<div class="row">
+					<div class="col-sm-12">
+						<h1>Daftar Medical Supplies</h1>		
+					</div>
+				</div>
+			</div>
 			
-			<table id="table_id" class="display">
-				<thead>
-					<tr>
-						<th>Nama</th>
-						<th>Status</th>
-						<th>Tanggal</th>
-						<th>Jumlah</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr th:each="plan : *{listPlan}">
+			<hr>
+			
+			
+			<table id="list-all-perencanaan" class="table table-striped table-bordered" style="width:100%">
+			       <thead>
+			           <tr>
+			           		<th>Nama</th>
+							<th>Status</th>
+							<div th:if="${user == 'Admin Farmasi'}">
+							     <th>Ganti Status</th>
+							</div>
+							<th>Tanggal</th>
+							<th>Jumlah</th>
+							
+			           </tr>
+			       </thead>
+			       <tbody>
+			           <tr th:each="plan : *{listPlan}">
 						<td th:text="${plan.medicalSupplies.nama}"></td>
-						<div th:switch="${user}">
-							<td th:case="'Admin Farmasi'">
+						
+						<td>
+							<div th:switch="${plan.status}">
 								
+							    <div th:case="'diajukan'" class="alert alert-warning">
+							        <center>diajukan</center>
+							    </div>
+							    <div th:case="'diproses'" class="alert alert-info">
+							        <center>diproses</center>
+							    </div>
+							    <div th:case="'tersedia'" class="alert alert-success">
+							        <center>tersedia</center>
+							    </div>
+							</div>
+						
+						</td>
+						
+						<div th:if="${user == 'Admin Farmasi'}">
+						     <td>
 								<form th:action="@{/medical-supplies/perencanaan/ganti-status}" method="POST">
 									<input type="hidden" name="id" th:value="${plan.id}" >
+									<input type="hidden" name="jumlah" th:value="${plan.jumlah}" >
 									<select name="status" class="form-control">
 									    <option th:each="status : ${statusPlan}" th:value="${status}" th:text="${status}" th:selected="${status == plan.status}" />
 									</select>
 									
 									<button class="btn btn-dark" type="submit">Ubah</button>		
-								</form>
-							
-							</td>
-							<td th:case="'Staf Apoteker'">
-								<div th:switch="${plan.status}">
-									
-								    <div th:case="'diajukan'" class="alert alert-warning">
-								        diajukan
-								    </div>
-								    <div th:case="'diproses'" class="alert alert-info">
-								        diproses
-								    </div>
-								    <div th:case="'tersedia'" class="alert alert-success">
-								        tersedia
-								    </div>
-								</div>
+								</form>				
 							</td>
 						</div>
 						<td th:text="${plan.tanggal}"></td>
 						<td th:text="${plan.jumlah}"></td>
 						
-					</tr>
-				</tbody>
-				
+						</tr>
+			       </tbody>
 			</table>
+			
+			
 			
 		
 		</div>
@@ -70,7 +87,7 @@
 		<script type="text/javascript">
 		$(document).ready(function () {
 		    $("#home").addClass("active");
-		    $('#table_id').DataTable();
+		    $('#list-all-perencanaan').DataTable();
 		    $("#provinsi").change(function () {
 
 	            $.getJSON("/medical-supplies/perencanaan/ganti-status", {

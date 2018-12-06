@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -20,8 +21,18 @@ public class PermintaanController {
 	@Autowired
 	PermintaanService permintaanService;
 	
-		@RequestMapping(value="/medical-supplies/permintaan/", method=RequestMethod.GET)
+	@RequestMapping(value="/medical-supplies/permintaan", method=RequestMethod.GET)
     private String viewDaftarPermintaan(Model model) {
+		List<PermintaanModel> listPermintaan = permintaanService.getAllPermintaan();
+		
+		model.addAttribute("user", "Admin Farmasi");
+		model.addAttribute("listPermintaan", listPermintaan);
+		model.addAttribute("title", "Daftar Permintaan");
+		return "view-daftar-permintaan";
+	}
+	
+	@RequestMapping(value=" /medical-supplies/permintaan/ubah/{idPermintaan}", method=RequestMethod.POST)
+    private String ubahPermintaan(@PathVariable String idPermintaan ,Model model) {
 		List<PermintaanModel> listPermintaan = permintaanService.getAllPermintaan();
 		
 		model.addAttribute("listPermintaan", listPermintaan);

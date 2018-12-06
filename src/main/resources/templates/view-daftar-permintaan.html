@@ -28,6 +28,9 @@
                 <th>Jumlah Medical Supplies</th>
                 <th>Jenis Medical Supplies</th>
                 <th>Status Permintaan</th>
+                <div th:if="${user == 'Admin Farmasi'}">
+				     <th>Ganti Status Permintaan</th>
+				</div>
                 <th>Nama Apoteker</th>
                 <th>ID Pasien</th>
             </tr>
