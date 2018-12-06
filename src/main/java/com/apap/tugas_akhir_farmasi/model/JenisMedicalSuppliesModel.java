@@ -2,6 +2,15 @@ package com.apap.tugas_akhir_farmasi.model;
 
 import java.io.Serializable;
 
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import java.io.Serializable;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -30,8 +39,9 @@ public class JenisMedicalSuppliesModel implements Serializable {
     private String jenisMedicalSupplies;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_urgent",referencedColumnName = "id",nullable = false)
+    @JoinColumn(name = "id_urgent", referencedColumnName = "id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
     private FlagUrgentModel flagUrgentModel;
     
 	public long getId() {

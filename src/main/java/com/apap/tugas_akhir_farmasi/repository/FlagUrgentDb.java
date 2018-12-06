@@ -7,4 +7,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface FlagUrgentDb extends JpaRepository<FlagUrgentModel,Integer> {
     FlagUrgentModel findById(int id);
+
+	FlagUrgentModel findByFlag(short flag);
 }
