@@ -1,6 +1,5 @@
 package com.apap.tugas_akhir_farmasi.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +9,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.apap.tugas_akhir_farmasi.model.FlagUrgentModel;
 import com.apap.tugas_akhir_farmasi.model.JenisMedicalSuppliesModel;
@@ -92,5 +94,13 @@ public class MedicalSuppliesController {
 		model.addAttribute("medSupplies", medSupplies);
 		return "view-medsupplies";
 	}
+	
+	@RequestMapping(value = "/rawat-jalan/obat/tambah/", method = RequestMethod.POST)
+	private RedirectView addMedicalSupplyToRawatJalan(@RequestParam String nama, int jumlah, RedirectAttributes attributes) {
+		medicalSuppliesService.addMedicalSuppliesToRawatJalan(nama, jumlah);
+		return new RedirectView("/medical-supplies/");
+	}
+	
+	
 
 }

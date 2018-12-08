@@ -11,15 +11,6 @@ import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -37,7 +28,7 @@ public class JenisMedicalSuppliesModel implements Serializable {
     @Size(max = 255)
     @Column(name = "jenis_medical_supplies",nullable = false)
     private String jenisMedicalSupplies;
-
+    
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_urgent", referencedColumnName = "id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
@@ -58,6 +49,10 @@ public class JenisMedicalSuppliesModel implements Serializable {
 
 	public void setJenisMedicalSupplies(String jenisMedicalSupplies) {
 		this.jenisMedicalSupplies = jenisMedicalSupplies;
+	}
+
+	public void setFlagUrgentModel(FlagUrgentModel flagUrgentModel) {
+		this.flagUrgentModel = flagUrgentModel;
 	}
 
 	public FlagUrgentModel getFlagUrgentModel() {

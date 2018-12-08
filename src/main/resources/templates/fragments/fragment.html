@@ -16,36 +16,18 @@
     		<script th:src="@{/DataTables-1.10.18/js/jquery.dataTables.min.js}"></script>
     		<script th:src="@{/DataTables-1.10.18/js/dataTables.bootstrap4.min.js}"></script>
 		</head>
-	
 	</head>
 	
-	
-	
 	<body>
-
 		<nav th:fragment="navbar" class="navbar navbar-expand-lg navbar-dark " style="background-color:#32c69a;padding-top:20px;padding-bottom:20px;">
-			
-			
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav mr-auto">
-					
 						<a class="nav-link" style="color:white;margin-left:50px;"th:href="@{'/'}"> Home</a>
-					
-					
 						<a class="nav-link" style="color:white;"th:href="@{/medical-supplies/}">Lihat Daftar Medical Supplies</a>
-				
-					
-					
 						 <a class="nav-link" style="color:white;"th:href="@{/medical-supplies/permintaan/}">Lihat Daftar Permintaan</a>
-						
-						
-						
 						<div class="dropdown">
 						  <button class="dropbtn">
-						  
-							
 							<h5 id="text-nama" class="nav-link" style="color:white;"th:text="'Hello, ' + ${#httpServletRequest.remoteUser}+ ' !'">Login as</h5>
-						
 						</button>
 						  <div class="dropdown-content">
 						    <a href="#">Role : Admin</a>
@@ -53,10 +35,9 @@
 						    <a th:href="@{/logout}">Logout</a>
   						</div>
 						</div>
-						<img class="img-akun"src="https://image.flaticon.com/icons/png/512/164/164641.png">
-					
-					
-					
+						<!-- 
+						<img class="img-akun"src="https://image.flaticon.com/icons/png/512/164/164641.png">	
+						 -->				
 				</ul>
 			</div>
 		</nav>

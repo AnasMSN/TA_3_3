@@ -1,10 +1,15 @@
 package com.apap.tugas_akhir_farmasi.service.service_implementation;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 import javax.transaction.Transactional;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 
 import com.apap.tugas_akhir_farmasi.model.FlagUrgentModel;
@@ -14,6 +19,7 @@ import com.apap.tugas_akhir_farmasi.repository.FlagUrgentDb;
 import com.apap.tugas_akhir_farmasi.repository.JenisMedicalSuppliesDb;
 import com.apap.tugas_akhir_farmasi.repository.MedicalSuppliesDb;
 import com.apap.tugas_akhir_farmasi.service.service_interface.MedicalSuppliesService;
+import com.apap.tugas_akhir_farmasi.web_service.Rest.Setting;
 
 @Service
 @Transactional
@@ -89,4 +95,28 @@ public class MedicalSuppliesServiceImpl implements MedicalSuppliesService{
 		// TODO Auto-generated method stub
 		return medicalSuppliesDb.findById(id);
 	}
+
+	@Override
+	public String addMedicalSuppliesToRawatJalan(String nama, int jumlah) {
+			String path = Setting.siRawatJalanAddMedicalSupplyUrl;
+		   
+		   LinkedHashMap<String, Object> medicalSupplyForRawatJalan = new LinkedHashMap<String,Object>();
+		   
+		   LinkedHashMap<String, Object> medicalSupply = new LinkedHashMap<String,Object>();
+		   medicalSupply.put("nama", nama);
+		   
+		   medicalSupplyForRawatJalan.put("medicalSupply", new JSONObject(medicalSupply));
+		   medicalSupplyForRawatJalan.put("jumlah", jumlah);
+		   
+		   JSONObject json = new JSONObject(medicalSupplyForRawatJalan);
+		   
+		   HttpHeaders headers = new HttpHeaders();
+		   headers.setContentType(MediaType.APPLICATION_JSON);
+		   
+		   HttpEntity<String> request = new HttpEntity<String>(json.toString(), headers);
+		   System.out.println(request);
+		   //System.out.println(restTemplate.postForObject(path, request, String.class));
+		   return null;
+	}
+	
 }

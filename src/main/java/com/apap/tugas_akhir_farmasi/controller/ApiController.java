@@ -17,7 +17,7 @@ import com.apap.tugas_akhir_farmasi.model.JadwalJagaModel;
 import com.apap.tugas_akhir_farmasi.model.MedicalSuppliesModel;
 import com.apap.tugas_akhir_farmasi.model.PermintaanModel;
 import com.apap.tugas_akhir_farmasi.model.StatusPermintaanModel;
-import com.apap.tugas_akhir_farmasi.rest.BaseResponse;
+import com.apap.tugas_akhir_farmasi.web_service.Rest.BaseResponse;
 import com.apap.tugas_akhir_farmasi.service.service_interface.JadwalJagaService;
 import com.apap.tugas_akhir_farmasi.service.service_interface.MedicalSuppliesService;
 import com.apap.tugas_akhir_farmasi.service.service_interface.PermintaanService;
@@ -66,8 +66,6 @@ public class ApiController {
         	permintaan.setStatusPermintaanModel(statusPermintaan);
         	
         	permintaan = permintaanService.save(permintaan);
-        	
-        	permintaan.getMedicalSuppliesModel().setJenisMedicalSuppliesModel(null);
         	
             response.setStatus(200);
             response.setMessage("success");
