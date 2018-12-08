@@ -79,10 +79,16 @@ public class ApiController {
 	@GetMapping(value="/daftar-medical-supplies")
 	public BaseResponse<List<MedicalSuppliesModel>> daftarMedSupplies(){
 		BaseResponse<List<MedicalSuppliesModel>> response = new BaseResponse<List<MedicalSuppliesModel>>();
-		
-		response.setStatus(200);
+		List<MedicalSuppliesModel> listMedSup = medicalSuppliesService.getAll();
+		if(!listMedSup.isEmpty()) {
+			response.setStatus(200);
 			response.setMessage("Success");
 			response.setResult(medicalSuppliesService.getAll());
+		}
+		else {
+			response.setStatus(404);
+			response.setMessage("Not Available");
+		}
 		return response;
 	}
 }
