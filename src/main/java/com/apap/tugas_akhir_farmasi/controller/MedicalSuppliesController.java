@@ -16,15 +16,15 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
-
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.apap.tugas_akhir_farmasi.model.FlagUrgentModel;
 import com.apap.tugas_akhir_farmasi.model.JenisMedicalSuppliesModel;
 import com.apap.tugas_akhir_farmasi.model.MedicalSuppliesModel;
 import com.apap.tugas_akhir_farmasi.model.PerencanaanModel;
-import com.apap.tugas_akhir_farmasi.rest.BaseResponse;
 import com.apap.tugas_akhir_farmasi.rest.KebutuhanDetail;
 import com.apap.tugas_akhir_farmasi.service.service_interface.FlagUrgentService;
 import com.apap.tugas_akhir_farmasi.service.service_interface.JenisMedicalSupplies;
@@ -37,7 +37,6 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
-
 public class MedicalSuppliesController {
 	@Autowired
 	MedicalSuppliesService medicalSuppliesService;
@@ -156,6 +155,12 @@ public class MedicalSuppliesController {
 		return "view-medsupplies";
 	}
 	
+	@RequestMapping(value = "/rawat-jalan/obat/tambah/", method = RequestMethod.POST)
+	private RedirectView addMedicalSupplyToRawatJalan(@RequestParam String nama, int jumlah, RedirectAttributes attributes) {
+		medicalSuppliesService.addMedicalSuppliesToRawatJalan(nama, jumlah);
+		return new RedirectView("/medical-supplies/");
+	}
+
 	//consumer SI Farmasi ambil kebutuhan obat lab
 	public List<KebutuhanDetail> getLabKebutuhan() throws IOException{
 	  String path = Setting.getLabKebutuhan;

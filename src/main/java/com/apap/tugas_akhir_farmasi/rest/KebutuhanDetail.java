@@ -3,7 +3,6 @@ package com.apap.tugas_akhir_farmasi.rest;
 import java.sql.Date;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 public class KebutuhanDetail {
 	/**

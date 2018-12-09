@@ -1,13 +1,11 @@
 package com.apap.tugas_akhir_farmasi.controller;
 
-import com.apap.tugas_akhir_farmasi.data_model.EntityResponse;
-import com.apap.tugas_akhir_farmasi.data_model.SingleEntityResponse;
-import com.apap.tugas_akhir_farmasi.data_model.TimeValidatorResponse;
-import com.apap.tugas_akhir_farmasi.model.JadwalJagaModel;
-import com.apap.tugas_akhir_farmasi.service.service_interface.JadwalJagaService;
-import com.apap.tugas_akhir_farmasi.service.service_interface.MedicalSuppliesService;
-import com.apap.tugas_akhir_farmasi.service.service_implementation.ScheduleValidatorService;
-import com.apap.tugas_akhir_farmasi.web_service.Rest.Setting;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -16,10 +14,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
-import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import com.apap.tugas_akhir_farmasi.data_model.EntityResponse;
+import com.apap.tugas_akhir_farmasi.data_model.SingleEntityResponse;
+import com.apap.tugas_akhir_farmasi.data_model.TimeValidatorResponse;
+import com.apap.tugas_akhir_farmasi.model.JadwalJagaModel;
+import com.apap.tugas_akhir_farmasi.service.service_implementation.ScheduleValidatorService;
+import com.apap.tugas_akhir_farmasi.service.service_interface.JadwalJagaService;
+import com.apap.tugas_akhir_farmasi.service.service_interface.MedicalSuppliesService;
+import com.apap.tugas_akhir_farmasi.web_service.Rest.Setting;
 
 @Controller
 @RequestMapping("/medical-supplies")

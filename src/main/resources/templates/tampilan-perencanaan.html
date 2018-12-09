@@ -45,13 +45,13 @@
 						<td>
 							<div th:switch="${plan.status}">
 								
-							    <div th:case="'diajukan'" class="alert alert-warning">
+							    <div th:case="'diajukan'" class="text-warning">
 							        <center>diajukan</center>
 							    </div>
-							    <div th:case="'diproses'" class="alert alert-info">
+							    <div th:case="'diproses'" class="text-info">
 							        <center>diproses</center>
 							    </div>
-							    <div th:case="'tersedia'" class="alert alert-success">
+							    <div th:case="'tersedia'" class="text-success">
 							        <center>tersedia</center>
 							    </div>
 							</div>

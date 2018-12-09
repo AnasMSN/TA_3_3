@@ -1,10 +1,10 @@
 package com.apap.tugas_akhir_farmasi.service.service_implementation;
 
-import com.apap.tugas_akhir_farmasi.data_model.TimeValidatorResponse;
-import com.apap.tugas_akhir_farmasi.model.JadwalJagaModel;
-
 import java.time.LocalTime;
 import java.util.List;
+
+import com.apap.tugas_akhir_farmasi.data_model.TimeValidatorResponse;
+import com.apap.tugas_akhir_farmasi.model.JadwalJagaModel;
 
 public class ScheduleValidatorService {
 
