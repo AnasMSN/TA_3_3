@@ -51,4 +51,11 @@ public class UserRoleServiceImpl implements UserRoleService {
 	return false;	
 	}
 	
+	@Override
+	public boolean cekPassword(String passwordLama, String encodedPassword) {
+		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		return passwordEncoder.matches(passwordLama, encodedPassword);
+		
+	}
+	
 }

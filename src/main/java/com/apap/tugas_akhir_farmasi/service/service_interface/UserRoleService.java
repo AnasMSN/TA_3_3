@@ -9,4 +9,5 @@ public interface UserRoleService {
 	UserRoleModel getUser(String username );
 	public String encrypt(String password);
 	public boolean usernameCheck(String username);
+	public boolean cekPassword(String passwordLama, String encodedPassword);
 }
