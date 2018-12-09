@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 	<head>
-		<title th:fragment="title" th:text="${title}">uvvuveve</title>
+		<title th:fragment="title" th:text="${title}"></title>
 		
 		<head th:fragment="css">
 			<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
@@ -25,7 +25,6 @@
 
 		<nav th:fragment="navbar" class="navbar navbar-expand-lg navbar-dark " style="background-color:#32c69a;padding-top:20px;padding-bottom:20px;">
 			
-			
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav mr-auto">
 					
@@ -36,7 +35,7 @@
 				
 					
 					
-						 <a class="nav-link" style="color:white;"th:href="@{/medical-supplies/permintaan/}">Lihat Daftar Permintaan</a>
+						 <a class="nav-link" style="color:white;"th:href="@{/medical-supplies/permintaan}">Lihat Daftar Permintaan</a>
 						
 						
 						

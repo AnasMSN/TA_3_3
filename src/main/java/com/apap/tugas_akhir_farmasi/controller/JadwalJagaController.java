@@ -9,6 +9,7 @@ import com.apap.tugas_akhir_farmasi.service.service_interface.MedicalSuppliesSer
 import com.apap.tugas_akhir_farmasi.service.service_implementation.ScheduleValidatorService;
 import com.apap.tugas_akhir_farmasi.web_service.Rest.Setting;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,6 +31,7 @@ public class JadwalJagaController {
     private JadwalJagaService jadwalJagaService;
 
     @Autowired
+    @Qualifier(value="restAppointment")
     RestTemplate restAppointment;
 
     @Bean
