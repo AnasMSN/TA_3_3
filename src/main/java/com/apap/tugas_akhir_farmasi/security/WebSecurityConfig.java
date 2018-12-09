@@ -22,6 +22,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers("/css/**").permitAll()
 			.antMatchers("/api/**").permitAll()
 			.antMatchers("/js/**").permitAll()
+			
+			.antMatchers("/medical-supplies/").hasAnyAuthority("Staff Apoteker", "Admin IGD", "Admin Farmasi")
+			.antMatchers("/api/daftar-medical-service").hasAnyAuthority("Admin IGD")
+			.antMatchers("/medical-supplies/tambah", "/medical-supplies/ubah/**", "medical-supplies/permintaan/ubah", "/medical-supplies/jadwal-staf/**").hasAnyAuthority( "Admin Farmasi")
+			.antMatchers( "/medical-supplies/{idMedicalSupllies}/","/rawat-jalan/obat/tambah", "/medical-supplies/perencanaan", "/medical-supplies/permintaan").hasAnyAuthority("Admin Farmasi","Staff Apoteker")
+			.antMatchers("/medical-supplies/perencanaan/tambah").hasAnyAuthority("Staff Apoteker")
 			.anyRequest().authenticated()
 			.and()
 			.formLogin()
@@ -41,14 +47,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	}
 	
 	
-	@Autowired
+	/**@Autowired
 	public void configureGlobal (AuthenticationManagerBuilder auth) throws Exception{
 		auth.inMemoryAuthentication()
 			.passwordEncoder(encoder())
 			.withUser("adminfarmasi").password(encoder().encode("admin123"))
 			.roles("USER");
 	}
-	
+	**/
 	
 	@Autowired
 	private UserDetailsService userDetailsService;
