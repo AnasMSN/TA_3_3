@@ -17,11 +17,11 @@ import com.apap.tugas_akhir_farmasi.model.JadwalJagaModel;
 import com.apap.tugas_akhir_farmasi.model.MedicalSuppliesModel;
 import com.apap.tugas_akhir_farmasi.model.PermintaanModel;
 import com.apap.tugas_akhir_farmasi.model.StatusPermintaanModel;
-import com.apap.tugas_akhir_farmasi.web_service.Rest.BaseResponse;
 import com.apap.tugas_akhir_farmasi.service.service_interface.JadwalJagaService;
 import com.apap.tugas_akhir_farmasi.service.service_interface.MedicalSuppliesService;
 import com.apap.tugas_akhir_farmasi.service.service_interface.PermintaanService;
 import com.apap.tugas_akhir_farmasi.service.service_interface.StatusPermintaanService;
+import com.apap.tugas_akhir_farmasi.web_service.Rest.BaseResponse;
 
 @RestController
 @RequestMapping("/api")
@@ -34,6 +34,8 @@ public class ApiController {
 	JadwalJagaService jadwalJagaService;
 	@Autowired
 	MedicalSuppliesService medicalSuppliesService;
+	
+
 	
 	@PostMapping(value = "/medical-supplies/permintaan/")
     public BaseResponse<PermintaanModel> addPermintaan(@RequestBody @Valid PermintaanModel permintaan,
@@ -77,10 +79,18 @@ public class ApiController {
 	@GetMapping(value="/daftar-medical-supplies")
 	public BaseResponse<List<MedicalSuppliesModel>> daftarMedSupplies(){
 		BaseResponse<List<MedicalSuppliesModel>> response = new BaseResponse<List<MedicalSuppliesModel>>();
-		
-		response.setStatus(200);
+		List<MedicalSuppliesModel> listMedSup = medicalSuppliesService.getAll();
+		if(!listMedSup.isEmpty()) {
+			response.setStatus(200);
 			response.setMessage("Success");
 			response.setResult(medicalSuppliesService.getAll());
+		}
+		else {
+			response.setStatus(404);
+			response.setMessage("Not Available");
+		}
 		return response;
 	}
+	
+
 }

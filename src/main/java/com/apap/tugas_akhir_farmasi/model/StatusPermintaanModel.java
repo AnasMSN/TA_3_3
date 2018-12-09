@@ -1,9 +1,10 @@
 package com.apap.tugas_akhir_farmasi.model;
 
+import java.io.Serializable;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.io.Serializable;
 
 @Entity
 @Table(name = "status_permintaan")

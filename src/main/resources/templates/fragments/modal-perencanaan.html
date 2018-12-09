@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		
+
+	</head>
+	
+	<body>
+	  
+  <div th:fragment="modal-perencanaan">
+	  <p style="margin-bottom: 10px;">Tambah Perencanaan</p>
+	  <!-- Button trigger modal -->
+		<button type="button" class="btn btn-dark" data-toggle="modal" data-target="#modalLihatLab">
+		  Buat Perencanaan
+		</button>
+		
+		
+		
+		<!-- Modal tambah perencanaan -->
+		<div class="modal fade" id="modalTambahPerencanaan" tabindex="-1" role="dialog" aria-labelledby="modalTambahCenterTitle" aria-hidden="true">
+		  <div class="modal-dialog modal-dialog-centered" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title" id="exampleModalLongTitle">Buat Perencanaan</h5>
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		          <span aria-hidden="true">&times;</span>
+		        </button>
+		      </div>
+		      <form th:action="@{/medical-supplies/perencanaan/tambah}" th:object="${perencanaan}" method="POST">
+		      	<div class="modal-body">
+		      		<input type="hidden" class="form-control" name="tanggal" th:field="*{tanggal}">
+		      	  <div class="form-group">
+				    <label for="medical-supplies">Medical Supplies</label>
+					<select class="form-control" name="medicalSupplies">
+					    <option th:each="med : ${medicalSupPerencanaan}" th:value="${med.id}" th:text="${med.nama}" />
+					</select>
+				  </div>
+		          <div class="form-group">
+				    <label for="jumlah">Jumlah</label>
+					<input type="text" class="form-control" name="jumlah" required>
+				  </div>
+			    </div>
+			    <div class="modal-footer">
+			        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+			        <button type="submit" class="btn btn-dark">Save changes</button>
+			    </div>
+		      </form>
+		      
+		      
+		    </div>
+		  </div>
+		</div>
+		
+		<!-- Modal lihat tabel laboratorium -->
+		<div class="modal fade" id="modalLihatLab" tabindex="-1" role="dialog" aria-labelledby="modalLihatLab" aria-hidden="true">
+		  <div class="modal-dialog modal-dialog-centered" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title" id="exampleModalLongTitle">Med Supplies Laboratorium</h5>
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		          <span aria-hidden="true">&times;</span>
+		        </button>
+		      </div>
+		      <form th:action="@{/medical-supplies/perencanaan/tambah}" th:object="${perencanaan}" method="POST">
+		      	<div class="modal-body">
+			      	<table id="list-all-lab" class="table table-striped table-bordered" style="width:100%">
+				        <thead>
+				            <tr>
+				                <th>Nama</th>
+				     			<th>Jenis</th>
+				     			<th>Jumlah</th>
+				     			<th>Deskripsi</th>
+				            </tr>
+				        </thead>
+				        <tbody>
+				            <tr th:each="kebLab : ${listKebutuhanLab}">
+				                <td th:text="${kebLab.reagen.nama}"></td>
+				     			<td th:text="${kebLab.reagen.jenis}"></td>
+				     			<td th:text="${kebLab.jumlah}"></td>
+				     			<td th:text="${kebLab.reagen.deskripsi}"></td>
+				            </tr>
+				        </tbody>
+					</table>
+			    </div>
+			    <div class="modal-footer">
+			        <button type="button" class="btn btn-dark" data-dismiss="modal" data-toggle="modal" data-target="#modalTambahPerencanaan">Tambah Perencanaan</button>
+			    </div>
+		      </form>
+		      
+		      
+		    </div>
+		  </div>
+		</div>
+		
+		
+		
+	</div>
+	
+		
+			
+	</body>
+</html>
