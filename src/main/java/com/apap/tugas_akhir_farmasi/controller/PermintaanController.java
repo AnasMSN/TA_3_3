@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
 import org.springframework.http.HttpEntity;
@@ -49,6 +50,7 @@ public class PermintaanController {
 	private UserRoleService userRoleService;
 	
 	@Autowired
+  @Qualifier(value="rest3")
 	RestTemplate restTemplate;
 	
 	@Primary
