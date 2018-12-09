@@ -18,6 +18,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -77,81 +79,6 @@ public class MedicalSuppliesController {
 	@Autowired
 	UserRoleService userRoleService;
 	
-	@RequestMapping(value = "/medical-supplies/permintaan", method = RequestMethod.GET)
-	public String tampilanPermintaan(Model model){
-		// get all permintaanS
-		List<PermintaanModel> requestList = permintaanService.findAll();
-		
-		model.addAttribute("requestList", requestList);
-		return "permintaan";
-	}
-	
-	
-	@RequestMapping(value = "/medical-suppliess", method = RequestMethod.GET)
-	public String perencanaan(Model model){
-		List<MedicalSuppliesModel> medicalSup = null;
-		PerencanaanModel perencanaan = new PerencanaanModel();
-		
-		// get date now
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");  
-		java.util.Date utilDate = new java.util.Date();
-		Date date = new Date(utilDate.getTime());
-		perencanaan.setTanggal(date);
-	    
-	    String tanggalHariIni = formatter.format(date);
-		
-	    String day = tanggalHariIni.substring(tanggalHariIni.length()-2, tanggalHariIni.length());
-	    
-	    if ((Integer.parseInt(day) >= 1 && Integer.parseInt(day) <= 7) || 
-	    		(Integer.parseInt(day) >= 15 && Integer.parseInt(day) <= 21)  ) {
-	    	// get all medical supplies
-			medicalSup = medicalSuppliesService.findAll();
-	    }
-	    else {
-	    	// get only all urgent medical supplies
-			medicalSup = medicalSuppliesService.findByUrgent(); 
-	    }
-	    
-	    model.addAttribute("perencanaan", perencanaan);
-		model.addAttribute("date_now", date);
-		model.addAttribute("medicalSup", medicalSup);
-		return "medical-sup";
-	}
-	
-	@RequestMapping(value = "/medical-supplies/perencanaan/tambah", method = RequestMethod.POST)
-	public String tambahPerencanaan(@ModelAttribute PerencanaanModel perencanaan){
-		perencanaan.setStatus("diajukan");
-		perencanaanService.add(perencanaan);
-		
-		return "redirect:/medical-supplies/perencanaan";
-	}
-	
-	@RequestMapping(value = "/medical-supplies/perencanaan")
-	public String tampilanPerencanaan(Model model){
-		List<PerencanaanModel> listPlan = perencanaanService.findAll();
-		
-		// make status list
-		String[] statusArray = {"diajukan", "diproses", "tersedia"};
-		List<String> statusArraylist = Arrays.asList(statusArray);
-
-		
-		model.addAttribute("listPlan", listPlan);
-		model.addAttribute("user", "Admin Farmasi");
-		model.addAttribute("user", "Staf Apoteker");
-//		model.addAttribute("statusPlan", statusArraylist);
-		return "tampilan-perencanaan";
-	}
-	
-	@RequestMapping(value = "/medical-supplies/perencanaan/ganti-status", method = RequestMethod.POST)
-	public String instansiSearch(@RequestParam(value = "id") Long id, 
-			@RequestParam(value = "status") String status){
-		
-		// ubah status berdasarkan status baru
-		perencanaanService.setStatus(id, status);
-		
-		return "redirect:/medical-supplies/perencanaan";
-	}
-	
 	
 
 	@Autowired
@@ -210,7 +137,6 @@ public class MedicalSuppliesController {
 	}
 	
 	@RequestMapping(value="/medical-supplies/", method=RequestMethod.GET)
-
 	private String viewAllMedicalSupplies(@ModelAttribute MedicalSuppliesModel medSupplies, Model model) throws IOException{
 
 
@@ -243,6 +169,9 @@ public class MedicalSuppliesController {
 	    // get api laboratorium untuk penampilan medical supplies
 	    List<KebutuhanDetail> listKebutuhan = this.getLabKebutuhan();
 	    
+	    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+	    UserRoleModel user = userRoleService.getUser(authentication.getName());
+	    model.addAttribute("user", user.getRole());
 	    model.addAttribute("listKebutuhanLab", listKebutuhan);
 	    model.addAttribute("perencanaan", perencanaan);
 		model.addAttribute("date_now", date);
