@@ -1,20 +1,13 @@
 package com.apap.tugas_akhir_farmasi.controller;
 
 
-import java.security.Principal;
-import java.sql.Date;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-
-import java.io.IOException;
-import java.sql.Date;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Collection;
-
-import java.util.List;
-
+import com.apap.tugas_akhir_farmasi.model.*;
+import com.apap.tugas_akhir_farmasi.rest.KebutuhanDetail;
+import com.apap.tugas_akhir_farmasi.service.service_interface.*;
+import com.apap.tugas_akhir_farmasi.web_service.Rest.Setting;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -23,40 +16,16 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
-
-import com.apap.tugas_akhir_farmasi.model.FlagUrgentModel;
-import com.apap.tugas_akhir_farmasi.model.JenisMedicalSuppliesModel;
-import com.apap.tugas_akhir_farmasi.model.MedicalSuppliesModel;
-import com.apap.tugas_akhir_farmasi.model.PerencanaanModel;
-
-import com.apap.tugas_akhir_farmasi.model.PermintaanModel;
-import com.apap.tugas_akhir_farmasi.model.UserRoleModel;
-
-import com.apap.tugas_akhir_farmasi.rest.KebutuhanDetail;
-
-import com.apap.tugas_akhir_farmasi.service.service_interface.FlagUrgentService;
-import com.apap.tugas_akhir_farmasi.service.service_interface.JenisMedicalSupplies;
-import com.apap.tugas_akhir_farmasi.service.service_interface.MedicalSuppliesService;
-import com.apap.tugas_akhir_farmasi.service.service_interface.PerencanaanService;
-
-import com.apap.tugas_akhir_farmasi.service.service_interface.PermintaanService;
-import com.apap.tugas_akhir_farmasi.service.service_interface.UserRoleService;
-
-import com.apap.tugas_akhir_farmasi.web_service.Rest.Setting;
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import java.io.IOException;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Controller
