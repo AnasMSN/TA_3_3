@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,13 +25,15 @@ import com.apap.tugas_akhir_farmasi.model.JenisMedicalSuppliesModel;
 import com.apap.tugas_akhir_farmasi.model.MedicalSuppliesModel;
 import com.apap.tugas_akhir_farmasi.model.PerencanaanModel;
 import com.apap.tugas_akhir_farmasi.rest.BaseResponse;
-import com.apap.tugas_akhir_farmasi.rest.BaseResponseList;
 import com.apap.tugas_akhir_farmasi.rest.KebutuhanDetail;
 import com.apap.tugas_akhir_farmasi.service.service_interface.FlagUrgentService;
 import com.apap.tugas_akhir_farmasi.service.service_interface.JenisMedicalSupplies;
 import com.apap.tugas_akhir_farmasi.service.service_interface.MedicalSuppliesService;
 import com.apap.tugas_akhir_farmasi.service.service_interface.PerencanaanService;
 import com.apap.tugas_akhir_farmasi.web_service.Rest.Setting;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
@@ -131,11 +134,10 @@ public class MedicalSuppliesController {
 	    	// get only all urgent medical supplies
 			medicalSupPerencanaan = medicalSuppliesService.findByUrgent(); 
 	    }
-//	    // get api laboratorium untuk penampilan medical supplies
-//	    List<KebutuhanDetail> baseResponse = this.getLabKebutuhan();
-//	    
-//	    System.out.println(baseResponse.get(0));
+	    // get api laboratorium untuk penampilan medical supplies
+	    List<KebutuhanDetail> listKebutuhan = this.getLabKebutuhan();
 	    
+	    model.addAttribute("listKebutuhanLab", listKebutuhan);
 	    model.addAttribute("perencanaan", perencanaan);
 		model.addAttribute("date_now", date);
 		model.addAttribute("medicalSupPerencanaan", medicalSupPerencanaan);
@@ -157,14 +159,16 @@ public class MedicalSuppliesController {
 	//consumer SI Farmasi ambil kebutuhan obat lab
 	public List<KebutuhanDetail> getLabKebutuhan() throws IOException{
 	  String path = Setting.getLabKebutuhan;
-	  BaseResponseList<String> penyimpanan = restTemplate5.getForEntity(path, BaseResponseList.class).getBody();
-	  restTemplate5.getForEntity(path, BaseResponseList.class).getBody();
-	  
-	  List<KebutuhanDetail> hasil = new ArrayList<KebutuhanDetail>();
+	  String penyimpanan = restTemplate5.getForObject(path, String.class);
 	  ObjectMapper mapper = new ObjectMapper();
-	  for (String x : penyimpanan.getResult()) {
-		  hasil.add(mapper.readValue(x, KebutuhanDetail.class));
-	  }
+	  
+	  JsonNode jsonNodePenyimpanan = mapper.readTree(penyimpanan);
+	  
+	  String result = jsonNodePenyimpanan.get("result").toString();
+	  List<KebutuhanDetail> hasil = mapper.readValue(result, 
+			  new TypeReference<ArrayList<KebutuhanDetail>>() {}
+				);
+	  
 	  return hasil;
 	}
 

@@ -10,6 +10,8 @@ public class MedicalDetail {
 	private int jumlah;
 	private String deskripsi;
 	
+	public MedicalDetail() {};
+	
 	public int getId() {
 		return id;
 	}
