@@ -1,7 +1,5 @@
 package com.apap.tugas_akhir_farmasi.rest;
 
-import java.sql.Date;
-
 public class MedicalDetail {
 	
 	private int id;

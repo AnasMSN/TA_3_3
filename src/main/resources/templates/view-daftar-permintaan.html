@@ -42,7 +42,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr th:each="permintaan : ${listPermintaan}" th:object="${permintaan}">
+            <tr th:each="permintaan, iterationStatus : ${listPermintaan}" th:object="${permintaan}">
                 <td th:text="*{tanggal}"></td>
                 <td th:text="*{medicalSuppliesModel.nama}"></td>
                 <td th:text="*{jumlahMedicalSupplies}"></td>
@@ -61,7 +61,7 @@
 					</form>				
 				</td>
 				</div>
-                <td th:text="*{jadwalJagaModel.idStaff}"></td>
+                <td th:text="${listStaff[__${iterationStatus.index}__].nama}"></td>
                 <td th:text="*{idPasien}"></td>
             </tr>
         </tbody>

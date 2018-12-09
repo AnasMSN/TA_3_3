@@ -4,10 +4,6 @@ import java.util.List;
 import com.apap.tugas_akhir_farmasi.model.PermintaanModel;
 import com.apap.tugas_akhir_farmasi.model.StatusPermintaanModel;
 
-import java.util.List;
-
-import com.apap.tugas_akhir_farmasi.model.PermintaanModel;
-
 public interface PermintaanService {
 	PermintaanModel save(PermintaanModel permintaan);
 	List<PermintaanModel> getAllPermintaan();
