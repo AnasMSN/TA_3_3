@@ -19,6 +19,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -78,6 +80,7 @@ public class MedicalSuppliesController {
 	@Autowired
 	UserRoleService userRoleService;
 	
+
 	@RequestMapping(value = "/medical-supplies/permintaan", method = RequestMethod.GET)
 	public String tampilanPermintaan(Model model){
 		// get all permintaanS
@@ -153,6 +156,7 @@ public class MedicalSuppliesController {
 		return "redirect:/medical-supplies/perencanaan";
 	}
 	
+
 	
 
 	@Autowired
@@ -244,6 +248,9 @@ public class MedicalSuppliesController {
 	    // get api laboratorium untuk penampilan medical supplies
 	    List<KebutuhanDetail> listKebutuhan = this.getLabKebutuhan();
 	    
+	    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+	    UserRoleModel user = userRoleService.getUser(authentication.getName());
+	    model.addAttribute("user", user.getRole());
 	    model.addAttribute("listKebutuhanLab", listKebutuhan);
 	    model.addAttribute("perencanaan", perencanaan);
 		model.addAttribute("date_now", date);
