@@ -14,6 +14,8 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,8 +27,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.apap.tugas_akhir_farmasi.model.PermintaanModel;
 import com.apap.tugas_akhir_farmasi.model.StatusPermintaanModel;
+import com.apap.tugas_akhir_farmasi.model.UserRoleModel;
 import com.apap.tugas_akhir_farmasi.service.service_interface.PermintaanService;
 import com.apap.tugas_akhir_farmasi.service.service_interface.StatusPermintaanService;
+import com.apap.tugas_akhir_farmasi.service.service_interface.UserRoleService;
 import com.apap.tugas_akhir_farmasi.web_service.Rest.BaseResponse;
 import com.apap.tugas_akhir_farmasi.web_service.Rest.Setting;
 import com.apap.tugas_akhir_farmasi.web_service.Rest.StaffDetail;
@@ -41,9 +45,12 @@ public class PermintaanController {
 	
 	@Autowired
 	private StatusPermintaanService statusPermintaanService;
+
+	@Autowired
+	private UserRoleService userRoleService;
 	
 	@Autowired
-	@Qualifier(value="rest3")
+    @Qualifier(value="rest3")
 	RestTemplate restTemplate;
 	
 	@Primary
@@ -58,9 +65,16 @@ public class PermintaanController {
 		// get status permintaan
 		List<StatusPermintaanModel> statusRequest = statusPermintaanService.findAll();
 		
+		/*Untuk edit status*/
+		// ambil role dari user
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+	    UserRoleModel user = userRoleService.getUser(authentication.getName());
+	    model.addAttribute("user", user.getRole());
+		
 		model.addAttribute("statusRequest", statusRequest);
-		model.addAttribute("user", "Admin Farmasi");
 		model.addAttribute("listPermintaan", listPermintaan);
+		
+		/*Akhir untuk edit status*/
 		
 		String jsonResponse;
 		ObjectMapper mapper = new ObjectMapper();
