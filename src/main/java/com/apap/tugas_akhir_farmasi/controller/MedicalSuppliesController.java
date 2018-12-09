@@ -1,15 +1,25 @@
 package com.apap.tugas_akhir_farmasi.controller;
 
+
+import java.security.Principal;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import java.io.IOException;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -17,24 +27,36 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
+
 
 import com.apap.tugas_akhir_farmasi.model.FlagUrgentModel;
 import com.apap.tugas_akhir_farmasi.model.JenisMedicalSuppliesModel;
 import com.apap.tugas_akhir_farmasi.model.MedicalSuppliesModel;
 import com.apap.tugas_akhir_farmasi.model.PerencanaanModel;
+
+import com.apap.tugas_akhir_farmasi.model.PermintaanModel;
+import com.apap.tugas_akhir_farmasi.model.UserRoleModel;
+
 import com.apap.tugas_akhir_farmasi.rest.KebutuhanDetail;
+
 import com.apap.tugas_akhir_farmasi.service.service_interface.FlagUrgentService;
 import com.apap.tugas_akhir_farmasi.service.service_interface.JenisMedicalSupplies;
 import com.apap.tugas_akhir_farmasi.service.service_interface.MedicalSuppliesService;
 import com.apap.tugas_akhir_farmasi.service.service_interface.PerencanaanService;
+
+import com.apap.tugas_akhir_farmasi.service.service_interface.PermintaanService;
+import com.apap.tugas_akhir_farmasi.service.service_interface.UserRoleService;
+
 import com.apap.tugas_akhir_farmasi.web_service.Rest.Setting;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 
 @Controller
 public class MedicalSuppliesController {
@@ -49,7 +71,16 @@ public class MedicalSuppliesController {
 	
 	@Autowired
 	PerencanaanService perencanaanService;
+
+
+	@Autowired
+	PermintaanService permintaanService;
 	
+	@Autowired
+	UserRoleService userRoleService;
+	
+	
+
 	@Autowired
 	RestTemplate restTemplate5;
 	
@@ -58,6 +89,7 @@ public class MedicalSuppliesController {
 	public RestTemplate rest5() {
 		return new RestTemplate();
 	}
+
 
 	@RequestMapping(value = "/medical-supplies/sukses", method = RequestMethod.POST)
 	private String addMedicalSubmit(@ModelAttribute MedicalSuppliesModel medicalSupplies, Model model) {
@@ -107,6 +139,7 @@ public class MedicalSuppliesController {
 	@RequestMapping(value="/medical-supplies/", method=RequestMethod.GET)
 	private String viewAllMedicalSupplies(@ModelAttribute MedicalSuppliesModel medSupplies, Model model) throws IOException{
 
+
 		List<MedicalSuppliesModel> listMedSupplies = medicalSuppliesService.getAll();
 		
 		/*Bagian Perencanaan*/
@@ -136,6 +169,9 @@ public class MedicalSuppliesController {
 	    // get api laboratorium untuk penampilan medical supplies
 	    List<KebutuhanDetail> listKebutuhan = this.getLabKebutuhan();
 	    
+	    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+	    UserRoleModel user = userRoleService.getUser(authentication.getName());
+	    model.addAttribute("user", user.getRole());
 	    model.addAttribute("listKebutuhanLab", listKebutuhan);
 	    model.addAttribute("perencanaan", perencanaan);
 		model.addAttribute("date_now", date);
@@ -145,6 +181,8 @@ public class MedicalSuppliesController {
 		
 		
 		model.addAttribute("listMedSupplies", listMedSupplies);
+
+
 		return "view-allmedsupplies";
 	}
 	
@@ -155,6 +193,7 @@ public class MedicalSuppliesController {
 		return "view-medsupplies";
 	}
 	
+
 	@RequestMapping(value = "/rawat-jalan/obat/tambah/", method = RequestMethod.POST)
 	private RedirectView addMedicalSupplyToRawatJalan(@RequestParam String nama, int jumlah, RedirectAttributes attributes) {
 		medicalSuppliesService.addMedicalSuppliesToRawatJalan(nama, jumlah);
@@ -176,5 +215,6 @@ public class MedicalSuppliesController {
 	  
 	  return hasil;
 	}
+
 
 }

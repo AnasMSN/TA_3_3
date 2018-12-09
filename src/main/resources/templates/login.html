@@ -10,9 +10,7 @@
    #textLogin{
 	
 	color:white;
-	width:475px;
-	
-	margin-top:100px;	
+
 	font-size:50px;
 	
 	}	
@@ -90,9 +88,8 @@
 	.modal {
 	    display: none; /* Hidden by default */
 	    position: fixed; /* Stay in place */
-	    z-index: 1; /* Sit on top */
-	    left: 0;
-	    top: 0;
+	  
+	  	 
 	    width: 100%; /* Full width */
 	    height: 100%; /* Full height */
 	    overflow: auto; /* Enable scroll if needed */
@@ -119,10 +116,7 @@
 	    font-weight: bold;
 	}
 	
-	#id01{
-	
 
-	}
 	
 	.close:hover,
 	.close:focus {
@@ -159,27 +153,31 @@
 	
 	
 	
+
 	#modal-text{
 	position:relative;
 	font-size:20px;
 	color:white;
+	margin-top:100px;
 	width:450px;
-	
+	align:center;
+	justify-content:center;
+
 	}
 	
-	.text-btn{
-	margin-left:55px;
-	}
+	
     </style>
 </head>
 
 
 
 <body>
-
+	
 	<img class="bg-img" src="https://images.unsplash.com/photo-1518081397142-04b89e08fdfe?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=c9ff3ee03c233de37fb5586ebefeee8a&auto=format&fit=crop&w=1050&q=80">
-   <br>
-    
+
+   	<br>
+   	
+
     <div class="container text-center" id="modal-text">
         <p align="center"id="textLogin" > Hello,<br>Selamat datang !</p>
        
@@ -191,9 +189,11 @@
                         </div>
                         <p>Click here to continue....</p>
 
-						<button class="text-btn"onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Sign In</button>
-				</div>	
-						<div id="id01" class="modal">
+						<button class="text-btn"onclick="document.getElementById('id01').style.display='block'" style="width:auto;justify-content:center;">Sign In</button>
+						</div>	
+					
+					
+						<div id="id01" class="modal centered">
 	                        <form class="modal-content animate" th:action="@{/login}" method="POST">
 								 <div class="imgcontainer">
 							      <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
@@ -217,6 +217,8 @@
 							    </div>
 	                        </form>
                     </div>
+                   
+                   
         
    <script>
 // Get the modal

@@ -6,6 +6,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -15,8 +17,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.apap.tugas_akhir_farmasi.model.MedicalSuppliesModel;
 import com.apap.tugas_akhir_farmasi.model.PerencanaanModel;
+import com.apap.tugas_akhir_farmasi.model.UserRoleModel;
 import com.apap.tugas_akhir_farmasi.service.service_interface.MedicalSuppliesService;
 import com.apap.tugas_akhir_farmasi.service.service_interface.PerencanaanService;
+import com.apap.tugas_akhir_farmasi.service.service_interface.UserRoleService;
 
 
 @Controller
@@ -28,42 +32,8 @@ public class PerencanaanController {
 	@Autowired
 	private MedicalSuppliesService medicalSuppliesService;
 	
-
-	
-	public String perencanaan(Model model){
-		List<MedicalSuppliesModel> medicalSupPerencanaan = null;
-		PerencanaanModel perencanaan = new PerencanaanModel();
-		
-		// get date now
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");  
-		java.util.Date utilDate = new java.util.Date();
-		Date date = new Date(utilDate.getTime());
-		perencanaan.setTanggal(date);
-	    
-	    String tanggalHariIni = formatter.format(date);
-		
-	    String day = tanggalHariIni.substring(tanggalHariIni.length()-2, tanggalHariIni.length());
-	    
-	    if ((Integer.parseInt(day) >= 1 && Integer.parseInt(day) <= 7) || 
-	    		(Integer.parseInt(day) >= 15 && Integer.parseInt(day) <= 21)  ) {
-	    	// get all medical supplies
-			medicalSupPerencanaan = medicalSuppliesService.findAll();
-	    }
-	    else {
-	    	// get only all urgent medical supplies
-			medicalSupPerencanaan = medicalSuppliesService.findByUrgent(); 
-	    }
-	    
-	    // get api laboratorium untuk penampilan medical supplies
-//	    BaseResponse<ArrayList<KebutuhanDetail>> baseResponse = this.getLabKebutuhan();
-	    
-//	    System.out.println(baseResponse.getResult());
-	    model.addAttribute("perencanaan", perencanaan);
-//	    model.addAttribute("listKebutuhanLab", baseResponse.getResult());
-		model.addAttribute("date_now", date);
-		model.addAttribute("medicalSupPerencanaan", medicalSupPerencanaan);
-		return "medical-sup";
-	}
+	@Autowired
+	private UserRoleService userRoleService;
 	
 	@RequestMapping(value = "/medical-supplies/perencanaan/tambah", method = RequestMethod.POST)
 	public String tambahPerencanaan(@ModelAttribute PerencanaanModel perencanaan){
@@ -81,10 +51,11 @@ public class PerencanaanController {
 		String[] statusArray = {"diajukan", "diproses", "tersedia"};
 		List<String> statusArraylist = Arrays.asList(statusArray);
 
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+	    UserRoleModel user = userRoleService.getUser(authentication.getName());
+	    model.addAttribute("user", user.getRole());
 		
 		model.addAttribute("listPlan", listPlan);
-		model.addAttribute("user", "Admin Farmasi");
-//		model.addAttribute("user", "Staf Apoteker");
 		model.addAttribute("statusPlan", statusArraylist);
 		return "tampilan-perencanaan";
 	}
