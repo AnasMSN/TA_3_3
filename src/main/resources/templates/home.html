@@ -36,12 +36,23 @@
   	padding-bottom: 3rem;
   	background-color: white;
 }
+
+
 	body{
 	/* The image used */
     background-image: url("bg.jpg");
     background-repeat: repeat;
     background-size: 90%; 
     background-attachment: fixed;
+}
+
+.back-to-top {
+	
+    cursor: pointer;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display:none;
 }
 	
 	</style>
@@ -92,11 +103,32 @@
 			 <div class="alert alert-danger alert-dismissible fade in">
 			    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 			    <strong>Invalid!</strong> Sudah terdapat akun dengan username ini.
-  		</div>
-		</div>
-	</div>
+  		    </div>
+	   </div>
+	   <div th:case="'tidakcocok'">
+				 <div class="alert alert-danger alert-dismissible fade in">
+			    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+		 		 <strong>Invalid ! </strong>Password Lama tidak cocok!
+				</div>
+			</div>
+			
+			<div th:case="'success'">
+				 <div class="alert alert-success alert-dismissible fade in">
+			    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+		 		 <strong>Sukses ! </strong> Password Berhasil diubah
+				</div>
+			</div>
+			
+			
+			<div th:case="'konfirmasi'">
+				 <div class="alert alert-danger alert-dismissible fade in">
+			    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+		 		 <strong>Invalid ! </strong> Konfirmasi password tidak cocok
+				</div>
+			</div>
+</div>
 <hr class="">
-<div class="container target">
+<div class="container-target">
     <div class="row">
         <div class="col-sm-10">
         	<h1 id="text-nama" class="nav-link" th:text="'Hello, '+${#httpServletRequest.remoteUser}+ ' !'">Login as</h1>
@@ -105,22 +137,28 @@
 				<div th:case="'Kepala Farmasi'">    
           			<button data-toggle="modal" data-target="#modalTambah" type="button" class="btn btn-warning">
 		           Tambah Akun
+		           </button> <button data-toggle="modal" data-target="#modalGantiPassword" type="button" class="btn btn-success">
+		           Ganti Password
 		           </button>
 		         </div>
 		         
 		         <div th:case="'Admin Farmasi'">    
           			<button data-toggle="modal" data-target="#modalTambah" type="button" class="btn btn-warning">
 		           Tambah Akun
+		           </button> <button data-toggle="modal" data-target="#modalGantiPassword" type="button" class="btn btn-success">
+		           Ganti Password
 		           </button>
 		         </div>
-		      </div>
+		      </div> 
+		      
+		     
            
        
            
            
 <br>
         </div>
-      <div class="col-sm-2"><a href="/users" class="pull-sright"><img title="profile image" class="img-circle img-responsive" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBG685vI07-3MsuqJxjCfzIabfFJJG-8yM-ppvjjNpD5QNtWNE4A"></a>
+      <div class="col-sm-2"><a href="/users" class="pull-right"><img title="profile image" class="img-circle img-responsive" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBG685vI07-3MsuqJxjCfzIabfFJJG-8yM-ppvjjNpD5QNtWNE4A"></a>
 
         </div>
     </div>
@@ -149,7 +187,13 @@
 				</div>
                 </div>
             </div>
+            
+   
             </form>
+            <div class="panel panel-default">
+            <div class="panel-heading"><b>API Services</b></div>
+              <div class="panel-body"> <li><a style="color:black;" th:href="@{api/daftar-medical-supplies}">Daftar Medical Supplies</a></li></div>
+		</div>
          </div>
         <div  class="col-sm-9" contenteditable="false">
          <form th:action="@{/medical-supplies/jadwal-staf/}" method ="GET">
@@ -169,7 +213,7 @@
                 <form th:action="@{/medical-supplies/}" method ="GET">
 					<div class="col-md-4">
 						<div class="thumbnail">
-							<img alt="300x200" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqIl7q2HQdQlDIs5WEcJQnP5l3cGuVSxh0ahZ4WOI0gA23pYgzfg">
+							<img style="width:500px;height:200px;"alt="300x200" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqIl7q2HQdQlDIs5WEcJQnP5l3cGuVSxh0ahZ4WOI0gA23pYgzfg">
 							<div class="caption">
 								<h3>
 									Lihat Daftar Medical Supplies 
@@ -189,7 +233,7 @@
 				<form th:action="@{/medical-supplies/permintaan/}" method ="GET">
 				<div class="col-md-4">
 					<div class="thumbnail">
-						<img alt="300x200" src="https://images.agoramedia.com/everydayhealth/gcms/What-You-Need-to-Know-About-Taking-Medications-if-You-Have-Psoriatic-Arthritis-RM-1440x810.jpg?width=722">
+						<img style="width:500px;height:180px;"alt="300x200" src="https://images.agoramedia.com/everydayhealth/gcms/What-You-Need-to-Know-About-Taking-Medications-if-You-Have-Psoriatic-Arthritis-RM-1440x810.jpg?width=722">
 						<div class="caption">
 							<h3>
 								Lihat Daftar Permintaan
@@ -208,7 +252,7 @@
 				<form th:action="@{/medical-supplies/jadwal-staf/}" method ="GET">
 				<div class="col-md-4">
 					<div class="thumbnail">
-						<img alt="300x200" src="https://assets.nhs.uk/prod/images/C0097883.2e16d0ba.fill-920x613.jpg">
+						<img alt="300x200" style="width:500px;height:200px;"src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSd3T19fmZPM3YiIoWRO4rXPqNOhI34VlTp_pcjt44x_mlVi4IV">
 						<div class="caption">
 							<h3>
 								Lihat Jadwal Staff Apoteker Jaga
@@ -280,6 +324,45 @@
 										  </div>
 										  </div>
 										</div>
+								    </div>
+								    <div class="modal-footer">
+								        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+								        <button type="submit" class="btn btn-primary">Save changes</button>
+								    </div>
+							      </form>
+							    </div>
+							  </div>
+							</div>
+							
+							<div class="modal fade" id="modalGantiPassword" tabindex="-1" role="dialog" aria-labelledby="modalTambahCenterTitle" aria-hidden="true">
+							  <div class="modal-dialog modal-dialog-centered" role="document">
+							    <div class="modal-content">
+							      <div class="modal-header">
+							        <h3 class="modal-title" id="exampleModalLongTitle">Ganti Password</h3>
+							        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							          <span aria-hidden="true">&times;</span>
+							        </button>
+							      </div>
+							      <form th:action="@{/user/updatepassword}"  method=POST>
+							      	<div class="modal-body">
+							      	  <div class="form-group">
+									    <label for="inputGantiPassword">Password Lama</label>
+									    <input type="password" class="form-control" name="passwordLama"  
+									    placeholder="Masukkan Username" required>
+									  </div>
+							          <div class="form-group">
+									    <label for="inputGantiPassword">Password Baru</label>
+									    <input type="password" class="form-control" 
+									    placeholder="Masukkan Password" pattern="(?=.*\d)(?=.*[a-zA-Z]).{8,}" 
+                        				title="Must contain at least one number and at least 8 or more characters" required name="passwordBaru"/>
+									  </div>
+									  <div class="form-group">
+									    <label for="inputGantiPassword">Konfirmasi Password</label>
+									    <input type="password" class="form-control" name="konfirmasiPassword"  
+									    placeholder="Masukkan Username" required>
+									  </div>
+									  
+									   
 								    </div>
 								    <div class="modal-footer">
 								        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
