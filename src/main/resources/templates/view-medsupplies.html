@@ -7,12 +7,13 @@
 </head>
 	
 <body>
+	<nav th:replace="fragments/fragment :: navbar"></nav>
 	<div class="container-fluid" align="center">
 		<div class ="row" align="center">
 			<div class="col-md-6" align = "center">
 				<div class="card" align ="center">
-					<div class="card-header" align ="center">
-						<h3 th:text = "'Lihat Data Medical Supplies - ' + ${medSupplies.nama}"></h3>
+					<div class="card-header" style="background-color:gray"align ="center">
+						<h4 th:text = "'Lihat Data Medical Supplies - ' + ${medSupplies.nama}"></h4>
 					</div>
 					<div class="card-body">
 						<table cellpadding ="20" align="center">
@@ -44,7 +45,7 @@
 						</tr>
 						<tr>
 							<td>
-								<form th:action="@{http://localhost:8080/medical-supplies/ubah/{idMedicalSupplies}}" method="GET">
+								<form th:action="@{'/medical-supplies/ubah/'+${medSupplies.id}}" method="GET">
 									<button value="submit" class="btn  btn-primary">Ubah</button>
 								</form>		
 							</td>

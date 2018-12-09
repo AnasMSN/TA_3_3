@@ -19,6 +19,12 @@
     </div>
   </div>
   <hr>
+  <div th:if="${message == 'berhasil'}" class="text-success">
+	Perubahan Berhasil dan Billing Berhasil dikirim
+	</div>
+	<div th:if="${message == 'gagal'}" class="text-danger">
+		Perubahan Gagal
+	</div>
   <br>
   <table id="list-all-permintaan" class="table table-striped table-bordered" style="width:100%">
         <thead>
@@ -28,18 +34,34 @@
                 <th>Jumlah Medical Supplies</th>
                 <th>Jenis Medical Supplies</th>
                 <th>Status Permintaan</th>
+                <div th:if="${user == 'Admin Farmasi'}">
+				     <th>Ganti Status Permintaan</th>
+				</div>
                 <th>Nama Apoteker</th>
                 <th>ID Pasien</th>
             </tr>
         </thead>
         <tbody>
-            <tr th:each="permintaan : ${listPermintaan}" th:object="${permintaan}">
+            <tr th:each="permintaan, iterationStatus : ${listPermintaan}" th:object="${permintaan}">
                 <td th:text="*{tanggal}"></td>
                 <td th:text="*{medicalSuppliesModel.nama}"></td>
                 <td th:text="*{jumlahMedicalSupplies}"></td>
                 <td th:text="*{medicalSuppliesModel.jenisMedicalSuppliesModel.jenisMedicalSupplies}"></td>
                 <td th:text="*{statusPermintaanModel.nama}"></td>
-                <td th:text="*{jadwalJagaModel.idStaff}"></td>
+				<div th:if="${user == 'Admin Farmasi'}">
+			     <td>
+					<form th:action="@{/medical-supplies/permintaan/ubah/__${permintaan.id}__}" method="POST">
+						<input type="hidden" name="idPasien" th:value="${permintaan.idPasien}" >
+						<input type="hidden" name="jumlah" th:value="${permintaan.jumlahMedicalSupplies}" >
+						<select name="status" class="form-control">
+						    <option th:each="status : ${statusRequest}" th:value="${status.id}" th:text="${status.nama}" th:selected="${status.id == permintaan.statusPermintaanModel.id}" />
+						</select>
+						
+						<button class="btn btn-dark" type="submit">Ubah</button>		
+					</form>				
+				</td>
+				</div>
+                <td th:text="${listStaff[__${iterationStatus.index}__].nama}"></td>
                 <td th:text="*{idPasien}"></td>
             </tr>
         </tbody>

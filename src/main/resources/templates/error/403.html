@@ -1,18 +1,26 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-	<title>404 Error</title>
+	<title>500 Error</title>
 	
 	<object th:include="fragments/fragment :: css" th:remove="tag"></object>
 	<object th:include="fragments/fragment :: js" th:remove="tag"></object>
+	<style>
+	.alert {
+    padding: 20px;
+    background-color: #f44336;
+    color: white;
+}
+	</style>
 </head>
 <body>
 	<nav th:replace="fragments/fragment :: navbar"></nav>
 	<div class="container-fluid">
   		<div class="header">
-			<div class="alert alert-danger" role="alert">
-	  			<h1>Halaman tidak ditemukan!</h1>
-	  			<h5>Anda memasukan url yang salah.</h5>
+			<div class="alert " role="alert">
+	  			
+	  			<h2>Maaf!</h2> Anda tidak memiliki akses untuk halaman ini.
+	  			
 			</div>
 			<a style="margin-left:10px;"th:href="@{'/'}" class="previous">&laquo; Back To Home</a>
 		</div>

@@ -1,11 +1,7 @@
-package com.apap.tugas_akhir_farmasi.rest;
+package com.apap.tugas_akhir_farmasi.web_service.Rest;
 
 public class BaseResponse<T> {
-
-	/**
-	 * BaseResponse
-	 */
-    private int status;
+  private int status;
     private String message;
     private T result;
     
@@ -26,7 +22,7 @@ public class BaseResponse<T> {
      */
     public T getResult() {
         return result;
-    }
+    } 
 
     /**
      * @param status the status to set

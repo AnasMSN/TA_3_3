@@ -3,7 +3,6 @@ package com.apap.tugas_akhir_farmasi.service.service_implementation;
 import com.apap.tugas_akhir_farmasi.data_model.TimeValidatorResponse;
 import com.apap.tugas_akhir_farmasi.model.JadwalJagaModel;
 
-import java.sql.Date;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;

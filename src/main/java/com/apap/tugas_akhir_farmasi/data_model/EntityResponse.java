@@ -1,8 +1,8 @@
 package com.apap.tugas_akhir_farmasi.data_model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class EntityResponse {
     @JsonProperty("result")

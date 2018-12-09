@@ -5,28 +5,39 @@
 	<title> Tambah Medical Supplies</title>
 	<object th:include="fragments/fragment :: css" th:remove="tag"></object>
 	<object th:include="fragments/fragment :: js" th:remove="tag"></object>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	
 	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
 	<script th:src="@{/js/bootstrap.min.js}"></script>
 	<script src="/js/top.js"></script>
 	<style>
-		button{
-		margin-left:200px;
+		.card-header{
+		color:black;
+		}
+
+		#buttons{
+		margin-left:150px;
 		
 		}
 		
 		.form-control{
-			width:500px;
+			width:90%;
 		}
 		
 		.row{
-			margin-left:25px;
+			
+			margin-left:0px;
 			margin-top:50px;
 			padding-bottom:20px;
 		}
 		
 		.formulir{
 			padding:20px;
+		}
+		
+		.card{
+		width:90%	;
+		justify-content: center;
+		
 		}
 		
 		.back-to-top {
@@ -37,6 +48,18 @@
     right: 20px;
     display:none;
 }
+
+.container-fluid{
+	width: 80%;
+	padding: 1rem;
+	margin-left: auto;
+  	margin-right: auto;
+  	padding-bottom: 3rem;
+  	background-color: white;
+}
+
+
+
 		
 		
 	
@@ -44,51 +67,61 @@
 	
 </head>
 
-
-
-<nav th:replace="fragments/fragment :: navbar"></nav>
 	
 <body>	
-	
-	<div  class="row">
-		<div class="col-md-6">
-			<div class="card">
-				<div class="card-header">
-					
-					<h3>Silahkan Masukan Data Medical Supplies</h3>
-					
-				</div>
-				<form class="formulir"th:action="@{/medical-supplies/sukses}" th:object="${medicalSupplies}" method="POST">
-		
-					<b>Nama :</b><br>
-					<input type="text" name="nama" class="form-control" th:value="*{nama}"/>
-					
-					<br>
-					<b>Price: </b><br>
-					<input type="number" name="price" class="form-control" th:value="*{price}"/>
-					<br>
-					<b>Jumlah:</b><br>
-					<input type="number" name="jumlah" class="form-control" th:value="*{jumlah}"/>
-					<br>
-					<b>Deskripsi:</b><br>
-					<input type="text" name="deskripsi" class="form-control" th:value="*{deskripsi}"/>
-					
-					<br>
-					<b>Jenis Medical Supplies : </b>
-					<div >
-						<select name="jenisMedicalSuppliesModel"  id="jenisMedicalSupplies" class="form-control">
-						    <option th:each="jenisMedicalSupplies: ${listJenisMedicalSupplies}" th:value="${jenisMedicalSupplies.id}" th:text="${jenisMedicalSupplies.jenisMedicalSupplies}"/>
-						</select>
+
+<nav th:replace="fragments/fragment :: navbar"></nav>
+	<div class="container-fluid">
+		  <div class="header">
+	    <div class="row">
+	      <div class="col-sm-12">
+	        <h2>Tambah Medical Supplies</h2>
+	      </div>
+	    </div>
+	    <hr>
+	  </div>
+		  
+		<div  class="row">
+			<div class="col-md-6">
+				<div class="card">
+					<div class="card-header">
+						
+						<p style="font-size:20px;font-family:"Lucida Sans Unicode", "Lucida Grande", sans-serif;" align="center">Silahkan Masukan Data</p>
+						
 					</div>
+					<form class="formulir"th:action="@{/medical-supplies/}" th:object="${medicalSupplies}" method="POST">
+			
+						<b>Nama :</b><br>
+						<input type="text" name="nama" class="form-control" th:value="*{nama}" required/>
+						
+						<br>
+						<b>Price: </b><br>
+						<input type="number" name="price" class="form-control" th:value="*{price}" required/>
+						<br>
+						<b>Jumlah:</b><br>
+						<input type="number" name="jumlah" class="form-control" th:value="*{jumlah}" required/>
+						<br>
+						<b>Deskripsi:</b><br>
+						<input type="text" name="deskripsi" class="form-control" th:value="*{deskripsi}" required/>
+						
+						<br>
+						<b>Jenis Medical Supplies : </b>
+						<div >
+							<select name="jenisMedicalSuppliesModel"  id="jenisMedicalSupplies" class="form-control">
+							    <option th:each="jenisMedicalSupplies: ${listJenisMedicalSupplies}" th:value="${jenisMedicalSupplies.id}" th:text="${jenisMedicalSupplies.jenisMedicalSupplies}"/>
+							</select>
+						</div>
+						
+						
+						
+						
+					<br>
+						<button id="buttons" style="margin-left:200px;"  type="submit" class="btn btn-primary">Submit</button>	
+					</form>
 					
 					
-					
-					
-				<br>
-					<button style="margin-left:240px;"  type="submit" class="btn btn-primary">Submit</button>	
-				</form>
-				
-				
+
+				</div>
 			</div>
 		</div>
 	</div>
