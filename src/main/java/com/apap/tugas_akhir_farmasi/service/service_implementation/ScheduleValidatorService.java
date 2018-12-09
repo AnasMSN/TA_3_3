@@ -54,8 +54,10 @@ public class ScheduleValidatorService {
     public static boolean dateValidation(JadwalJagaModel jadwalJagaModel){
         LocalDate today = LocalDate.now();
         LocalDate jadwal = jadwalJagaModel.getTanggal().toLocalDate();
-
         return today.isBefore(jadwal);
+
+
     }
+
 
 }

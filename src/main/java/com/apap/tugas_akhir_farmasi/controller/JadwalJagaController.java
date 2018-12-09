@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.apap.tugas_akhir_farmasi.service.service_implementation.ControllerHelperService.JadwalJagaControllerHelperService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -57,13 +58,19 @@ public class JadwalJagaController {
         String fieldMulai = request.getParameter("waktuMulaiField");
         String fieldSelesai = request.getParameter("waktuSelesaiField");
 
+        if (staf==null || fieldMulai==null || fieldSelesai==null){
+            String response = "Data can't be processed due a null field";
+            model.addAttribute("errorMessage",response);
+            return "error-page";
+        }
+
        jadwalJagaModel.setWaktuJaga(fieldMulai,fieldSelesai);
        jadwalJagaModel.setIdStaff(Integer.parseInt(staf));
 
         List<JadwalJagaModel> jagaStaffAll = jadwalJagaService.findByStaffId(jadwalJagaModel.getIdStaff());
         List<JadwalJagaModel> jadwalStaffMatchDate = new ArrayList<>();
         for (JadwalJagaModel jadwalJaga : jagaStaffAll){
-            if (jadwalJaga.getTanggal().equals(jadwalJaga.getTanggal())){
+            if (jadwalJaga.getTanggal().equals(jadwalJagaModel.getTanggal())){
                 jadwalStaffMatchDate.add(jadwalJaga);
             }
         }
@@ -71,7 +78,6 @@ public class JadwalJagaController {
         TimeValidatorResponse response = ScheduleValidatorService.validate(jadwalJagaModel,jadwalStaffMatchDate);
 
         if (!response.isValid()){
-            System.err.println(response.getErrorMessage());
             model.addAttribute("errorMessage",response.getErrorMessage());
             return "error-page";
         }
@@ -79,32 +85,15 @@ public class JadwalJagaController {
 
         jadwalJagaService.add(jadwalJagaModel);
 
+        JadwalJagaControllerHelperService.staffContent(model,jadwalJagaService,restAppointment);
+        model.addAttribute("successMessage","Data berhasil di tambahkan");
         return "jadwal-jaga-all";
     }
 
 
     @RequestMapping("/jadwal-staf")
     private String listAllJadwal(Model model){
-        List<JadwalJagaModel> jadwalJagaModels = jadwalJagaService.findAll();
-        HashMap<Long,String> mapper = new HashMap<>();
-        HashMap<Long,String> timeMulai = new HashMap<>();
-        HashMap<Long,String> timeSelesai = new HashMap<>();
-        HashMap<Long,Boolean> editable = new HashMap<>();
-        for (JadwalJagaModel jadwalJagaModel : jadwalJagaModels){
-            String url = Setting.urlGenerator(Integer.toString(jadwalJagaModel.getIdStaff()),Setting.getStafUrl);
-            SingleEntityResponse singleEntityResponse = restAppointment.getForObject(url,SingleEntityResponse.class);
-            mapper.put(jadwalJagaModel.getId(),singleEntityResponse.getStaf().getNama());
-            timeMulai.put(jadwalJagaModel.getId(),jadwalJagaModel.mulai());
-            timeSelesai.put(jadwalJagaModel.getId(),jadwalJagaModel.selesai());
-            editable.put(jadwalJagaModel.getId(),ScheduleValidatorService.dateValidation(jadwalJagaModel));
-        }
-
-        model.addAttribute("jadwalJaga",jadwalJagaModels);
-        model.addAttribute("stafMap",mapper);
-        model.addAttribute("mulai",timeMulai);
-        model.addAttribute("selesai",timeSelesai);
-        model.addAttribute("status",editable);
-
+        JadwalJagaControllerHelperService.staffContent(model,jadwalJagaService,restAppointment);
         return "jadwal-jaga-all";
     }
     @RequestMapping(value = "/jadwal-staf/{idJadwalStaf}")
