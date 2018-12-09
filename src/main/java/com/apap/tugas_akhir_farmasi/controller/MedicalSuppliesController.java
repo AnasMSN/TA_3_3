@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 
+
 import com.apap.tugas_akhir_farmasi.model.FlagUrgentModel;
 import com.apap.tugas_akhir_farmasi.model.JenisMedicalSuppliesModel;
 import com.apap.tugas_akhir_farmasi.model.MedicalSuppliesModel;
@@ -56,13 +57,10 @@ public class MedicalSuppliesController {
 		return new RestTemplate();
 	}
 
-	@RequestMapping(value = "/medical-supplies/", method = RequestMethod.POST)
+	@RequestMapping(value = "/medical-supplies/sukses", method = RequestMethod.POST)
 	private String addMedicalSubmit(@ModelAttribute MedicalSuppliesModel medicalSupplies, Model model) {
 		medicalSuppliesService.addMedicalSupplies(medicalSupplies);
-		List<MedicalSuppliesModel> listMedSupplies = medicalSuppliesService.getAll();
-		model.addAttribute("listMedSupplies", listMedSupplies);
-		model.addAttribute("message", "Success");
-		return "view-allmedsupplies";
+		return "sukses";
 	}
 
 	@RequestMapping(value = "/medical-supplies/tambah", method = RequestMethod.GET)
@@ -98,7 +96,7 @@ public class MedicalSuppliesController {
 	}
 	
 	@RequestMapping(value = "/medical-supplies/{idMedicalSupplies}/sukses", method = RequestMethod.POST)
-	private String updateMedicalSubmit(@PathVariable(value = "idMedicalSupplies") long id,
+	private String updatePilotSubmit(@PathVariable(value = "idMedicalSupplies") long id,
 			@ModelAttribute MedicalSuppliesModel newMedicalSuppliesModel, Model model) {
 		medicalSuppliesService.updateMedicalSupplies(newMedicalSuppliesModel, id);
 		return "sukses";
@@ -106,6 +104,7 @@ public class MedicalSuppliesController {
 	
 	@RequestMapping(value="/medical-supplies/", method=RequestMethod.GET)
 	private String viewAllMedicalSupplies(@ModelAttribute MedicalSuppliesModel medSupplies, Model model) throws IOException{
+
 		List<MedicalSuppliesModel> listMedSupplies = medicalSuppliesService.getAll();
 		
 		/*Bagian Perencanaan*/
@@ -145,7 +144,6 @@ public class MedicalSuppliesController {
 		
 		
 		model.addAttribute("listMedSupplies", listMedSupplies);
-		model.addAttribute("title", "Daftar Medical Supplies");
 		return "view-allmedsupplies";
 	}
 	
