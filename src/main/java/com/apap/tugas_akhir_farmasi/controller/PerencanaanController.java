@@ -90,7 +90,7 @@ public class PerencanaanController {
 	}
 	
 	@RequestMapping(value = "/medical-supplies/perencanaan/ganti-status", method = RequestMethod.POST)
-	public String instansiSearch(@RequestParam(value = "id") Long id, 
+	public String gantiStatusPerencanaan(@RequestParam(value = "id") Long id, 
 			@RequestParam(value = "status") String status,
 			@RequestParam(value = "jumlah") int jumlah){
 		
