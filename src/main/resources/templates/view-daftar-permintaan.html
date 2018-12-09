@@ -19,10 +19,10 @@
     </div>
   </div>
   <hr>
-  <div th:if="${message == 'berhasil'}">
-	Perubahan Berhasil
+  <div th:if="${message == 'berhasil'}" class="text-success">
+	Perubahan Berhasil dan Billing Berhasil dikirim
 	</div>
-	<div th:if="${message == 'gagal'}">
+	<div th:if="${message == 'gagal'}" class="text-danger">
 		Perubahan Gagal
 	</div>
   <br>

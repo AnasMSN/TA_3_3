@@ -103,18 +103,16 @@ public class PermintaanController {
 		permintaanService.changeStatus(permintaan, statusRequest);
 		
 		if (baseResponse != null && baseResponse.getStatus() == 200) {
-			System.out.println("berhasil c              uy");
 			redir.addFlashAttribute("message", "berhasil");
 		}
 		else if (baseResponse != null && baseResponse.getStatus() == 500) {
-			System.out.println("gagal c          uy");
 			redir.addFlashAttribute("message", "gagal");
 		}
 		else {
 			redir.addFlashAttribute("message", "noChange");
 		}
 		
-		return "redirect:/medical-supplies/permintaan";
+		return "redirect:/medical-supplies/permintaan/";
 	}
 	
 	//consumer SI Farmasi untuk request obat

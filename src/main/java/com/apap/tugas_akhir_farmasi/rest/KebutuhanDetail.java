@@ -8,22 +8,21 @@ public class KebutuhanDetail {
 	/**
 	 * Kebutuhan Detail
 	 */
-	@JsonProperty("id")
+
     private int id;
 	
-	@JsonProperty("reagen")
     private MedicalDetail reagen;
 	
-	@JsonProperty("tanggalUpdate")
     private Date tanggalUpdate;
-	
-	@JsonProperty("jumlah")
+
     private int jumlah;
-	
-	@JsonProperty("status")
+
     private int status;
+	
     
-    
+	public KebutuhanDetail() {}
+	
+	
 	public int getId() {
 		return id;
 	}
