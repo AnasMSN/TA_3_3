@@ -1,5 +1,6 @@
 package com.apap.tugas_akhir_farmasi.controller;
 
+import java.security.Principal;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -20,11 +21,13 @@ import com.apap.tugas_akhir_farmasi.model.JenisMedicalSuppliesModel;
 import com.apap.tugas_akhir_farmasi.model.MedicalSuppliesModel;
 import com.apap.tugas_akhir_farmasi.model.PerencanaanModel;
 import com.apap.tugas_akhir_farmasi.model.PermintaanModel;
+import com.apap.tugas_akhir_farmasi.model.UserRoleModel;
 import com.apap.tugas_akhir_farmasi.service.service_interface.FlagUrgentService;
 import com.apap.tugas_akhir_farmasi.service.service_interface.JenisMedicalSupplies;
 import com.apap.tugas_akhir_farmasi.service.service_interface.MedicalSuppliesService;
 import com.apap.tugas_akhir_farmasi.service.service_interface.PerencanaanService;
 import com.apap.tugas_akhir_farmasi.service.service_interface.PermintaanService;
+import com.apap.tugas_akhir_farmasi.service.service_interface.UserRoleService;
 
 @Controller
 
@@ -43,6 +46,9 @@ public class MedicalSuppliesController {
 
 	@Autowired
 	PermintaanService permintaanService;
+	
+	@Autowired
+	UserRoleService userRoleService;
 	
 	@RequestMapping(value = "/medical-supplies/permintaan", method = RequestMethod.GET)
 	public String tampilanPermintaan(Model model){
@@ -170,10 +176,12 @@ public class MedicalSuppliesController {
 	}
 	
 	@RequestMapping(value="/medical-supplies/", method=RequestMethod.GET)
-	private String viewAllMedicalSupplies(@ModelAttribute MedicalSuppliesModel medSupplies, Model model) {
+	private String viewAllMedicalSupplies(@ModelAttribute MedicalSuppliesModel medSupplies, Model model, Principal principal) {
 		List<MedicalSuppliesModel> listMedSupplies = medicalSuppliesService.getAll();
 		model.addAttribute("listMedSupplies", listMedSupplies);
 		model.addAttribute("title", "Daftar Medical Supplies");
+		UserRoleModel user = userRoleService.getUser(principal.getName());
+		model.addAttribute("user", user);
 		return "view-allmedsupplies";
 	}
 	
