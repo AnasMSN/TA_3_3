@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 	<head>
-		<title th:fragment="title" th:text="${title}">uvvuveve</title>
+		<title th:fragment="title" th:text="${title}"></title>
 		
 		<head th:fragment="css">
 			<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
@@ -16,21 +16,51 @@
     		<script th:src="@{/DataTables-1.10.18/js/jquery.dataTables.min.js}"></script>
     		<script th:src="@{/DataTables-1.10.18/js/dataTables.bootstrap4.min.js}"></script>
 		</head>
+	
 	</head>
+	
+	
+	
 	<body>
-	   <nav  th:fragment="navbar" class="navbar navbar-expand-lg fixed-top navbar-light bg-light" id="nav">
-	    <a class="navbar-brand" href="#">Farmasi</a>
-	    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-	    <span class="navbar-toggler-icon"></span>
-	    </button>
-	      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-	        <div class="navbar-nav">
-	          <a class="nav-item nav-link" th:href="@{/}">Home</a>
-	          <a class="nav-item nav-link" th:href="@{/medical-supplies/}">Lihat Daftar Medical Supplies</a>
-	          <a class="nav-item nav-link" th:href="@{/medical-supplies/permintaan/}">Lihat Daftar Permintaan</a>
-            <a class="nav-link pull-rght" th:href="@{/logout}">Logout</a>
-	        </div>
-	      </div>
-	  	</nav>
+
+		<nav th:fragment="navbar" class="navbar navbar-expand-lg navbar-dark " style="background-color:#32c69a;padding-top:20px;padding-bottom:20px;">
+			
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav mr-auto">
+					
+						<a class="nav-link" style="color:white;margin-left:50px;"th:href="@{'/'}"> Home</a>
+					
+					
+						<a class="nav-link" style="color:white;"th:href="@{/medical-supplies/}">Lihat Daftar Medical Supplies</a>
+				
+					
+					
+						 <a class="nav-link" style="color:white;"th:href="@{/medical-supplies/permintaan}">Lihat Daftar Permintaan</a>
+						
+						
+						
+						<div class="dropdown">
+						  <button class="dropbtn">
+						  
+							
+							<h5 id="text-nama" class="nav-link" style="color:white;"th:text="'Hello, ' + ${#httpServletRequest.remoteUser}+ ' !'">Login as</h5>
+						
+						</button>
+						  <div class="dropdown-content">
+						    <a href="#">Role : Admin</a>
+						    <a href="#">Previliage: All</a>
+						    <a th:href="@{/logout}">Logout</a>
+  						</div>
+						</div>
+						<img class="img-akun"src="https://image.flaticon.com/icons/png/512/164/164641.png">
+					
+					
+					
+				</ul>
+			</div>
+		</nav>
 	</body>
+	
+	   
+	  
 </html>

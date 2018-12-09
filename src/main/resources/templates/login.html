@@ -6,40 +6,229 @@
 
     <object th:include="fragments/fragment :: css" th:remove="tag"></object>
     <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+    <style>
+   #textLogin{
+	
+	color:white;
+	width:475px;
+	
+	margin-top:100px;	
+	font-size:50px;
+	
+	}	
+	body{
+	background-color:black;
+	font-family: Arial, Helvetica, sans-serif;
+	}
+	.bg-img{
+	height: 100%; 
+	width:100%;
+	opacity:0.5;
+	    /* Center and scale the image nicely */
+	    background-position: center;
+	    background-repeat: no-repeat;
+	    background-size: cover;
+	    position:fixed;
+	}
+    
+   
+
+	/* Full-width input fields */
+	input[type=text], input[type=password] {
+	    width: 100%;
+	    padding: 12px 20px;
+	    margin: 8px 0;
+	    display: inline-block;
+	    border: 1px solid #ccc;
+	    box-sizing: border-box;
+	}
+	
+	/* Set a style for all buttons */
+	button {
+	    background-color: #4CAF50;
+	    color: white;
+	    padding: 14px 20px;
+	    margin: 8px 0;
+	    border: none;
+	    cursor: pointer;
+	    width: 100%;
+	}
+	
+	button:hover {
+	    opacity: 0.8;
+	}
+	
+	/* Extra styles for the cancel button */
+	.cancelbtn {
+	    width: auto;
+	    padding: 10px 18px;
+	    background-color: #f44336;
+	}
+	
+	/* Center the image and position the close button */
+	.imgcontainer {
+	    text-align: center;
+	    margin: 24px 0 12px 0;
+	    position: relative;
+	}
+	
+	img.avatar {
+	    width: 40%;
+	    border-radius: 50%;
+	}
+	
+	.container {
+	    padding: 16px;
+	}
+	
+	span.psw {
+	    float: right;
+	    padding-top: 16px;
+	}
+	
+	/* The Modal (background) */
+	.modal {
+	    display: none; /* Hidden by default */
+	    position: fixed; /* Stay in place */
+	    z-index: 1; /* Sit on top */
+	    left: 0;
+	    top: 0;
+	    width: 100%; /* Full width */
+	    height: 100%; /* Full height */
+	    overflow: auto; /* Enable scroll if needed */
+	    background-color: rgb(0,0,0); /* Fallback color */
+	    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+	    padding-top: 60px;
+	}
+	
+	/* Modal Content/Box */
+	.modal-content {
+	    background-color: #fefefe;
+	    margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+	    border: 1px solid #888;
+	    width: 80%; /* Could be more or less, depending on screen size */
+	}
+	
+	/* The Close Button (x) */
+	.close {
+	    position: absolute;
+	    right: 25px;
+	    top: 0;
+	    color: #000;
+	    font-size: 35px;
+	    font-weight: bold;
+	}
+	
+	#id01{
+	
+
+	}
+	
+	.close:hover,
+	.close:focus {
+	    color: red;
+	    cursor: pointer;
+	}
+	
+	/* Add Zoom Animation */
+	.animate {
+	    -webkit-animation: animatezoom 0.6s;
+	    animation: animatezoom 0.6s
+	}
+	
+	@-webkit-keyframes animatezoom {
+	    from {-webkit-transform: scale(0)} 
+	    to {-webkit-transform: scale(1)}
+	}
+	    
+	@keyframes animatezoom {
+	    from {transform: scale(0)} 
+	    to {transform: scale(1)}
+	}
+	
+	/* Change styles for span and cancel button on extra small screens */
+	@media screen and (max-width: 300px) {
+	    span.psw {
+	       display: block;
+	       float: none;
+	    }
+	    .cancelbtn {
+	       width: 100%;
+	    }
+	}
+	
+	
+	
+	#modal-text{
+	position:relative;
+	font-size:20px;
+	color:white;
+	width:450px;
+	
+	}
+	
+	.text-btn{
+	margin-left:55px;
+	}
+    </style>
 </head>
 
+
+
 <body>
+
+	<img class="bg-img" src="https://images.unsplash.com/photo-1518081397142-04b89e08fdfe?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=c9ff3ee03c233de37fb5586ebefeee8a&auto=format&fit=crop&w=1050&q=80">
    <br>
-    <div class="container-fluid">
-        <h2 > Hello, Selamat datang !</h2>
-        <div class="row">
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="card-header">
-                        Log In
-                    </div>
-                    <div class="card-body">
+    
+    <div class="container text-center" id="modal-text">
+        <p align="center"id="textLogin" > Hello,<br>Selamat datang !</p>
+       
+                
+                    
+                    
                         <div th:if="${param.error}">
                             <span style="color: red">Invalid username or password</span>
                         </div>
-                        <form th:action="@{/login}" method="POST">
-                            <div class="row form-group">
-                                <label class="col-sm-4">Username:</label>
-                                <input type="text" class="col-sm-8 form-control input-sm" name="username">
-                            </div>
-                            <div class="row form-group">
-                                <label class="col-sm-4">Password:</label>
-                                <input type="password" class="col-sm-8 form-control input-sm" name="password">
-                            </div>
-                            <div class="row form-group">
-                                <button type="submit" class="btn btn-primary">Sign In</button>
-                            </div>
-                        </form>
+                        <p>Click here to continue....</p>
+
+						<button class="text-btn"onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Sign In</button>
+				</div>	
+						<div id="id01" class="modal">
+	                        <form class="modal-content animate" th:action="@{/login}" method="POST">
+								 <div class="imgcontainer">
+							      <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+							      <img style="width:85px;height:85px;"src="https://image.flaticon.com/icons/png/512/164/164641.png" alt="Avatar" class="avatar">
+							    </div>
+							
+							    <div class="container">
+							      <label for="uname"><b>Username</b></label>
+							      <input type="text" placeholder="Enter Username" name="username" required>
+							
+							      <label for="psw"><b>Password</b></label>
+							      <input type="password" placeholder="Enter Password" name="password" required>
+							        
+							      <button type="submit">Login</button>
+							    
+							    </div>
+							
+							    <div class="container" style="background-color:#f1f1f1">
+							      <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
+							      
+							    </div>
+	                        </form>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
+        
+   <script>
+// Get the modal
+var modal = document.getElementById('id01');
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+</script>
 </body>
 
 </html>

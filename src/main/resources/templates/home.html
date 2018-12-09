@@ -5,30 +5,58 @@
 	
 	<object th:include="fragments/fragment :: css" th:remove="tag"></object>
 	<object th:include="fragments/fragment :: js" th:remove="tag"></object>
+	<script th:src="@{/js/bootstrap.min.js}"></script>
+	<script src="/js/top.js"></script>
+	
+	
 </head>
 <body>
-	<nav th:replace="fragments/fragment :: navbar"></nav>
+<div class="upper-header">
+	<div class="left">
+		RS.CEPAT SEMBUH
+		<img class="img-farmasi"src="https://image.flaticon.com/icons/png/512/33/33777.png">
+		
+		<a class="right-nav1" href="#">APAP | </a>
+		<a class="right-nav2"href="#">Kelompok 3-3 |</a></li>
+		<a class="right-nav3"href="#"><img style="width:20px; height:20px;"src="https://img.icons8.com/metro/1600/phone.png">081513565572</a></li>
+		
+	</div>
+</div>
+<nav th:replace="fragments/fragment :: navbar"></nav>
+<div class="header-gambar">
+ <img class="img-first" style="width:100%;height:600px;"; src="https://www.rd.com/wp-content/uploads/2017/09/02_doctor_Insider-Tips-to-Choosing-the-Best-Primary-Care-Doctor_519507367_Stokkete.jpg">
+  <div class="text-block"> 
+    <p id="title">Pharmacy</h2>
+    <p id="isi">Find your medicine need right here, We have the best collection!</p>
+  <a href="#fitur"><button class="button-5">Start Explore</button></a>
+  </div>
+</div>
 
+	
 <!--main-->
 <div class="container-fluid">
   <div class="header">
     <div class="row">
       <div class="col-sm-12">
-        <h2 th:text="'Hello ' + ${#httpServletRequest.remoteUser}+ ' !'">Login as</h2>
-        <h1>Sistem Informasi Farmasi</h1>
-        <p>Selamat Datang di SI Farmasi Rumah Sakit Cepat Sembuh</p>
+       <h2 id="fitur">Our Features</h2>
       </div>
     </div>
   </div>
+  
+
   <hr>
   <br>
   <div class = "row">
 	  <div class="card-deck">
 	  	<!-- List All Med Supplies -->
 	  	<form th:action="@{/medical-supplies/}" method ="GET">
-	  		<div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
+	  		<div class="card" style="max-width: 18rem;">
+	  		 
 			  <div class="card-header">Lihat Daftar Medical Supplies</div>
+			   <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqIl7q2HQdQlDIs5WEcJQnP5l3cGuVSxh0ahZ4WOI0gA23pYgzfg" alt="">
+			  
 			  <div class="card-body">
+			  	
 			    <p class="card-text">Fitur ini  menampilkan daftar seluruh medical supplies</p>
 			    <button type="submit" class="btn btn-outline-info btn-home">Lihat</button>
 			  </div>
@@ -37,19 +65,24 @@
 
 	  	<!-- Tambah Med Supplies -->
 	  	<form th:action="@{/medical-supplies/tambah}" method ="GET">
-	  		<div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
+	  		<div class="card " style="max-width: 18rem;">
 			  <div class="card-header">Tambah Medical Supplies</div>
+			  <img class="card-image" src="https://www.newsfirst.lk/wp-content/uploads/2016/03/medicine-768x382.jpg" alt="">
 			  <div class="card-body">
 			    <p class="card-text">Fitur ini menambahkan medical supplies ke dalam inventaris medical supplies</p>
 			    <button type="submit" class="btn btn-outline-info btn-home">Tambah</button>
 			  </div>
 			 </div>
 		</form>
-	
+		
+		
 	  	<!-- List All Permintaan -->
 	  	<form th:action="@{/medical-supplies/permintaan/}" method ="GET">
-	  		<div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
-			  <div class="card-header">Lihat Daftar Permintaan</div>
+	  		<div class="card " style="max-width: 18rem;">
+	  		
+	  		  <div class="card-header">Lihat Daftar Permintaan</div>
+	  		<img class="card-image" src="https://images.agoramedia.com/everydayhealth/gcms/What-You-Need-to-Know-About-Taking-Medications-if-You-Have-Psoriatic-Arthritis-RM-1440x810.jpg?width=722" alt="">
+			
 			  <div class="card-body">
 			    <p class="card-text">Fitur ini menampilkan daftar permintaan medical supplies yang diminta oleh SI Rawat Inap</p>
 			    <button type="submit" class="btn btn-outline-info btn-home">Lihat</button>
@@ -63,8 +96,10 @@
   	  <div class="card-deck">
   	  	 <!-- Buat Jadwal Jaga -->
   	     <form th:action="@{/medical-supplies/jadwal-staf/tambah/}" method ="GET">
-	  		<div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
+	  		<div class="card" style="max-width: 18rem;">
+	  		
 			  <div class="card-header">Membuat Jadwal Staf Apoteker Jaga</div>
+			  <img class="card-image" src="https://ak5.picdn.net/shutterstock/videos/22544845/thumb/1.jpg" alt="">
 			  <div class="card-body">
 			    <p class="card-text">Fitur ini membantu Anda membuat jadwal staf apoteker jaga</p>
 			    <button type="submit" class="btn btn-outline-info btn-home">Tambah</button>
@@ -74,8 +109,10 @@
 	  	
 	  	<!-- List All Jadwal Jaga -->
 	  	<form th:action="@{/medical-supplies/jadwal-staf/}" method ="GET">
-	  		<div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
+	  	
+	  		<div class="card " style="max-width: 18rem;">
 			  <div class="card-header">Lihat Jadwal Staf Apoteker Jaga</div>
+			  <img class="card-image" src="https://gi.md/uploads/pharmacy.jpg" alt="">
 			  <div class="card-body">
 			    <p class="card-text">Fitur ini menampilkan jadwal staf apoteker jaga</p>
 			    <button type="submit" class="btn btn-outline-info btn-home">Lihat</button>
@@ -85,7 +122,11 @@
   	  </div>
   </div>
   
+  
+  <a id="back-to-top" href="#" class="btn btn-primary btn-lg back-to-top" role="button" title="Click to return on the top page" data-toggle="tooltip" data-placement="left"><span class="glyphicon glyphicon-chevron-up">^</span></a>
+  
 
 </div>
 </body>
+
 </html>

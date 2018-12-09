@@ -1,5 +1,7 @@
 package com.apap.tugas_akhir_farmasi.service.service_implementation;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,18 @@ public class StatusPermintaanServiceImpl implements StatusPermintaanService {
 	@Override
 	public StatusPermintaanModel getStatusPermintaanDetailByNama(String nama) {
 		return statusPermintaanDb.findByNama(nama);
+	}
+
+	@Override
+	public List<StatusPermintaanModel> findAll() {
+		// TODO Auto-generated method stub
+		return statusPermintaanDb.findAll();
+	}
+
+	@Override
+	public StatusPermintaanModel findById(int status) {
+		// TODO Auto-generated method stub
+		return statusPermintaanDb.findById(status);
 	}
 
 }

@@ -1,15 +1,18 @@
 package com.apap.tugas_akhir_farmasi.rest;
 
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class BaseResponse<T> {
+public class BaseResponseList<T> {
 
 	/**
 	 * BaseResponse
 	 */
     private int status;
     private String message;
-    private T result;
+    @JsonProperty("result")
+    private List<T> result;
     
     /**
      * @return the status
@@ -26,9 +29,7 @@ public class BaseResponse<T> {
     /**
      * @return the result
      */
-    public T getResult() {
-        return result;
-    }
+
 
     /**
      * @param status the status to set
@@ -45,7 +46,12 @@ public class BaseResponse<T> {
     /**
      * @param result the result to set
      */
-    public void setResult(T result) {
-        this.result = result;
-    }
+	public List<T> getResult() {
+		return result;
+	}
+	public void setResult(List<T> result) {
+		this.result = result;
+	}
+
+    
 }

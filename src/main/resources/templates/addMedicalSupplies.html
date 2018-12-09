@@ -10,7 +10,11 @@
 	<script th:src="@{/js/bootstrap.min.js}"></script>
 	<script src="/js/top.js"></script>
 	<style>
-		button{
+		.card-header{
+		color:black;
+		}
+	
+		#buttons{
 		margin-left:200px;
 		
 		}
@@ -20,13 +24,19 @@
 		}
 		
 		.row{
-			margin-left:25px;
+			
+			margin-left:0px;
 			margin-top:50px;
 			padding-bottom:20px;
 		}
 		
 		.formulir{
 			padding:20px;
+		}
+		
+		.card{
+		width:550px;
+		margin-left:100px;
 		}
 		
 		.back-to-top {
@@ -37,6 +47,10 @@
     right: 20px;
     display:none;
 }
+
+.container-fluid{
+width:800px;
+}
 		
 		
 	
@@ -44,51 +58,70 @@
 	
 </head>
 
-
-
-<nav th:replace="fragments/fragment :: navbar"></nav>
 	
 <body>	
-	
-	<div  class="row">
-		<div class="col-md-6">
-			<div class="card">
-				<div class="card-header">
+<div class="upper-header">
+	<div class="left">
+		RS.CEPAT SEMBUH
+		<img class="img-farmasi"src="https://image.flaticon.com/icons/png/512/33/33777.png">
+		
+		<a class="right-nav1" href="#">APAP | </a>
+		<a class="right-nav2"href="#">Kelompok 3-3 |</a></li>
+		<a class="right-nav3"href="#"><img style="width:20px; height:20px;"src="https://img.icons8.com/metro/1600/phone.png">081513565572</a></li>
+		
+	</div>
+</div>
+<nav th:replace="fragments/fragment :: navbar"></nav>
+	<div class="container-fluid">
+		  <div class="header">
+	    <div class="row">
+	      <div class="col-sm-12">
+	        <h2>Tambah Medical Supplies</h2>
+	      </div>
+	    </div>
+	    <hr>
+	  </div>
+		  
+		<div  class="row">
+			<div class="col-md-6">
+				<div class="card">
+					<div class="card-header">
+						
+						<p style="font-size:20px;font-family:"Lucida Sans Unicode", "Lucida Grande", sans-serif;" align="center">Silahkan Masukan Data</p>
+						
+					</div>
+					<form class="formulir"th:action="@{/medical-supplies/}" th:object="${medicalSupplies}" method="POST">
+			
+						<b>Nama :</b><br>
+						<input type="text" name="nama" class="form-control" th:value="*{nama}" required/>
+						
+						<br>
+						<b>Price: </b><br>
+						<input type="number" name="price" class="form-control" th:value="*{price}" required/>
+						<br>
+						<b>Jumlah:</b><br>
+						<input type="number" name="jumlah" class="form-control" th:value="*{jumlah}" required/>
+						<br>
+						<b>Deskripsi:</b><br>
+						<input type="text" name="deskripsi" class="form-control" th:value="*{deskripsi}" required/>
+						
+						<br>
+						<b>Jenis Medical Supplies : </b>
+						<div >
+							<select name="jenisMedicalSuppliesModel"  id="jenisMedicalSupplies" class="form-control">
+							    <option th:each="jenisMedicalSupplies: ${listJenisMedicalSupplies}" th:value="${jenisMedicalSupplies.id}" th:text="${jenisMedicalSupplies.jenisMedicalSupplies}"/>
+							</select>
+						</div>
+						
+						
+						
+						
+					<br>
+						<button id="buttons" style="margin-left:240px;"  type="submit" class="btn btn-primary">Submit</button>	
+					</form>
 					
-					<h3>Silahkan Masukan Data Medical Supplies</h3>
 					
 				</div>
-				<form class="formulir"th:action="@{/medical-supplies/sukses}" th:object="${medicalSupplies}" method="POST">
-		
-					<b>Nama :</b><br>
-					<input type="text" name="nama" class="form-control" th:value="*{nama}"/>
-					
-					<br>
-					<b>Price: </b><br>
-					<input type="number" name="price" class="form-control" th:value="*{price}"/>
-					<br>
-					<b>Jumlah:</b><br>
-					<input type="number" name="jumlah" class="form-control" th:value="*{jumlah}"/>
-					<br>
-					<b>Deskripsi:</b><br>
-					<input type="text" name="deskripsi" class="form-control" th:value="*{deskripsi}"/>
-					
-					<br>
-					<b>Jenis Medical Supplies : </b>
-					<div >
-						<select name="jenisMedicalSuppliesModel"  id="jenisMedicalSupplies" class="form-control">
-						    <option th:each="jenisMedicalSupplies: ${listJenisMedicalSupplies}" th:value="${jenisMedicalSupplies.id}" th:text="${jenisMedicalSupplies.jenisMedicalSupplies}"/>
-						</select>
-					</div>
-					
-					
-					
-					
-				<br>
-					<button style="margin-left:240px;"  type="submit" class="btn btn-primary">Submit</button>	
-				</form>
-				
-				
 			</div>
 		</div>
 	</div>
