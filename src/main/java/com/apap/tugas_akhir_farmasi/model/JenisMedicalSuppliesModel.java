@@ -1,6 +1,7 @@
 package com.apap.tugas_akhir_farmasi.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -29,6 +30,7 @@ public class JenisMedicalSuppliesModel implements Serializable {
     @JsonIgnore
     private FlagUrgentModel flagUrgentModel;
     
+
 	public long getId() {
 		return id;
 	}
