@@ -209,34 +209,7 @@ padding-top:100px;}
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <div class="pr-wrap">
-                <div class="pass-reset">
-                    <label><h4>Tambah Akun Baru</label><h4>
-                        
-                        <form th:action="@{/user/addUser}"  method=POST>
-                   <div class="form-group">
-									   <label id="labelLogin"><b>Username</b></label>
-									    <input type="text" class="form-control" name="username"  
-									    placeholder="Masukkan Username" required>
-									  </div>
-                   
-                    <div class="form-group">
-									    <label id="labelLogin">Password</label>
-									    <input type="password" class="form-control" 
-									    placeholder="Masukkan Password" pattern="(?=.*\d)(?=.*[a-zA-Z]).{8,}" 
-                        		title="Must contain at least one number and at least 8 or more characters" required name="password"/>
-									  </div>
-							   <label id="labelLogin">Role</label>
-										    <input type="text" class="form-control" value="Admin Farmasi"name="role" 
-										    placeholder="Masukkan Role" readonly>
-							 <input type="submit" value="Submit" class="create-account-submit btn btn-success btn-sm" />
-							    <a href="#"data-toggle="modal" data-target="#modalTambah" >
-		           					Create New Account?
-		           				</a>
-                       </form>
-                       
-                </div>
-            </div>
+            
             <div class="wrap">
             	
                 <p class="form-title">
@@ -257,7 +230,7 @@ padding-top:100px;}
             </div>
         </div>
     </div>
-    <div th:replace="fragments/modal-tambahakunlogin :: modal-tambahakunlogin"></div> 
+    
 </div>
  
 </body>
