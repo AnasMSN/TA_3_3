@@ -16,6 +16,7 @@ public interface MedicalSuppliesService {
 	MedicalSuppliesModel getMedicalSuppliesDetailsByNama(String nama);
 	List<MedicalSuppliesModel> getAll();
 	MedicalSuppliesModel getMedicalSuppliesById(long id);
-	public int addMedicalSuppliesToRawatJalan(MedicalSuppliesModel medSupp, String nama, int jumlah) throws IOException ;
-	public Boolean cekStatusMedicalSupplies(String nama);
+	Boolean cekStatusMedicalSupplies(String nama);
+	int addMedicalSuppliesToRawatJalan(MedicalSuppliesModel medSupp, String nama, int jumlah) throws IOException;
+
 }
