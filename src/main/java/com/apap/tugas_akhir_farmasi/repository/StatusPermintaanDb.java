@@ -9,4 +9,5 @@ import com.apap.tugas_akhir_farmasi.model.StatusPermintaanModel;
 public interface StatusPermintaanDb extends JpaRepository<StatusPermintaanModel,Integer> {
     StatusPermintaanModel findById(int id);
     StatusPermintaanModel findByNama(String nama);
+    StatusPermintaanModel findByNamaContainingIgnoreCase(String nama);
 }

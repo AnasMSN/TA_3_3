@@ -19,7 +19,7 @@ public class StatusPermintaanServiceImpl implements StatusPermintaanService {
 	
 	@Override
 	public StatusPermintaanModel getStatusPermintaanDetailByNama(String nama) {
-		return statusPermintaanDb.findByNama(nama);
+		return statusPermintaanDb.findByNamaContainingIgnoreCase(nama);
 	}
 
 	@Override
