@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-	<title>500 Error</title>
+	<title>No Access</title>
 	
 	<object th:include="fragments/fragment :: css" th:remove="tag"></object>
 	<object th:include="fragments/fragment :: js" th:remove="tag"></object>
@@ -22,8 +22,7 @@
 	  			<h2>Maaf!</h2> Anda tidak memiliki akses untuk halaman ini.
 	  			
 			</div>
-			<button class="button button5">
-			<a style="margin-left:10px;"th:href="@{'/'}" class="previous">&laquo; Back To Home</a></button>
+			<a style="margin-left:10px;"th:href="@{'/'}" class="previous">&laquo; Back To Home</a>
 		</div>
 	</div>
 </body>
