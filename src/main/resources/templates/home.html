@@ -1,121 +1,378 @@
 <!doctype html>
+
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-	<title th:replace="fragments/fragment :: title"></title>
+<title>Home</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>	
+	<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+	<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 	
-	<object th:include="fragments/fragment :: css" th:remove="tag"></object>
-	<object th:include="fragments/fragment :: js" th:remove="tag"></object>
 	<script th:src="@{/js/bootstrap.min.js}"></script>
 	<script src="/js/top.js"></script>
 	
+	<style>
+	a{
+	color:white;
+	}
 	
+	a:hover{
+	background-color:white;
+	}
+	
+	
+	.icon-bar {
+  color: white;
+  border-color: white;
+  background-color: white;
+	}
+	
+	.container-fluidd{
+	width: 80%;
+	padding: 1rem;
+	margin-left: auto;
+  	margin-right: auto;
+  	padding-bottom: 3rem;
+  	background-color: white;
+}
+
+
+	body{
+	/* The image used */
+    background-image: url("bg.jpg");
+    background-repeat: repeat;
+    background-size: 90%; 
+    background-attachment: fixed;
+}
+
+.back-to-top {
+	
+    cursor: pointer;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display:none;
+}
+	
+	</style>
 </head>
 <body>
-<div class="upper-header">
-	<div class="left">
-		RS.CEPAT SEMBUH
-		<img class="img-farmasi"src="https://image.flaticon.com/icons/png/512/33/33777.png">
-		
-		<a class="right-nav1" >APAP | </a>
-		<a class="right-nav2">Kelompok 3-3 |</a></li>
-		
-	</div>
-</div>
-<nav th:replace="fragments/fragment :: navbar"></nav>	
-<!--main-->
-<div class="container-fluid">
-  <div class="header">
-    <div class="row">
-      <div class="col-sm-12">
-       <h2 id="fitur">Our Features</h2>
-      </div>
+
+<nav class="navbar navbar-fixed-top" style="background-color:#32c69a;" >
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar" 	></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>   
+                             
+      </button>
+      <a class="navbar-brand" href="#">Farmasi</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li class="active" ><a href="#" >Home</a></li>
+        <li><a th:href="@{/medical-supplies/}" >Lihat Medical Supplies</a></li>
+        <li><a th:href="@{/medical-supplies/perencanaan}" >Lihat Perencanaan</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+       <li><span style="color:white;padding-top:12px;font-size:16px;"class="glyphicon glyphicon-user" th:text="' Hello, '+${#httpServletRequest.remoteUser}"></span></p>
+       </li>
+     
+        <li><a th:href="@{/logout}"><span class="glyphicon glyphicon-off"></span> Logout</a></li>
+      </ul>
+
     </div>
   </div>
-  
+</nav>
+<br>
+<br>
 
-  <hr>
-  <br>
-  <div class = "row">
-	  <div class="card-deck">
-	  	<!-- List All Med Supplies -->
-	  	<form th:action="@{/medical-supplies/}" method ="GET">
-	  		<div class="card" style="max-width: 18rem;">
-	  		 
-			  <div class="card-header">Lihat Daftar Medical Supplies</div>
-			   <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqIl7q2HQdQlDIs5WEcJQnP5l3cGuVSxh0ahZ4WOI0gA23pYgzfg" alt="">
-			  
-			  <div class="card-body">
-			  	
-			    <p class="card-text">Fitur ini  menampilkan daftar seluruh medical supplies</p>
-			    <button type="submit" class="btn btn-outline-info btn-home">Lihat</button>
+<div class="container-fluidd">
+<br>
+<div th:switch="${message}">
+		<div th:case="'Success'">
+			 <div class="alert alert-success alert-dismissible fade in">
+			    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+			    <strong>Success!</strong> Akun Baru Berhasil ditambahkan.
 			  </div>
-			 </div>
-		</form>
-
-	  	<!-- Tambah Med Supplies -->
-	  	<form th:action="@{/medical-supplies/tambah}" method ="GET">
-	  		<div class="card " style="max-width: 18rem;">
-			  <div class="card-header">Tambah Medical Supplies</div>
-			  <img class="card-image" src="https://www.newsfirst.lk/wp-content/uploads/2016/03/medicine-768x382.jpg" alt="">
-			  <div class="card-body">
-			    <p class="card-text">Fitur ini menambahkan medical supplies ke dalam inventaris medical supplies</p>
-			    <button type="submit" class="btn btn-outline-info btn-home">Tambah</button>
-			  </div>
-			 </div>
-		</form>
+		</div>
 		
-		
-	  	<!-- List All Permintaan -->
-	  	<form th:action="@{/medical-supplies/permintaan/}" method ="GET">
-	  		<div class="card " style="max-width: 18rem;">
-	  		
-	  		  <div class="card-header">Lihat Daftar Permintaan</div>
-	  		<img class="card-image" src="https://images.agoramedia.com/everydayhealth/gcms/What-You-Need-to-Know-About-Taking-Medications-if-You-Have-Psoriatic-Arthritis-RM-1440x810.jpg?width=722" alt="">
+		<div th:case="'Failed'">
+			 <div class="alert alert-danger alert-dismissible fade in">
+			    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+			    <strong>Invalid!</strong> Sudah terdapat akun dengan username ini.
+  		    </div>
+	   </div>
+	   <div th:case="'tidakcocok'">
+				 <div class="alert alert-danger alert-dismissible fade in">
+			    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+		 		 <strong>Invalid ! </strong>Password Lama tidak cocok!
+				</div>
+			</div>
 			
-			  <div class="card-body">
-			    <p class="card-text">Fitur ini menampilkan daftar permintaan medical supplies yang diminta oleh SI Rawat Inap</p>
-			    <button type="submit" class="btn btn-outline-info btn-home">Lihat</button>
-			  </div>
-			 </div>
-		</form>
-	  </div>
-  </div>
+			<div th:case="'success'">
+				 <div class="alert alert-success alert-dismissible fade in">
+			    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+		 		 <strong>Sukses ! </strong> Password Berhasil diubah
+				</div>
+			</div>
+			
+			
+			<div th:case="'konfirmasi'">
+				 <div class="alert alert-danger alert-dismissible fade in">
+			    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+		 		 <strong>Invalid ! </strong> Konfirmasi password tidak cocok
+				</div>
+			</div>
+</div>
+<hr class="">
+<div class="container-target">
+    <div class="row">
+        <div class="col-sm-10">
+        	<h1 id="text-nama" class="nav-link" th:text="'Hello, '+${#httpServletRequest.remoteUser}+ ' !'">Login as</h1>
+          
+			<div th:switch="${user.role}">
+				<div th:case="'Kepala Farmasi'">    
+          			<button data-toggle="modal" data-target="#modalTambah" type="button" class="btn btn-warning">
+		           Tambah Akun
+		           </button> <button data-toggle="modal" data-target="#modalGantiPassword" type="button" class="btn btn-success">
+		           Ganti Password
+		           </button>
+		         </div>
+		         
+		         <div th:case="'Admin Farmasi'">    
+          			<button data-toggle="modal" data-target="#modalTambah" type="button" class="btn btn-warning">
+		           Tambah Akun
+		           </button> <button data-toggle="modal" data-target="#modalGantiPassword" type="button" class="btn btn-success">
+		           Ganti Password
+		           </button>
+		         </div>
+		      </div> 
+		      
+		     
+           
+       
+           
+           
+<br>
+        </div>
+      <div class="col-sm-2"><a href="/users" class="pull-right"><img title="profile image" class="img-circle img-responsive" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBG685vI07-3MsuqJxjCfzIabfFJJG-8yM-ppvjjNpD5QNtWNE4A"></a>
+
+        </div>
+    </div>
   <br>
-  <div class = "row">
-  	  <div class="card-deck">
-  	  	 <!-- Buat Jadwal Jaga -->
-  	     <form th:action="@{/medical-supplies/jadwal-staf/tambah/}" method ="GET">
-	  		<div class="card" style="max-width: 18rem;">
-	  		
-			  <div class="card-header">Membuat Jadwal Staf Apoteker Jaga</div>
-			  <img class="card-image" src="https://ak5.picdn.net/shutterstock/videos/22544845/thumb/1.jpg" alt="">
-			  <div class="card-body">
-			    <p class="card-text">Fitur ini membantu Anda membuat jadwal staf apoteker jaga</p>
-			    <button type="submit" class="btn btn-outline-info btn-home">Tambah</button>
-			  </div>
-			 </div>
-		 </form>
-	  	
-	  	<!-- List All Jadwal Jaga -->
-	  	<form th:action="@{/medical-supplies/jadwal-staf/}" method ="GET">
-	  	
-	  		<div class="card " style="max-width: 18rem;">
-			  <div class="card-header">Lihat Jadwal Staf Apoteker Jaga</div>
-			  <img class="card-image" src="https://gi.md/uploads/pharmacy.jpg" alt="">
-			  <div class="card-body">
-			    <p class="card-text">Fitur ini menampilkan jadwal staf apoteker jaga</p>
-			    <button type="submit" class="btn btn-outline-info btn-home">Lihat</button>
-			  </div>
-			 </div>
-		</form>
-  	  </div>
-  </div>
-  
-  
-  <a id="back-to-top" href="#" class="btn btn-primary btn-lg back-to-top" role="button" title="Click to return on the top page" data-toggle="tooltip" data-placement="left"><span class="glyphicon glyphicon-chevron-up">^</span></a>
-  
+  <br>
+  <br>
+    <div class="row">
+        <div class="col-sm-3">
+            <!--left col-->
+            <ul class="list-group">
+                <li class="list-group-item text-muted" contenteditable="false">Profile</li>
+                <li class="list-group-item text-right"><span class="pull-left"><strong class="">Name: </strong></span> <p th:text="${#httpServletRequest.remoteUser}"></li>
+                <li class="list-group-item text-right"><span class="pull-left"><strong class="">Role:  </strong></span><p th:text=" ${user.role}"/></li>
+                
+            </ul>
+            <form th:action="@{/medical-supplies/tambah}" method ="GET">
+            <div class="panel panel-default">
+
+             <div class="panel-heading"><b>Tambah Medical Supplies</b>
+
+                </div>
+                <div class="panel-body"><i>Fitur ini membantu Anda menambah medical supplies</i>
+                <div class="panel-body"><button type="submit" class="btn btn-info">Tambah</button>
+
+				</button>
+				</div>
+                </div>
+            </div>
+            
+   
+            </form>
+            <div class="panel panel-default">
+            <div class="panel-heading"><b>API Services</b></div>
+              <div class="panel-body"> <li><a style="color:black;" th:href="@{api/daftar-medical-supplies}">Daftar Medical Supplies</a></li></div>
+		</div>
+         </div>
+        <div  class="col-sm-9" contenteditable="false">
+         <form th:action="@{/medical-supplies/jadwal-staf/tambah}" method ="GET">
+           <div class="panel panel-default">
+                <div class="panel-heading"><b>Membuat Jadwal Staf Apoteker Jaga</b></div>
+                <div class="panel-body"> Fitur ini membantu Anda membuat jadwal staf apoteker jaga
+                <br><button type="submit" class="btn btn-primary">Create </button>
+
+                </div>
+                </div>
+                </form>
+         </form>
+            <div class="panel panel-default target">
+                <div class="panel-heading" contenteditable="false"><b>Lihat Layanan Tersedia</b></div>
+                <div class="panel-body">
+                  <div class="row">
+                <form th:action="@{/medical-supplies/}" method ="GET">
+					<div class="col-md-4">
+						<div class="thumbnail">
+							<img style="width:500px;height:200px;"alt="300x200" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqIl7q2HQdQlDIs5WEcJQnP5l3cGuVSxh0ahZ4WOI0gA23pYgzfg">
+							<div class="caption">
+								<h3>
+									Lihat Daftar Medical Supplies 
+								</h3>
+								<p>
+									Fitur untuk melihat seluruh daftar medical supplies yang tersedia.
+								</p>
+								<p>
+	
+								</p>
+							</div>
+							<button type="submit" class="btn btn-primary" style="width:100%;"> Lihat </button><br>	<br>
+						</div>
+						
+					</div>
+				</form>
+				<form th:action="@{/medical-supplies/permintaan/}" method ="GET">
+				<div class="col-md-4">
+					<div class="thumbnail">
+						<img style="width:500px;height:180px;"alt="300x200" src="https://images.agoramedia.com/everydayhealth/gcms/What-You-Need-to-Know-About-Taking-Medications-if-You-Have-Psoriatic-Arthritis-RM-1440x810.jpg?width=722">
+						<div class="caption">
+							<h3>
+								Lihat Daftar Permintaan
+							</h3>
+							<p>
+								Fitur ini menampilkan daftar permintaan medical supplies yang diminta oleh SI Rawat Inap
+							</p>
+							<p>
+
+							</p>
+						</div>
+						<button type="submit" class="btn btn-primary" style="width:100%;"> Lihat </button><br>	<br>
+					</div>
+				</div>
+				</form>
+				<form th:action="@{/medical-supplies/jadwal-staf/}" method ="GET">
+				<div class="col-md-4">
+					<div class="thumbnail">
+						<img alt="300x200" style="width:500px;height:200px;"src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSd3T19fmZPM3YiIoWRO4rXPqNOhI34VlTp_pcjt44x_mlVi4IV">
+						<div class="caption">
+							<h3>
+								Lihat Jadwal Staff Apoteker Jaga
+							</h3>
+							<p>
+								Fitur ini menampilkan jadwal staf apoteker jaga
+							</p>
+							<p>
+
+							</p>
+						</div>
+						<button type="submit" class="btn btn-primary" style="width:100%;"> Lihat </button><br>	<br>
+                </div>
+
+            </div>
+            </form>
+
+            </div>
+
+        </div>
+
+    </div>
+   
+</div>
+</div>
 
 </div>
-</body>
+	
+</div>
 
+<div class="modal fade" id="modalTambah" tabindex="-1" role="dialog" aria-labelledby="modalTambahCenterTitle" aria-hidden="true">
+							  <div class="modal-dialog modal-dialog-centered" role="document">
+							    <div class="modal-content">
+							      <div class="modal-header">
+							        <h3 class="modal-title" id="exampleModalLongTitle">Tambah Akun</h3>
+							        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							          <span aria-hidden="true">&times;</span>
+							        </button>
+							      </div>
+							      <form th:action="@{/user/addUser}"  method=POST>
+							      	<div class="modal-body">
+							      	  <div class="form-group">
+									    <label for="inputNamaMedSupp">Username</label>
+									    <input type="text" class="form-control" name="username"  
+									    placeholder="Masukkan Username" required>
+									  </div>
+							          <div class="form-group">
+									    <label for="inputJumlahMedSupp">Password</label>
+									    <input type="password" class="form-control" 
+									    placeholder="Masukkan Password" pattern="(?=.*\d)(?=.*[a-zA-Z]).{8,}" 
+                        		title="Must contain at least one number and at least 8 or more characters" required name="password"/>
+									  </div>
+									  
+									   <div th:switch="${user.role}">
+										  <div th:case="'Kepala Farmasi'">
+						   		
+										  <div class="form-group">
+										    <label for="inputJumlahMedSupp">Role</label>
+										    <input type="text" class="form-control" value="Admin Farmasi"name="role" 
+										    placeholder="Masukkan Role" readonly>
+										  </div>
+										  </div>
+										  
+										  <div th:case="'Admin Farmasi'">
+										  <div class="form-group">
+										    <label for="inputJumlahMedSupp">Role</label>
+										    <input type="text" class="form-control" value="Staff Apoteker"name="role" 
+										    placeholder="Masukkan Role" readonly>
+										  </div>
+										  </div>
+										</div>
+								    </div>
+								    <div class="modal-footer">
+								        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+								        <button type="submit" class="btn btn-primary">Save changes</button>
+								    </div>
+							      </form>
+							    </div>
+							  </div>
+							</div>
+							
+							<div class="modal fade" id="modalGantiPassword" tabindex="-1" role="dialog" aria-labelledby="modalTambahCenterTitle" aria-hidden="true">
+							  <div class="modal-dialog modal-dialog-centered" role="document">
+							    <div class="modal-content">
+							      <div class="modal-header">
+							        <h3 class="modal-title" id="exampleModalLongTitle">Ganti Password</h3>
+							        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							          <span aria-hidden="true">&times;</span>
+							        </button>
+							      </div>
+							      <form th:action="@{/user/updatepassword}"  method=POST>
+							      	<div class="modal-body">
+							      	  <div class="form-group">
+									    <label for="inputGantiPassword">Password Lama</label>
+									    <input type="password" class="form-control" name="passwordLama"  
+									    placeholder="Masukkan Username" required>
+									  </div>
+							          <div class="form-group">
+									    <label for="inputGantiPassword">Password Baru</label>
+									    <input type="password" class="form-control" 
+									    placeholder="Masukkan Password" pattern="(?=.*\d)(?=.*[a-zA-Z]).{8,}" 
+                        				title="Must contain at least one number and at least 8 or more characters" required name="passwordBaru"/>
+									  </div>
+									  <div class="form-group">
+									    <label for="inputGantiPassword">Konfirmasi Password</label>
+									    <input type="password" class="form-control" name="konfirmasiPassword"  
+									    placeholder="Masukkan Username" required>
+									  </div>
+									  
+									   
+								    </div>
+								    <div class="modal-footer">
+								        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+								        <button type="submit" class="btn btn-primary">Save changes</button>
+								    </div>
+							      </form>
+							    </div>
+							  </div>
+							</div>
+
+</body>
+<a id="back-to-top"  href="#" class="btn btn-primary btn-lg back-to-top" role="button" title="Click to return on the top page" data-toggle="tooltip" data-placement="left"><span class="glyphicon glyphicon-chevron-up"></span></a>
 </html>

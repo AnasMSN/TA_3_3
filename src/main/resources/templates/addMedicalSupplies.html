@@ -5,7 +5,7 @@
 	<title> Tambah Medical Supplies</title>
 	<object th:include="fragments/fragment :: css" th:remove="tag"></object>
 	<object th:include="fragments/fragment :: js" th:remove="tag"></object>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	
 	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
 	<script th:src="@{/js/bootstrap.min.js}"></script>
 	<script src="/js/top.js"></script>
@@ -13,14 +13,14 @@
 		.card-header{
 		color:black;
 		}
-	
+
 		#buttons{
-		margin-left:200px;
+		margin-left:150px;
 		
 		}
 		
 		.form-control{
-			width:500px;
+			width:90%;
 		}
 		
 		.row{
@@ -35,8 +35,9 @@
 		}
 		
 		.card{
-		width:550px;
-		margin-left:100px;
+		width:90%	;
+		justify-content: center;
+		
 		}
 		
 		.back-to-top {
@@ -49,8 +50,16 @@
 }
 
 .container-fluid{
-width:800px;
+	width: 80%;
+	padding: 1rem;
+	margin-left: auto;
+  	margin-right: auto;
+  	padding-bottom: 3rem;
+  	background-color: white;
 }
+
+
+
 		
 		
 	
@@ -60,17 +69,7 @@ width:800px;
 
 	
 <body>	
-<div class="upper-header">
-	<div class="left">
-		RS.CEPAT SEMBUH
-		<img class="img-farmasi"src="https://image.flaticon.com/icons/png/512/33/33777.png">
-		
-		<a class="right-nav1" href="#">APAP | </a>
-		<a class="right-nav2"href="#">Kelompok 3-3 |</a></li>
-		<a class="right-nav3"href="#"><img style="width:20px; height:20px;"src="https://img.icons8.com/metro/1600/phone.png">081513565572</a></li>
-		
-	</div>
-</div>
+
 <nav th:replace="fragments/fragment :: navbar"></nav>
 	<div class="container-fluid">
 		  <div class="header">
@@ -117,10 +116,11 @@ width:800px;
 						
 						
 					<br>
-						<button id="buttons" style="margin-left:240px;"  type="submit" class="btn btn-primary">Submit</button>	
+						<button id="buttons" style="margin-left:200px;"  type="submit" class="btn btn-primary">Submit</button>	
 					</form>
 					
 					
+
 				</div>
 			</div>
 		</div>

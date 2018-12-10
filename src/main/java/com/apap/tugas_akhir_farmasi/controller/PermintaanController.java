@@ -1,18 +1,26 @@
 package com.apap.tugas_akhir_farmasi.controller;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.LinkedHashMap;
-import java.util.List;
-
+import com.apap.tugas_akhir_farmasi.model.PermintaanModel;
+import com.apap.tugas_akhir_farmasi.model.StatusPermintaanModel;
+import com.apap.tugas_akhir_farmasi.model.UserRoleModel;
+import com.apap.tugas_akhir_farmasi.service.service_interface.PermintaanService;
+import com.apap.tugas_akhir_farmasi.service.service_interface.StatusPermintaanService;
+import com.apap.tugas_akhir_farmasi.service.service_interface.UserRoleService;
+import com.apap.tugas_akhir_farmasi.web_service.Rest.BaseResponse;
+import com.apap.tugas_akhir_farmasi.web_service.Rest.Setting;
+import com.apap.tugas_akhir_farmasi.web_service.Rest.StaffDetail;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,15 +30,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.apap.tugas_akhir_farmasi.model.PermintaanModel;
-import com.apap.tugas_akhir_farmasi.model.StatusPermintaanModel;
-import com.apap.tugas_akhir_farmasi.service.service_interface.PermintaanService;
-import com.apap.tugas_akhir_farmasi.service.service_interface.StatusPermintaanService;
-import com.apap.tugas_akhir_farmasi.web_service.Rest.BaseResponse;
-import com.apap.tugas_akhir_farmasi.web_service.Rest.Setting;
-import com.apap.tugas_akhir_farmasi.web_service.Rest.StaffDetail;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.LinkedHashMap;
+import java.util.List;
 
 @Controller
 public class PermintaanController {
@@ -40,8 +44,12 @@ public class PermintaanController {
 	
 	@Autowired
 	private StatusPermintaanService statusPermintaanService;
+
+	@Autowired
+	private UserRoleService userRoleService;
 	
 	@Autowired
+    @Qualifier(value="rest3")
 	RestTemplate restTemplate;
 	
 	@Primary
@@ -56,9 +64,16 @@ public class PermintaanController {
 		// get status permintaan
 		List<StatusPermintaanModel> statusRequest = statusPermintaanService.findAll();
 		
+		/*Untuk edit status*/
+		// ambil role dari user
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+	    UserRoleModel user = userRoleService.getUser(authentication.getName());
+	    model.addAttribute("user", user.getRole());
+		
 		model.addAttribute("statusRequest", statusRequest);
-		model.addAttribute("user", "Admin Farmasi");
 		model.addAttribute("listPermintaan", listPermintaan);
+		
+		/*Akhir untuk edit status*/
 		
 		String jsonResponse;
 		ObjectMapper mapper = new ObjectMapper();
@@ -92,6 +107,7 @@ public class PermintaanController {
 		StatusPermintaanModel statusRequest = statusPermintaanService.findById(status);
 		
 		BaseResponse<String> baseResponse = null;
+		String berubah = null;
 		
 		
 		if (!permintaan.getStatusPermintaanModel().getNama().equals("diterima") &&
@@ -99,22 +115,26 @@ public class PermintaanController {
 			baseResponse = this.sendAddBilling(jumlah, idPasien);
 			
 		}
+		if (!permintaan.getStatusPermintaanModel().getNama().equals(statusRequest.getNama())) {
+			berubah = "berubah";
+		}
 		
 		permintaanService.changeStatus(permintaan, statusRequest);
 		
 		if (baseResponse != null && baseResponse.getStatus() == 200) {
-			System.out.println("berhasil c              uy");
 			redir.addFlashAttribute("message", "berhasil");
 		}
 		else if (baseResponse != null && baseResponse.getStatus() == 500) {
-			System.out.println("gagal c          uy");
 			redir.addFlashAttribute("message", "gagal");
 		}
+		else if (berubah != null){
+			redir.addFlashAttribute("message", "berubah");
+		}
 		else {
-			redir.addFlashAttribute("message", "noChange");
+			redir.addAttribute("message", "noChange");
 		}
 		
-		return "redirect:/medical-supplies/permintaan";
+		return "redirect:/medical-supplies/permintaan/";
 	}
 	
 	//consumer SI Farmasi untuk request obat

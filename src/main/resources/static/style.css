@@ -14,15 +14,22 @@ body{
 .header {
 	margin-top: 5rem;
 }
-
-#textLogin{
-	align:center;
-	color:white;
-	width:450px;
-	margin-left:500px;
-	margin-top:100px;	
-	
+.alignleft {
+	float: left;
+	font-family:"Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	font-size:28px;
 }
+.alignright {
+	float: right;
+	font-family:"Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	font-size:20px;
+}
+
+#textbox{
+	padding-bottom:20px;
+	padding-top:20px;
+}
+
 
 .container-fluid{
 	width: 80%;
@@ -41,6 +48,7 @@ body{
 .card-header {
 	background-color: #32c69a;
 	color:white;
+
 	font-weight:light;
 	font-size: 18px;
 }
@@ -138,13 +146,7 @@ body{
 	margin-left:100px;
 }
 
-.img-akun{
-	width:35px;
-	height:35px;
-	position:absolute;
-	margin-left:1190px;
-	
-}
+
 .alert {
     padding: 20px;
     background-color: #48D1CC;
@@ -168,6 +170,7 @@ body{
 .closebtn:hover {
     color: black;
 }
+
 .nav-link{
 	font-size:18px;
 }
@@ -182,10 +185,18 @@ body{
     border: none;
 }
 
+.img-akun{
+	width:35px;
+	height:35px;
+	position:absolute;
+	margin-left:1000px;
+	
+}
+
 .dropdown {
     position: relative;
     display: inline-block;
-    margin-left:600px;
+    margin-left:420px;
 }
 
 .dropdown-content {
@@ -234,4 +245,3 @@ body{
   
     cursor: pointer;
 }
-

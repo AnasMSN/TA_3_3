@@ -24,6 +24,17 @@
 			
 			<hr>
 			
+			<div th:if="${message == 'tambah'}" class="text-success">
+			 	Perubahan <strong>Berhasil</strong> dan Medical Supplies berhasil ditambah
+			</div>
+			<div th:if="${message == 'berubah'}" class="text-info">
+				Perubahan <strong>Berhasil</strong>
+			</div>
+			<div th:if="${message == 'kurang'}" class="text-warning" >
+				Perubahan <strong>Berhasil</strong> ddan Medical Supplies berhasil dikurangi
+			</div>
+			
+			<br>
 			
 			<table id="list-all-perencanaan" class="table table-striped table-bordered" style="width:100%">
 			       <thead>
@@ -45,13 +56,13 @@
 						<td>
 							<div th:switch="${plan.status}">
 								
-							    <div th:case="'diajukan'" class="alert alert-warning">
+							    <div th:case="'diajukan'" class="text-warning">
 							        <center>diajukan</center>
 							    </div>
-							    <div th:case="'diproses'" class="alert alert-info">
+							    <div th:case="'diproses'" class="text-info">
 							        <center>diproses</center>
 							    </div>
-							    <div th:case="'tersedia'" class="alert alert-success">
+							    <div th:case="'tersedia'" class="text-success">
 							        <center>tersedia</center>
 							    </div>
 							</div>

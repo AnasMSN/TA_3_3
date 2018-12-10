@@ -38,15 +38,18 @@ public class PerencanaanServiceImpl implements PerencanaanService{
 	}
 
 	@Override
-	public void setStatus(Long id, String status, int jumlah) {
+	public String setStatus(Long id, String status, int jumlah) {
 		// TODO Auto-generated method stub
 		PerencanaanModel perencanaan = perencanaanDb.findById(id).get();
+		String perubahan = null;
+		
 		String statusLama = perencanaan.getStatus();
 		if (statusLama.equals("tersedia")) {
 			if (!status.equals("tersedia")) {
 				// set jumlah medical supplies
 				MedicalSuppliesModel med = perencanaan.getMedicalSupplies();
 				med.setJumlah(med.getJumlah() - perencanaan.getJumlah());
+				perubahan = "kurang";
 			}
 		}
 		if (status.equals("tersedia")) {
@@ -54,10 +57,21 @@ public class PerencanaanServiceImpl implements PerencanaanService{
 				// set jumlah medical supplies
 				MedicalSuppliesModel med = perencanaan.getMedicalSupplies();
 				med.setJumlah(med.getJumlah() + perencanaan.getJumlah());
+				perubahan = "tambah";
+			}
+		}
+		
+		if (perubahan == null) {
+			if (statusLama.equals(status)) {
+				perubahan = "tidak berubah";
+			}
+			else {
+				perubahan = "berubah";
 			}
 		}
 		
 		perencanaan.setStatus(status);
+		return perubahan;
 	}
 	
 }

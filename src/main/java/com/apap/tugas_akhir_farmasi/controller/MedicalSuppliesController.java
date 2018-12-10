@@ -1,37 +1,32 @@
 package com.apap.tugas_akhir_farmasi.controller;
 
+
+import com.apap.tugas_akhir_farmasi.model.*;
+import com.apap.tugas_akhir_farmasi.rest.KebutuhanDetail;
+import com.apap.tugas_akhir_farmasi.service.service_interface.*;
+import com.apap.tugas_akhir_farmasi.web_service.Rest.Setting;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Primary;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.view.RedirectView;
+
 import java.io.IOException;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Primary;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.client.RestTemplate;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.web.servlet.view.RedirectView;
-
-import com.apap.tugas_akhir_farmasi.model.FlagUrgentModel;
-import com.apap.tugas_akhir_farmasi.model.JenisMedicalSuppliesModel;
-import com.apap.tugas_akhir_farmasi.model.MedicalSuppliesModel;
-import com.apap.tugas_akhir_farmasi.model.PerencanaanModel;
-import com.apap.tugas_akhir_farmasi.rest.BaseResponseList;
-import com.apap.tugas_akhir_farmasi.rest.KebutuhanDetail;
-import com.apap.tugas_akhir_farmasi.service.service_interface.FlagUrgentService;
-import com.apap.tugas_akhir_farmasi.service.service_interface.JenisMedicalSupplies;
-import com.apap.tugas_akhir_farmasi.service.service_interface.MedicalSuppliesService;
-import com.apap.tugas_akhir_farmasi.service.service_interface.PerencanaanService;
-import com.apap.tugas_akhir_farmasi.web_service.Rest.Setting;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
 public class MedicalSuppliesController {
@@ -46,8 +41,19 @@ public class MedicalSuppliesController {
 	
 	@Autowired
 	PerencanaanService perencanaanService;
+
+
+	@Autowired
+	PermintaanService permintaanService;
 	
 	@Autowired
+	UserRoleService userRoleService;
+	
+
+
+
+	@Autowired
+	@Qualifier(value="rest5")
 	RestTemplate restTemplate5;
 	
 	@Primary
@@ -55,6 +61,7 @@ public class MedicalSuppliesController {
 	public RestTemplate rest5() {
 		return new RestTemplate();
 	}
+
 
 	@RequestMapping(value = "/medical-supplies/sukses", method = RequestMethod.POST)
 	private String addMedicalSubmit(@ModelAttribute MedicalSuppliesModel medicalSupplies, Model model) {
@@ -104,6 +111,7 @@ public class MedicalSuppliesController {
 	@RequestMapping(value="/medical-supplies/", method=RequestMethod.GET)
 	private String viewAllMedicalSupplies(@ModelAttribute MedicalSuppliesModel medSupplies, Model model) throws IOException{
 
+
 		List<MedicalSuppliesModel> listMedSupplies = medicalSuppliesService.getAll();
 		
 		/*Bagian Perencanaan*/
@@ -130,19 +138,25 @@ public class MedicalSuppliesController {
 	    	// get only all urgent medical supplies
 			medicalSupPerencanaan = medicalSuppliesService.findByUrgent(); 
 	    }
-//	    // get api laboratorium untuk penampilan medical supplies
-//	    List<KebutuhanDetail> baseResponse = this.getLabKebutuhan();
-//	    
-//	    System.out.println(baseResponse.get(0));
+	    // get api laboratorium untuk penampilan medical supplies
+	    List<KebutuhanDetail> listKebutuhan = this.getLabKebutuhan();
 	    
+	    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+	    UserRoleModel user = userRoleService.getUser(authentication.getName());
+	    model.addAttribute("user", user.getRole());
+	    model.addAttribute("listKebutuhanLab", listKebutuhan);
 	    model.addAttribute("perencanaan", perencanaan);
 		model.addAttribute("date_now", date);
 		model.addAttribute("medicalSupPerencanaan", medicalSupPerencanaan);
+		System.out.println(user.getRole());
 		
 		/*Akhir Bagian Perencanaan*/
 		
 		
+
 		model.addAttribute("listMedSupplies", listMedSupplies);
+
+
 		return "view-allmedsupplies";
 	}
 	
@@ -153,6 +167,7 @@ public class MedicalSuppliesController {
 		return "view-medsupplies";
 	}
 	
+
 	@RequestMapping(value = "/rawat-jalan/obat/tambah/", method = RequestMethod.POST)
 	private RedirectView addMedicalSupplyToRawatJalan(@RequestParam String nama, int jumlah, RedirectAttributes attributes) {
 		medicalSuppliesService.addMedicalSuppliesToRawatJalan(nama, jumlah);
@@ -162,15 +177,18 @@ public class MedicalSuppliesController {
 	//consumer SI Farmasi ambil kebutuhan obat lab
 	public List<KebutuhanDetail> getLabKebutuhan() throws IOException{
 	  String path = Setting.getLabKebutuhan;
-	  BaseResponseList<String> penyimpanan = restTemplate5.getForEntity(path, BaseResponseList.class).getBody();
-	  restTemplate5.getForEntity(path, BaseResponseList.class).getBody();
-	  
-	  List<KebutuhanDetail> hasil = new ArrayList<KebutuhanDetail>();
+	  String penyimpanan = restTemplate5.getForObject(path, String.class);
 	  ObjectMapper mapper = new ObjectMapper();
-	  for (String x : penyimpanan.getResult()) {
-		  hasil.add(mapper.readValue(x, KebutuhanDetail.class));
-	  }
+	  
+	  JsonNode jsonNodePenyimpanan = mapper.readTree(penyimpanan);
+	  
+	  String result = jsonNodePenyimpanan.get("result").toString();
+	  List<KebutuhanDetail> hasil = mapper.readValue(result, 
+			  new TypeReference<ArrayList<KebutuhanDetail>>() {}
+				);
+	  
 	  return hasil;
 	}
+
 
 }

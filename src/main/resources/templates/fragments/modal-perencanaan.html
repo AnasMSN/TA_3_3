@@ -42,7 +42,7 @@
 			    </div>
 			    <div class="modal-footer">
 			        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-			        <button type="submit" class="btn btn-dark">Save changes</button>
+			        <button type="submit" class="btn btn-dark">Tambah Perencanaan</button>
 			    </div>
 		      </form>
 		      
@@ -69,7 +69,6 @@
 				                <th>Nama</th>
 				     			<th>Jenis</th>
 				     			<th>Jumlah</th>
-				     			<th>Deskripsi</th>
 				            </tr>
 				        </thead>
 				        <tbody>
@@ -77,13 +76,12 @@
 				                <td th:text="${kebLab.reagen.nama}"></td>
 				     			<td th:text="${kebLab.reagen.jenis}"></td>
 				     			<td th:text="${kebLab.jumlah}"></td>
-				     			<td th:text="${kebLab.reagen.deskripsi}"></td>
 				            </tr>
 				        </tbody>
 					</table>
 			    </div>
 			    <div class="modal-footer">
-			        <button type="button" class="btn btn-dark" data-dismiss="modal" data-toggle="modal" data-target="#modalTambahPerencanaan">Tambah Perencanaan</button>
+			        <button type="button" class="btn btn-dark" data-dismiss="modal" data-toggle="modal" data-target="#modalTambahPerencanaan">Buat Perencanaan</button>
 			    </div>
 		      </form>
 		      

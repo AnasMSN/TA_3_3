@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.sql.Date;
 import java.sql.Time;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -71,6 +72,16 @@ public class JadwalJagaModel implements Serializable {
 		return waktuSelesai;
 	}
 
+	public String mulai(){
+	    DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+	    return waktuMulai.toLocalTime().format(dateTimeFormatter);
+    }
+
+    public String selesai(){
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+        return waktuSelesai.toLocalTime().format(dateTimeFormatter);
+    }
+
 
 	public void setWaktuSelesai(Time waktuSelesai) {
 		this.waktuSelesai = waktuSelesai;
@@ -89,6 +100,9 @@ public class JadwalJagaModel implements Serializable {
 	public void setWaktuJaga(String mulaiText , String selesaiText){
         LocalTime mulaiLocal = LocalTime.parse(mulaiText);
         LocalTime selesaiLocal = LocalTime.parse(selesaiText);
+
+
+
 
         Time mulai = Time.valueOf(mulaiLocal);
         Time selesai = Time.valueOf(selesaiLocal);
