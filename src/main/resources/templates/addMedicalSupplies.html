@@ -72,6 +72,14 @@
 
 <nav th:replace="fragments/fragment :: navbar"></nav>
 	<div class="container-fluid">
+	<div th:switch="${message}">
+		<div th:case="'Failed'">
+			<div class="alert">
+	 		 <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+	 		 <strong>Gagal! Medical Supplies sudah terdapat di database.</strong>
+			</div>
+		</div>
+	</div>
 		  <div class="header">
 	    <div class="row">
 	      <div class="col-sm-12">
@@ -80,7 +88,7 @@
 	    </div>
 	    <hr>
 	  </div>
-		  
+		
 		<div  class="row">
 			<div class="col-md-6">
 				<div class="card">
@@ -96,10 +104,10 @@
 						
 						<br>
 						<b>Price: </b><br>
-						<input type="number" name="price" class="form-control" th:value="*{price}" required/>
+						<input type="number" name="price" class="form-control"  required/>
 						<br>
 						<b>Jumlah:</b><br>
-						<input type="number" name="jumlah" class="form-control" th:value="*{jumlah}" required/>
+						<input type="number" name="jumlah" class="form-control" value=0 readonly/>
 						<br>
 						<b>Deskripsi:</b><br>
 						<input type="text" name="deskripsi" class="form-control" th:value="*{deskripsi}" required/>

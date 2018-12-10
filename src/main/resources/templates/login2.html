@@ -243,21 +243,29 @@ padding-top:100px;}
                     <img style="width:40px;height:35px;"src="https://flaticons.net/gd/makefg.php?i=icons/Medical/Hospital.png&r=255&g=255&b=255"/>
                     Sign In - Farmasi 
                   </p>
-                   
+                    <div th:if="${param.error}">
+                            <span style="color: red">Invalid username or password</span>
+                        </div>
                   <br>
                 <form class="login" th:action="@{/login}" method="POST">
-                 <div style="margin-left:20px;"th:if="${param.error}">
-                            <span style="color: red">Invalid username or password</span>
-                    </div><br>
-	                <input type="text" placeholder="Username" name="username" />
-	                <input type="password" placeholder="Password"  name="password"/>
-	                <input type="submit" value="Sign In" class="btn btn-success btn-sm" />
-               
+                <input type="text" placeholder="Username" />
+                <input type="password" placeholder="Password" />
+                <input type="submit" value="Sign In" class="btn btn-success btn-sm" />
+                <div class="remember-forgot">
+                    <div class="row">
+                        
+                        <div class="col-md-10 forgot-pass-content">
+                            <a href="#"data-toggle="modal" data-target="#modalTambah" >
+		           					Create New Account?
+		           				</a>
+                        </div>
+                    </div>
+                </div>
                 </form>
             </div>
         </div>
     </div>
-    <div th:replace="fragments/modal-tambahakunlogin :: modal-tambahakunlogin"></div> 
+ 
 </div>
  
 </body>

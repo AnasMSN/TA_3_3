@@ -16,8 +16,14 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception{
+<<<<<<< HEAD
+		http
+			
+=======
 		http.csrf().disable()
+>>>>>>> c34c75d562062e13f838486cf150877584cc2c7a
 			.csrf().ignoringAntMatchers("/api/**").and()
+			
 			.authorizeRequests()
 			.antMatchers("/css/**").permitAll()
 			.antMatchers("/api/**").permitAll()
