@@ -40,11 +40,16 @@ public class ApiController {
     												  BindingResult bindingResult) {
         BaseResponse<PermintaanModel> response = new BaseResponse<PermintaanModel>();
         if (bindingResult.hasErrors()) {
-        	System.out.println(bindingResult.toString());
             response.setStatus(500);
             response.setMessage("error data");
         } 
         else {
+        	if(permintaan.getJumlahMedicalSupplies() < 1) {
+        		response.setStatus(400);
+        		response.setMessage("Bad Request. Format jumlah tidak boleh kurang dari 1.");
+        		return response;
+        	}
+        	
         	MedicalSuppliesModel medicalSupplies = medicalSuppliesService.getMedicalSuppliesDetailsByNama(permintaan.getMedicalSuppliesModel().getNama());
         	if(medicalSupplies == null) {
         		response.setStatus(500);
@@ -60,6 +65,11 @@ public class ApiController {
         	
         	//Set jadwal_jaga yang sedang berjaga
         	JadwalJagaModel jadwalJagaNow = jadwalJagaService.getJadwalJagaNow();
+        	if (jadwalJagaNow == null) {
+        		response.setStatus(500);
+        		response.setMessage("Tidak aja jadwal jaga saat ini");
+        		return response;
+        	}
         	permintaan.setJadwalJagaModel(jadwalJagaNow);
         	
         	StatusPermintaanModel statusPermintaan = statusPermintaanService.getStatusPermintaanDetailByNama("Pending");
