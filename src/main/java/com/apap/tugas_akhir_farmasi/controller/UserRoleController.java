@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.apap.tugas_akhir_farmasi.model.UserRoleModel;
 import com.apap.tugas_akhir_farmasi.service.service_interface.UserRoleService;
@@ -24,7 +25,7 @@ public class UserRoleController {
 	private UserRoleService userRoleService;
 
 	@RequestMapping(value = "user/addUser", method = RequestMethod.POST)
-	private String addUserSubmit(@ModelAttribute UserRoleModel user, Model model, Principal principal) {
+	private String addUserSubmit(@ModelAttribute UserRoleModel user, Model model, Principal principal, RedirectAttributes redir) {
 		UserRoleModel user2 = userRoleService.getUser(principal.getName());
 
 		String myUser = user.getUsername();
@@ -32,25 +33,38 @@ public class UserRoleController {
 		boolean cekUsername = userRoleService.usernameCheck(user.getUsername());
 
 		if (cekUsername == true) {
-			model.addAttribute("message", "Failed");
+			redir.addFlashAttribute("message","Failed");
+			
 
 		}
 
 		else {
 			userRoleService.addUser(user);
-			model.addAttribute("message", "Success");
+			redir.addFlashAttribute("message", "Success");
+			
 
 		}
 		model.addAttribute("user", user2);
-		return "home";
+		return "redirect:/";
 	}
 
+	@RequestMapping(value = "/user/addUserAdmin", method = RequestMethod.POST)
+	private String addUserSubmitAdmin(@ModelAttribute UserRoleModel user, Model model, RedirectAttributes redir) {
+		
+
+
+		
+		userRoleService.addUser(user);
+			
+		
+		return "login";
+	}
 
 	@RequestMapping(value = "user/updatepassword", method = RequestMethod.POST)
 	private String updatePasswordSubmit(@RequestParam(value = "passwordLama") String passwordLama,
 			@RequestParam(value = "passwordBaru") String passwordBaru,
 			@RequestParam(value = "konfirmasiPassword") String konfirmasiPassword, HttpServletRequest request,
-			Model model) {
+			Model model, RedirectAttributes redir) {
 
 		UserRoleModel user = userRoleService
 				.getUser(SecurityContextHolder.getContext().getAuthentication().getName());
@@ -62,21 +76,24 @@ public class UserRoleController {
 				userRoleService.addUser(user);
 
 				model.addAttribute("user", user);
-				model.addAttribute("message", "success");
-				return "home";
+				redir.addFlashAttribute("message", "success");
+				
+				return "redirect:/";
 			}
 			
 			else {
 				model.addAttribute("user", user);
-				model.addAttribute("message", "tidakcocok");
-				return "home";
+				redir.addFlashAttribute("message","tidakcocok");
+				
+				return "redirect:/";
 			}
 		}
 		
 		else {
 			model.addAttribute("user", user);
-			model.addAttribute("message", "konfirmasi");
-			return "home";
+			redir.addFlashAttribute("message","konfirmasi");
+			
+			return "redirect:/";
 
 		}
 	}
