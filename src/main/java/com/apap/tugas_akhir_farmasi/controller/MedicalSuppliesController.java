@@ -105,11 +105,14 @@ public class MedicalSuppliesController {
 		return "updateMedicalSupplies";
 	}
 	
-	@RequestMapping(value = "/medical-supplies/{idMedicalSupplies}/sukses", method = RequestMethod.POST)
-	private String updatePilotSubmit(@PathVariable(value = "idMedicalSupplies") long id,
-			@ModelAttribute MedicalSuppliesModel newMedicalSuppliesModel, Model model) {
+	@RequestMapping(value = "/medical-supplies/{idMedicalSupplies}", method = RequestMethod.POST)
+	private String updateMedicalSuppliesSubmit(@PathVariable(value = "idMedicalSupplies") long id,
+			@ModelAttribute MedicalSuppliesModel newMedicalSuppliesModel, Model model, RedirectAttributes redir) {
 		medicalSuppliesService.updateMedicalSupplies(newMedicalSuppliesModel, id);
-		return "sukses";
+		System.out.println("masukk     fsa");
+		redir.addFlashAttribute("message", "Success");
+		String pathRedir = "redirect:/medical-supplies/"+id;
+		return pathRedir;
 	}
 	
 	@RequestMapping(value="/medical-supplies/", method=RequestMethod.GET)
