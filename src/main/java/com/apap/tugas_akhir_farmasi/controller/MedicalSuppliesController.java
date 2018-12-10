@@ -111,8 +111,8 @@ public class MedicalSuppliesController {
 	@RequestMapping(value="/medical-supplies/", method=RequestMethod.GET)
 	private String viewAllMedicalSupplies(@ModelAttribute MedicalSuppliesModel medSupplies, Model model) throws IOException{
 
-
 		List<MedicalSuppliesModel> listMedSupplies = medicalSuppliesService.getAll();
+		model.addAttribute("listMedSupplies", listMedSupplies);
 		
 		/*Bagian Perencanaan*/
 		
@@ -151,11 +151,6 @@ public class MedicalSuppliesController {
 		System.out.println(user.getRole());
 		
 		/*Akhir Bagian Perencanaan*/
-		
-		
-
-		model.addAttribute("listMedSupplies", listMedSupplies);
-
 
 		return "view-allmedsupplies";
 	}
@@ -169,9 +164,64 @@ public class MedicalSuppliesController {
 	
 
 	@RequestMapping(value = "/rawat-jalan/obat/tambah/", method = RequestMethod.POST)
-	private RedirectView addMedicalSupplyToRawatJalan(@RequestParam String nama, int jumlah, RedirectAttributes attributes) {
-		medicalSuppliesService.addMedicalSuppliesToRawatJalan(nama, jumlah);
-		return new RedirectView("/medical-supplies/");
+	private String addMedicalSupplyToRawatJalan(@RequestParam String nama, int jumlah, RedirectAttributes attributes, Model model) throws Exception {
+		
+		MedicalSuppliesModel medSupp = medicalSuppliesService.getMedicalSuppliesDetailsByNama(nama);
+		if(jumlah < 1) {
+			model.addAttribute("msg", "failed jumlah format");
+		}
+		else if(medSupp.getJumlah() < jumlah) {
+			model.addAttribute("msg", "failed medSupp amount");
+		}
+		else {
+			int status = medicalSuppliesService.addMedicalSuppliesToRawatJalan(medSupp, nama, jumlah);
+			if (status == 200) {
+				model.addAttribute("msg", "success");
+			}
+			else {
+				model.addAttribute("msg", "failed");
+			}
+		}
+		
+		List<MedicalSuppliesModel> listMedSupplies = medicalSuppliesService.getAll();
+		model.addAttribute("listMedSupplies", listMedSupplies);
+		
+		/*Bagian Perencanaan*/
+		
+		List<MedicalSuppliesModel> medicalSupPerencanaan = null;
+		PerencanaanModel perencanaan = new PerencanaanModel();
+		
+		// get date now
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");  
+		java.util.Date utilDate = new java.util.Date();
+		Date date = new Date(utilDate.getTime());
+		perencanaan.setTanggal(date);
+	    
+	    String tanggalHariIni = formatter.format(date);
+		
+	    String day = tanggalHariIni.substring(tanggalHariIni.length()-2, tanggalHariIni.length());
+	    
+	    if ((Integer.parseInt(day) >= 1 && Integer.parseInt(day) <= 7) || 
+	    		(Integer.parseInt(day) >= 15 && Integer.parseInt(day) <= 21)  ) {
+	    	// get all medical supplies
+			medicalSupPerencanaan = medicalSuppliesService.findAll();
+	    }
+	    else {
+	    	// get only all urgent medical supplies
+			medicalSupPerencanaan = medicalSuppliesService.findByUrgent(); 
+	    }
+	    // get api laboratorium untuk penampilan medical supplies
+	    List<KebutuhanDetail> listKebutuhan = this.getLabKebutuhan();
+	    
+	    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+	    UserRoleModel user = userRoleService.getUser(authentication.getName());
+	    model.addAttribute("user", user.getRole());
+	    model.addAttribute("listKebutuhanLab", listKebutuhan);
+	    model.addAttribute("perencanaan", perencanaan);
+		model.addAttribute("date_now", date);
+		model.addAttribute("medicalSupPerencanaan", medicalSupPerencanaan);
+		
+		return "view-allmedsupplies";
 	}
 
 	//consumer SI Farmasi ambil kebutuhan obat lab

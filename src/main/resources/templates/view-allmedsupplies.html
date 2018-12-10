@@ -11,6 +11,32 @@
 
 <!--main-->
 <div class="container-fluid">
+<div th:switch="${msg}">
+		<div th:case="'success'">
+			 <div class="alert alert-success">
+			    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+			    <strong>Success!</strong> Medical Supplies berhasil ditambahkan ke inventori SI Rawat Jalan
+			  </div>
+		</div>
+		<div th:case="'failed jumlah format'">
+			 <div class="alert alert-danger" style="background-color: #ff776d">
+			    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+			    <strong>Invalid!</strong> Format jumlah medical supplies salah
+  		    </div>
+	   </div>
+		<div th:case="'failed medSupp amount'">
+			 <div class="alert alert-danger" style="background-color: #ff776d">
+			    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+			    <strong>Invalid!</strong> Jumlah medical supplies melebihi stok yang ada
+  		    </div>
+	   </div>
+	   <div th:case="'failed'">
+			 <div class="alert alert-danger" style="background-color: #ff776d">
+			    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+			    <strong>Invalid!</strong> Gagal menambahkan medical supplies
+  		    </div>
+	   </div>
+</div>
 	<div th:switch="${message}">
 		<div th:case="'Success'">
 			<div class="alert">
@@ -48,9 +74,11 @@
 	      <form th:action="@{/rawat-jalan/obat/tambah/}" th:object="${medSupp}" method=POST>
 	      	<div class="modal-body">
 	      	  <div class="form-group">
-			    <label for="inputNamaMedSupp">Nama</label>
-			    <input type="text" class="form-control" name="nama" id="inputNamaMedSupp" 
-			    placeholder="Masukkan Nama Medical Supplies" required>
+				<label for="inputNamaMedSupp">Nama</label>
+					<select class="form-control" id="listMedSupplies" name="nama" required>
+			 		   	<option value="">-Pilih Medical Supplies-</option>
+					    <option th:each="medSupplies: ${listMedSupplies}" th:value="${medSupplies.nama}" th:text="${medSupplies.nama}">1</option>
+					</select>
 			  </div>
 	          <div class="form-group">
 			    <label for="inputJumlahMedSupp">Jumlah</label>
@@ -60,7 +88,7 @@
 		    </div>
 		    <div class="modal-footer">
 		        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-		        <button type="submit" class="btn btn-dark">Save changes</button>
+		        <button type="submit" class="btn btn-primary">Save changes</button>
 		    </div>
 	      </form>
 	    </div>
