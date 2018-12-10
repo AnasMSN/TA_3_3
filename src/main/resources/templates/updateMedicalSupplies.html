@@ -79,20 +79,19 @@ width:80%;
 					<div class="card-header">
 					Masukan Data yang diubah
 					</div>
-					<form class="formulir"th:action="@{'/medical-supplies/'+${medicalSupplies.id}+'/sukses'}" th:object="${medicalSupplies}" method="POST">
+					<form class="formulir"th:action="@{'/medical-supplies/'+${medicalSupplies.id}}" th:object="${medicalSupplies}" method="POST">
 			
 						<b>Nama :</b><br>
-						<input type="text" name="nama" class="form-control" th:value="${medicalSupplies.nama}"/>
+						<input type="text" name="nama" class="form-control" th:value="${medicalSupplies.nama}" required/>
 						
 						<br>
 						<b>Price: </b><br>
-						<input type="number" name="price" class="form-control" th:value="${medicalSupplies.price}"/>
-						<br>
-						<b>Jumlah:</b><br>
-						<input type="number" name="jumlah" class="form-control" th:value="${medicalSupplies.jumlah}"/>
+						<input type="number" name="price" class="form-control" th:value="${medicalSupplies.price}" required/>
+						
+						<input type="number" name="jumlah" class="form-control" th:value="${medicalSupplies.jumlah}" hidden/>
 						<br>
 						<b>Deskripsi:</b><br>
-						<input type="text" name="deskripsi" class="form-control" th:value="${medicalSupplies.deskripsi}"/>
+						<input type="text" name="deskripsi" class="form-control" th:value="${medicalSupplies.deskripsi}" required/>
 						
 						<br>
 						<b>Jenis Medical Supplies : </b>

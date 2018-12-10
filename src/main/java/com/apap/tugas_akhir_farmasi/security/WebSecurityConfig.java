@@ -27,10 +27,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers("/js/**").permitAll()
 			.antMatchers("/datatable/**","/DataTables-1.10.18/**","/style.css","/bg.jpg","/a.jpg").permitAll()
 			
-			.antMatchers("/medical-supplies/").hasAnyAuthority("Staff Apoteker", "Admin IGD", "Admin Farmasi")
+			.antMatchers("/medical-supplies/").hasAnyAuthority("Staf Apoteker", "Admin IGD", "Admin Farmasi")
 			.antMatchers("/medical-supplies/tambah", "/medical-supplies/ubah/**", "medical-supplies/permintaan/ubah", "/medical-supplies/jadwal-staf/**").hasAnyAuthority( "Admin Farmasi")
-			.antMatchers( "/medical-supplies/{idMedicalSupplies}/","/rawat-jalan/obat/tambah", "/medical-supplies/perencanaan", "/medical-supplies/permintaan").hasAnyAuthority("Admin Farmasi","Staff Apoteker")
-			.antMatchers("/medical-supplies/perencanaan/tambah").hasAnyAuthority("Staff Apoteker")
+			.antMatchers( "/medical-supplies/{idMedicalSupplies}/","/rawat-jalan/obat/tambah", "/medical-supplies/perencanaan", "/medical-supplies/permintaan").hasAnyAuthority("Admin Farmasi","Staf Apoteker")
 			.anyRequest().authenticated()
 			.and()
 			.formLogin()
@@ -50,13 +49,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	}
 	
 	
-	@Autowired
+	/**@Autowired
 	public void configureGlobal (AuthenticationManagerBuilder auth) throws Exception{
 		auth.inMemoryAuthentication()
 			.passwordEncoder(encoder())
 			.withUser("adminfarmasi").password(encoder().encode("admin1234"))
 			.roles("Admin Farmasi");
-	}
+	}**/
 	
 	
 	@Autowired

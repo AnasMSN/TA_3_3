@@ -18,4 +18,5 @@ public interface MedicalSuppliesService {
 	MedicalSuppliesModel getMedicalSuppliesById(long id);
 	Boolean cekStatusMedicalSupplies(String nama);
 	int addMedicalSuppliesToRawatJalan(MedicalSuppliesModel medSupp, String nama, int jumlah) throws IOException;
+
 }

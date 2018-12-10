@@ -30,12 +30,7 @@
 			    <strong>Invalid!</strong> Jumlah medical supplies melebihi stok yang ada
   		    </div>
 	   </div>
-	   <div th:case="'failed'">
-			 <div class="alert alert-danger" style="background-color: #ff776d">
-			    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
-			    <strong>Invalid!</strong> Gagal menambahkan medical supplies
-  		    </div>
-	   </div>
+	  
 </div>
 	<div th:switch="${message}">
 		<div th:case="'Success'">
