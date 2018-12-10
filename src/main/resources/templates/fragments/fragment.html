@@ -54,9 +54,9 @@
       <li th:classappend="${#httpServletRequest.getRequestURI() == '/medical-supplies/' ? 'active':''}">
         <a class="nav-link" th:href="@{/medical-supplies/}">Lihat Medical Supplies</a>
       </li>
-      <li class="nav-item">
-      <li th:classappend="${#httpServletRequest.getRequestURI() == '/medical-supplies/tambah' ? 'active':''}">
-        <a class="nav-link" th:href="@{/medical-supplies/tambah}">Tambah Medical Supplies</a>
+       <li class="nav-item">
+      <li th:classappend="${#httpServletRequest.getRequestURI() == '/medical-supplies/perencanaan' ? 'active':''}">
+        <a class="nav-link" th:href="@{/medical-supplies/perencanaan}">Lihat Perencanaan</a>
       </li>    
     </ul>
     <ul class="navbar-nav ml-auto">

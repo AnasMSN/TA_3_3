@@ -148,6 +148,7 @@ public class MedicalSuppliesController {
 	    model.addAttribute("perencanaan", perencanaan);
 		model.addAttribute("date_now", date);
 		model.addAttribute("medicalSupPerencanaan", medicalSupPerencanaan);
+		System.out.println(user.getRole());
 		
 		/*Akhir Bagian Perencanaan*/
 		

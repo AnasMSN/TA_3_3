@@ -107,12 +107,16 @@ public class PermintaanController {
 		StatusPermintaanModel statusRequest = statusPermintaanService.findById(status);
 		
 		BaseResponse<String> baseResponse = null;
+		String berubah = null;
 		
 		
 		if (!permintaan.getStatusPermintaanModel().getNama().equals("diterima") &&
 				statusRequest.getNama().equals("diterima")) {
 			baseResponse = this.sendAddBilling(jumlah, idPasien);
 			
+		}
+		if (!permintaan.getStatusPermintaanModel().getNama().equals(statusRequest.getNama())) {
+			berubah = "berubah";
 		}
 		
 		permintaanService.changeStatus(permintaan, statusRequest);
@@ -123,8 +127,11 @@ public class PermintaanController {
 		else if (baseResponse != null && baseResponse.getStatus() == 500) {
 			redir.addFlashAttribute("message", "gagal");
 		}
+		else if (berubah != null){
+			redir.addFlashAttribute("message", "berubah");
+		}
 		else {
-			redir.addFlashAttribute("message", "noChange");
+			redir.addAttribute("message", "noChange");
 		}
 		
 		return "redirect:/medical-supplies/permintaan/";

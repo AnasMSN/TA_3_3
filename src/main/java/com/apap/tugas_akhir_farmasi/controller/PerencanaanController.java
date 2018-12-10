@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.apap.tugas_akhir_farmasi.model.MedicalSuppliesModel;
 import com.apap.tugas_akhir_farmasi.model.PerencanaanModel;
@@ -43,7 +44,7 @@ public class PerencanaanController {
         return "redirect:/medical-supplies/perencanaan";
     }
 
-    @RequestMapping(value = "/medical-supplies/perencanaan")
+    @RequestMapping(value = "/medical-supplies/perencanaan", method = RequestMethod.GET)
     public String tampilanPerencanaan(Model model){
         List<PerencanaanModel> listPlan = perencanaanService.findAll();
 
@@ -63,11 +64,13 @@ public class PerencanaanController {
     @RequestMapping(value = "/medical-supplies/perencanaan/ganti-status", method = RequestMethod.POST)
     public String gantiStatusPerencanaan(@RequestParam(value = "id") Long id,
                                          @RequestParam(value = "status") String status,
-                                         @RequestParam(value = "jumlah") int jumlah){
+                                         @RequestParam(value = "jumlah") int jumlah,
+                                         RedirectAttributes redir){
 
         // ubah status berdasarkan status baru
-        perencanaanService.setStatus(id, status, jumlah);
+        String perubahan = perencanaanService.setStatus(id, status, jumlah);
 
+        redir.addFlashAttribute("message", perubahan);
         return "redirect:/medical-supplies/perencanaan";
     }
 
