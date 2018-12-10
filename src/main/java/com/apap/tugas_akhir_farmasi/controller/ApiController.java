@@ -42,7 +42,6 @@ public class ApiController {
     												  BindingResult bindingResult) {
         BaseResponse<PermintaanModel> response = new BaseResponse<PermintaanModel>();
         if (bindingResult.hasErrors()) {
-        	System.out.println(bindingResult.toString());
             response.setStatus(500);
             response.setMessage("error data");
         } 
@@ -62,6 +61,11 @@ public class ApiController {
         	
         	//Set jadwal_jaga yang sedang berjaga
         	JadwalJagaModel jadwalJagaNow = jadwalJagaService.getJadwalJagaNow();
+        	if (jadwalJagaNow == null) {
+        		response.setStatus(500);
+        		response.setMessage("Tidak aja jadwal jaga saat ini");
+        		return response;
+        	}
         	permintaan.setJadwalJagaModel(jadwalJagaNow);
         	
         	StatusPermintaanModel statusPermintaan = statusPermintaanService.getStatusPermintaanDetailByNama("Pending");
