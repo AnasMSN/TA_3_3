@@ -32,11 +32,12 @@ public class MedicalSuppliesModel implements Serializable {
     private String nama;
 
     @NotNull
-    @Column(name = "price",nullable = false)
+    
+    @Column(name = "price",nullable = false,columnDefinition="default '0'")
     private long price;
 
     @NotNull
-    @Column(name = "jumlah",nullable = false)
+    @Column(name="Jumlah", columnDefinition=" default '0'", nullable=false)
     private int jumlah;
 
     @NotNull

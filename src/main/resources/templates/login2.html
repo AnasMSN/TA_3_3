@@ -247,7 +247,7 @@ padding-top:100px;}
                             <span style="color: red">Invalid username or password</span>
                         </div>
                   <br>
-                <form class="modal-content animate" th:action="@{/login}" method="POST">
+                <form class="login" th:action="@{/login}" method="POST">
                 <input type="text" placeholder="Username" />
                 <input type="password" placeholder="Password" />
                 <input type="submit" value="Sign In" class="btn btn-success btn-sm" />
@@ -265,7 +265,7 @@ padding-top:100px;}
             </div>
         </div>
     </div>
-    <div th:replace="fragments/modal-tambahakunlogin :: modal-tambahakunlogin"></div> 
+ 
 </div>
  
 </body>

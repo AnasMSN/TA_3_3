@@ -16,4 +16,5 @@ public interface MedicalSuppliesService {
 	List<MedicalSuppliesModel> getAll();
 	MedicalSuppliesModel getMedicalSuppliesById(long id);
 	String addMedicalSuppliesToRawatJalan(String nama, int jumlah);
+	Boolean cekStatusMedicalSupplies(String nama);
 }

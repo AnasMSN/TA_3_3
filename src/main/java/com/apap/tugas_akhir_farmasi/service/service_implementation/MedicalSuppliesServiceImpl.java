@@ -119,4 +119,16 @@ public class MedicalSuppliesServiceImpl implements MedicalSuppliesService{
 		   return null;
 	}
 	
+	public Boolean cekStatusMedicalSupplies(String nama) {
+		List<MedicalSuppliesModel> listMedical = medicalSuppliesDb.findAll();
+		MedicalSuppliesModel newNama=medicalSuppliesDb.findByNama(nama);
+		
+		for (int i=0; i<listMedical.size();i++) {
+			if (listMedical.get(i).getNama().equals(nama) ) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 }

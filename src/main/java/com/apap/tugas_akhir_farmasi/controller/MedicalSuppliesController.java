@@ -66,6 +66,7 @@ public class MedicalSuppliesController {
 	@RequestMapping(value = "/medical-supplies/", method = RequestMethod.POST)
 	private String addMedicalSubmit(@ModelAttribute MedicalSuppliesModel medicalSupplies, Model model, RedirectAttributes redir) {
 		medicalSuppliesService.addMedicalSupplies(medicalSupplies);
+		
 		redir.addFlashAttribute("message", "Success");
 		
 		return "redirect:/medical-supplies/";
@@ -73,6 +74,7 @@ public class MedicalSuppliesController {
 
 	@RequestMapping(value = "/medical-supplies/tambah", method = RequestMethod.GET)
 	public String add(Model model) {
+		
 		MedicalSuppliesModel medicalSupplies = new MedicalSuppliesModel();
 
 		List<FlagUrgentModel> listFlag = flagUrgentService.getListFlagUrgent();

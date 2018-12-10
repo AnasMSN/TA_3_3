@@ -48,18 +48,7 @@ public class UserRoleController {
 		return "redirect:/";
 	}
 
-	@RequestMapping(value = "/user/addUserAdmin", method = RequestMethod.POST)
-	private String addUserSubmitAdmin(@ModelAttribute UserRoleModel user, Model model, RedirectAttributes redir) {
-		
-
-
-		
-		userRoleService.addUser(user);
-			
-		
-		return "login";
-	}
-
+	
 	@RequestMapping(value = "user/updatepassword", method = RequestMethod.POST)
 	private String updatePasswordSubmit(@RequestParam(value = "passwordLama") String passwordLama,
 			@RequestParam(value = "passwordBaru") String passwordBaru,
