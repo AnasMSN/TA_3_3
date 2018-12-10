@@ -1,4 +1,5 @@
 package com.apap.tugas_akhir_farmasi.service.service_implementation;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -11,6 +12,7 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import com.apap.tugas_akhir_farmasi.model.FlagUrgentModel;
 import com.apap.tugas_akhir_farmasi.model.JenisMedicalSuppliesModel;
@@ -20,6 +22,8 @@ import com.apap.tugas_akhir_farmasi.repository.JenisMedicalSuppliesDb;
 import com.apap.tugas_akhir_farmasi.repository.MedicalSuppliesDb;
 import com.apap.tugas_akhir_farmasi.service.service_interface.MedicalSuppliesService;
 import com.apap.tugas_akhir_farmasi.web_service.Rest.Setting;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Service
 @Transactional
@@ -97,15 +101,12 @@ public class MedicalSuppliesServiceImpl implements MedicalSuppliesService{
 	}
 
 	@Override
-	public String addMedicalSuppliesToRawatJalan(String nama, int jumlah) {
+	public int addMedicalSuppliesToRawatJalan(MedicalSuppliesModel medSupp, String nama, int jumlah) throws IOException {
 			String path = Setting.siRawatJalanAddMedicalSupplyUrl;
 		   
 		   LinkedHashMap<String, Object> medicalSupplyForRawatJalan = new LinkedHashMap<String,Object>();
 		   
-		   LinkedHashMap<String, Object> medicalSupply = new LinkedHashMap<String,Object>();
-		   medicalSupply.put("nama", nama);
-		   
-		   medicalSupplyForRawatJalan.put("medicalSupply", new JSONObject(medicalSupply));
+		   medicalSupplyForRawatJalan.put("nama", nama);
 		   medicalSupplyForRawatJalan.put("jumlah", jumlah);
 		   
 		   JSONObject json = new JSONObject(medicalSupplyForRawatJalan);
@@ -114,9 +115,18 @@ public class MedicalSuppliesServiceImpl implements MedicalSuppliesService{
 		   headers.setContentType(MediaType.APPLICATION_JSON);
 		   
 		   HttpEntity<String> request = new HttpEntity<String>(json.toString(), headers);
-		   System.out.println(request);
-		   //System.out.println(restTemplate.postForObject(path, request, String.class));
-		   return null;
+		   RestTemplate restTemplate = new RestTemplate();
+		   String jsonResponse = (restTemplate.postForObject(path, request, String.class));
+		   ObjectMapper mapper = new ObjectMapper();
+		   JsonNode node = mapper.readTree(jsonResponse);
+		   JsonNode result = node.get("status");
+		   int status = mapper.treeToValue(result, Integer.class);
+		   
+		   if(status == 200) {
+			   medSupp.setJumlah(medSupp.getJumlah() - jumlah);
+			   this.addMedicalSupplies(medSupp);
+		   }
+		   return status;
 	}
 	
 	public Boolean cekStatusMedicalSupplies(String nama) {

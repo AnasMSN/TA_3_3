@@ -67,7 +67,7 @@ public class JadwalJagaController {
        jadwalJagaModel.setWaktuJaga(fieldMulai,fieldSelesai);
        jadwalJagaModel.setIdStaff(Integer.parseInt(staf));
 
-        List<JadwalJagaModel> jagaStaffAll = jadwalJagaService.findByStaffId(jadwalJagaModel.getIdStaff());
+        List<JadwalJagaModel> jagaStaffAll = jadwalJagaService.findAll();
         List<JadwalJagaModel> jadwalStaffMatchDate = new ArrayList<>();
         for (JadwalJagaModel jadwalJaga : jagaStaffAll){
             if (jadwalJaga.getTanggal().equals(jadwalJagaModel.getTanggal())){
@@ -75,7 +75,7 @@ public class JadwalJagaController {
             }
         }
 
-        TimeValidatorResponse response = ScheduleValidatorService.validate(jadwalJagaModel,jadwalStaffMatchDate);
+        TimeValidatorResponse response = ScheduleValidatorService.validate(jadwalJagaModel,jadwalStaffMatchDate,jadwalJagaService);
 
         if (!response.isValid()){
             model.addAttribute("errorMessage",response.getErrorMessage());

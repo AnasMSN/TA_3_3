@@ -16,8 +16,12 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception{
+<<<<<<< HEAD
 		http
 			
+=======
+		http.csrf().disable()
+>>>>>>> c34c75d562062e13f838486cf150877584cc2c7a
 			.csrf().ignoringAntMatchers("/api/**").and()
 			
 			.authorizeRequests()
@@ -27,9 +31,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers("/datatable/**","/DataTables-1.10.18/**","/style.css","/bg.jpg","/a.jpg").permitAll()
 			
 			.antMatchers("/medical-supplies/").hasAnyAuthority("Staff Apoteker", "Admin IGD", "Admin Farmasi")
-			.antMatchers("/api/daftar-medical-service").hasAnyAuthority("Admin IGD")
 			.antMatchers("/medical-supplies/tambah", "/medical-supplies/ubah/**", "medical-supplies/permintaan/ubah", "/medical-supplies/jadwal-staf/**").hasAnyAuthority( "Admin Farmasi")
-			.antMatchers( "/medical-supplies/{idMedicalSupllies}/","/rawat-jalan/obat/tambah", "/medical-supplies/perencanaan", "/medical-supplies/permintaan").hasAnyAuthority("Admin Farmasi","Staff Apoteker")
+			.antMatchers( "/medical-supplies/{idMedicalSupplies}/","/rawat-jalan/obat/tambah", "/medical-supplies/perencanaan", "/medical-supplies/permintaan").hasAnyAuthority("Admin Farmasi","Staff Apoteker")
 			.antMatchers("/medical-supplies/perencanaan/tambah").hasAnyAuthority("Staff Apoteker")
 			.anyRequest().authenticated()
 			.and()
@@ -50,14 +53,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	}
 	
 	
-	/**@Autowired
+	@Autowired
 	public void configureGlobal (AuthenticationManagerBuilder auth) throws Exception{
 		auth.inMemoryAuthentication()
 			.passwordEncoder(encoder())
-			.withUser("adminfarmasi").password(encoder().encode("admin123"))
-			.roles("USER");
+			.withUser("adminfarmasi").password(encoder().encode("admin1234"))
+			.roles("Admin Farmasi");
 	}
-	**/
+	
 	
 	@Autowired
 	private UserDetailsService userDetailsService;
