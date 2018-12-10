@@ -9,6 +9,14 @@
 <body>
 	<nav th:replace="fragments/fragment :: navbar"></nav>
 	<div class="container-fluid" align="center">
+	<div th:switch="${message}">
+		<div th:case="'Success'">
+			<div class="alert">
+	 		 <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+	 		 <strong>Sukses! Medical Supplies Berhasil diupdate</strong>
+			</div>
+		</div>
+	</div>
 		<div class ="row" align="center">
 			<div class="col-md-6" align = "center">
 				<div class="card" align ="center">
