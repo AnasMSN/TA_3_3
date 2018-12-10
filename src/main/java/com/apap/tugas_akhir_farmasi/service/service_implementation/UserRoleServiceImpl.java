@@ -5,6 +5,7 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +16,7 @@ import com.apap.tugas_akhir_farmasi.service.service_interface.UserRoleService;
 
 @Service
 @Transactional
+@Qualifier(value = "UserRoleServiceImpl")
 public class UserRoleServiceImpl implements UserRoleService {
 	@Autowired
 	private UserRoleDb userDb;
