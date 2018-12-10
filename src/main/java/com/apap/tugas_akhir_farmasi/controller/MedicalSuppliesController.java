@@ -59,14 +59,18 @@ public class MedicalSuppliesController {
 	}
 
 
-	@RequestMapping(value = "/medical-supplies/sukses", method = RequestMethod.POST)
-	private String addMedicalSubmit(@ModelAttribute MedicalSuppliesModel medicalSupplies, Model model) {
+	@RequestMapping(value = "/medical-supplies/", method = RequestMethod.POST)
+	private String addMedicalSubmit(@ModelAttribute MedicalSuppliesModel medicalSupplies, Model model, RedirectAttributes redir) {
 		medicalSuppliesService.addMedicalSupplies(medicalSupplies);
-		return "sukses";
+		
+		redir.addFlashAttribute("message", "Success");
+		
+		return "redirect:/medical-supplies/";
 	}
 
 	@RequestMapping(value = "/medical-supplies/tambah", method = RequestMethod.GET)
 	public String add(Model model) {
+		
 		MedicalSuppliesModel medicalSupplies = new MedicalSuppliesModel();
 
 		List<FlagUrgentModel> listFlag = flagUrgentService.getListFlagUrgent();
