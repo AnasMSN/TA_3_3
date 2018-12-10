@@ -42,15 +42,11 @@ public class MedicalSuppliesController {
 	@Autowired
 	PerencanaanService perencanaanService;
 
-
 	@Autowired
 	PermintaanService permintaanService;
 	
 	@Autowired
 	UserRoleService userRoleService;
-	
-
-
 
 	@Autowired
 	@Qualifier(value="rest5")
@@ -148,7 +144,6 @@ public class MedicalSuppliesController {
 	    model.addAttribute("perencanaan", perencanaan);
 		model.addAttribute("date_now", date);
 		model.addAttribute("medicalSupPerencanaan", medicalSupPerencanaan);
-		System.out.println(user.getRole());
 		
 		/*Akhir Bagian Perencanaan*/
 
