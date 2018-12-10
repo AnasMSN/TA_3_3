@@ -35,8 +35,6 @@ public class ApiController {
 	@Autowired
 	MedicalSuppliesService medicalSuppliesService;
 	
-
-	
 	@PostMapping(value = "/medical-supplies/permintaan/")
     public BaseResponse<PermintaanModel> addPermintaan(@RequestBody @Valid PermintaanModel permintaan,
     												  BindingResult bindingResult) {
