@@ -16,7 +16,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception{
-		http
+		http.csrf().disable()
 			.csrf().ignoringAntMatchers("/api/**").and()
 			.authorizeRequests()
 			.antMatchers("/css/**").permitAll()
@@ -47,14 +47,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	}
 	
 	
-	/**@Autowired
+	@Autowired
 	public void configureGlobal (AuthenticationManagerBuilder auth) throws Exception{
 		auth.inMemoryAuthentication()
 			.passwordEncoder(encoder())
-			.withUser("adminfarmasi").password(encoder().encode("admin123"))
-			.roles("USER");
+			.withUser("adminfarmasi").password(encoder().encode("admin1234"))
+			.roles("Admin Farmasi");
 	}
-	**/
+	
 	
 	@Autowired
 	private UserDetailsService userDetailsService;
