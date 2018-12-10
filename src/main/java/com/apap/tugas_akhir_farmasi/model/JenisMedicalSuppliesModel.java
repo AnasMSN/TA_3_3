@@ -1,6 +1,7 @@
 package com.apap.tugas_akhir_farmasi.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -29,6 +30,18 @@ public class JenisMedicalSuppliesModel implements Serializable {
     @JsonIgnore
     private FlagUrgentModel flagUrgentModel;
     
+    @OneToMany(mappedBy="jenisMedicalSuppliesModel", fetch=FetchType.LAZY, cascade=CascadeType.PERSIST)
+    @JsonIgnore
+    private List<MedicalSuppliesModel> listMedicalSupplies;
+    
+	public List<MedicalSuppliesModel> getListMedicalSupplies() {
+		return listMedicalSupplies;
+	}
+
+	public void setListMedicalSupplies(List<MedicalSuppliesModel> listMedicalSupplies) {
+		this.listMedicalSupplies = listMedicalSupplies;
+	}
+
 	public long getId() {
 		return id;
 	}

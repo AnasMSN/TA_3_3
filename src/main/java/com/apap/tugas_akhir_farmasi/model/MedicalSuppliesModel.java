@@ -44,10 +44,9 @@ public class MedicalSuppliesModel implements Serializable {
     @Column(name = "deskripsi",nullable = false)
     private String deskripsi;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_jenis_medical_supplies",referencedColumnName = "id",nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JsonIgnore
     private JenisMedicalSuppliesModel jenisMedicalSuppliesModel;
 
     public long getId() {

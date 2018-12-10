@@ -46,6 +46,12 @@ public class ApiController {
             response.setMessage("error data");
         } 
         else {
+        	if(permintaan.getJumlahMedicalSupplies() < 1) {
+        		response.setStatus(400);
+        		response.setMessage("Bad Request. Format jumlah tidak boleh kurang dari 1.");
+        		return response;
+        	}
+        	
         	MedicalSuppliesModel medicalSupplies = medicalSuppliesService.getMedicalSuppliesDetailsByNama(permintaan.getMedicalSuppliesModel().getNama());
         	if(medicalSupplies == null) {
         		response.setStatus(500);
