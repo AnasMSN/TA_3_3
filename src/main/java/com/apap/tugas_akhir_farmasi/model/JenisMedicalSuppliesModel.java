@@ -29,7 +29,6 @@ public class JenisMedicalSuppliesModel implements Serializable {
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
     private FlagUrgentModel flagUrgentModel;
-    
 
 	public long getId() {
 		return id;

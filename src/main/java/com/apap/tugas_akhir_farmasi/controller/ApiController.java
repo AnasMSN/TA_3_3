@@ -72,7 +72,7 @@ public class ApiController {
         	}
         	permintaan.setJadwalJagaModel(jadwalJagaNow);
         	
-        	StatusPermintaanModel statusPermintaan = statusPermintaanService.getStatusPermintaanDetailByNama("Pending");
+        	StatusPermintaanModel statusPermintaan = statusPermintaanService.getStatusPermintaanDetailByNama("pending");
         	permintaan.setStatusPermintaanModel(statusPermintaan);
         	
         	permintaan = permintaanService.save(permintaan);
